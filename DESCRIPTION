@@ -1,0 +1,17 @@
+Package: tufte
+Type: Package
+Title: Tufte's Styles for R Markdown Documents
+Version: 0.0.0
+Date: 2016-01-06
+Author: Yihui Xie
+Maintainer: Yihui Xie <xie@yihui.name>
+Description: Provides R Markdown output formats to use Tufte styles.
+License: GPL-3
+LazyData: TRUE
+URL: https://github.com/rstudio/tufte
+BugReports: https://github.com/rstudio/tufte/issues
+Imports:
+    htmltools,
+    knitr (>= 1.11.26),
+    rmarkdown
+RoxygenNote: 5.0.1
