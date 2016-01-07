@@ -1,6 +1,7 @@
 export(margin_note)
 export(newthought)
 export(quote_footer)
+export(sans_serif)
 export(tufte_handout)
 export(tufte_html)
 importFrom(htmltools,htmlDependency)
