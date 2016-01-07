@@ -48,7 +48,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>The Tufte handout style is a style that Edward Tufte uses in his books and handouts. Tufte’s style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. This style has been implemented in LaTeX and HTML/CSS<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> See Github repositories <a href="https://github.com/tufte-latex/tufte-latex">tufte-latex</a> and <a href="https://github.com/edwardtufte/tufte-css">tufte-css</a></span>, respectively. We have ported both implementations into the <strong>tufte</strong> package. If you want LaTeX/PDF output, you may use the <code>tufte_handout</code> format. For HTML output, use <code>tufte_html</code>. These formats can be either specified in the YAML metadata at the beginning of an R Markdown document (see an example below), or passed to the <code>rmarkdown::render()</code> function. See <span class="citation">Allaire et al. (<label for="tufte-mn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle">2015<span class="marginnote">Allaire, JJ, Joe Cheng, Yihui Xie, Jonathan McPherson, Winston Chang, Jeff Allen, Hadley Wickham, Aron Atkins, and Rob Hyndman. 2015. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</span>)</span> more information about <strong>rmarkdown</strong>.</p>
+<p>The Tufte handout style is a style that Edward Tufte uses in his books and handouts. Tufte’s style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. This style has been implemented in LaTeX and HTML/CSS<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> See Github repositories <a href="https://github.com/tufte-latex/tufte-latex">tufte-latex</a> and <a href="https://github.com/edwardtufte/tufte-css">tufte-css</a></span>, respectively. We have ported both implementations into the <a href="https://github.com/rstudio/tufte"><strong>tufte</strong> package</a>. If you want LaTeX/PDF output, you may use the <code>tufte_handout</code> format. For HTML output, use <code>tufte_html</code>. These formats can be either specified in the YAML metadata at the beginning of an R Markdown document (see an example below), or passed to the <code>rmarkdown::render()</code> function. See <span class="citation">Allaire et al. (<label for="tufte-mn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle">2015<span class="marginnote">Allaire, JJ, Joe Cheng, Yihui Xie, Jonathan McPherson, Winston Chang, Jeff Allen, Hadley Wickham, Aron Atkins, and Rob Hyndman. 2015. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</span>)</span> more information about <strong>rmarkdown</strong>.</p>
 <pre class="yaml"><code>---
 title: &quot;An Example Using the Tufte Style&quot;
 author: &quot;John Smith&quot;
@@ -497,6 +497,17 @@ p + geom_smooth(method = &#39;lm&#39;)</code></pre>
 </p>
 <pre class="r"><code>p + geom_smooth(method = &#39;lm&#39;)</code></pre>
 <p>We blended some tables in the above code chunk only as <em>placeholders</em> to make sure there is enough vertical space among the margin figures, otherwise they will be stacked tightly together.</p>
+</div>
+<div id="some-notes-on-tufte-css" class="section level1">
+<h1>Some Notes on Tufte CSS</h1>
+<p>There are a few other things in Tufte CSS that we have not mentioned so far. If you prefer <span class="sans">sans-serif fonts</span>, use the function <code>sans_serif()</code> in <strong>tufte</strong>. For epigraphs, you may use a pair of underscores to make the paragraph italic in a block quote, e.g.</p>
+<blockquote>
+<p><em>I can win an argument on any topic, against any opponent. People know this, and steer clear of me at parties. Often, as a sign of their great respect, they don’t even invite me.</em></p>
+<footer>
+— Dave Barry
+</footer>
+</blockquote>
+<p>We hope you will enjoy the simplicity of R Markdown and this R package, and we sincerely thank the authors of the Tufte-CSS and Tufte-LaTeX projects for developing the beautiful CSS and LaTeX classes. Our <strong>tufte</strong> package would not have been possible without their heavy lifting.</p>
 </div>
 
 
