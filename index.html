@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="JJ Allaire and Yihui Xie" />
+
+<meta name="date" content="2016-01-07" />
+
+<title>Tufte Handout</title>
+
+<link href="index_files/tufte-css/tufte.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="index_files/highlight/default.css"
+      type="text/css" />
+<script src="index_files/highlight/highlight.js"></script>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+</head>
+
+<body>
+
+
+
+<div id="header">
+<h1 class="title">Tufte Handout</h1>
+<h3 class="subtitle"><em>An implementation in R Markdown</em></h3>
+<h4 class="author"><em>JJ Allaire and Yihui Xie</em></h4>
+<h4 class="date"><em>2016-01-07</em></h4>
+</div>
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>The Tufte handout style is a style that Edward Tufte uses in his books and handouts. Tufte’s style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. This style has been implemented in LaTeX and HTML/CSS<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> See Github repositories <a href="https://github.com/tufte-latex/tufte-latex">tufte-latex</a> and <a href="https://github.com/edwardtufte/tufte-css">tufte-css</a></span>, respectively. We have ported both implementations into the <strong>tufte</strong> package. If you want LaTeX/PDF output, you may use the <code>tufte_handout</code> format. For HTML output, use <code>tufte_html</code>. These formats can be either specified in the YAML metadata at the beginning of an R Markdown document (see an example below), or passed to the <code>rmarkdown::render()</code> function. See <span class="citation">Allaire et al. (<label for="tufte-mn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle">2015<span class="marginnote">Allaire, JJ, Joe Cheng, Yihui Xie, Jonathan McPherson, Winston Chang, Jeff Allen, Hadley Wickham, Aron Atkins, and Rob Hyndman. 2015. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</span>)</span> more information about <strong>rmarkdown</strong>.</p>
+<pre class="yaml"><code>---
+title: &quot;An Example Using the Tufte Style&quot;
+author: &quot;John Smith&quot;
+output:
+  tufte::tufte_handout: default
+  tufte::tufte_html: default
+---</code></pre>
+<p>There are two goals of this package:</p>
+<ol style="list-style-type: decimal">
+<li>To produce both PDF and HTML output with similar styles from the same R Markdown document;</li>
+<li>To provide simple syntax to write elements of the Tufte style such as side notes and margin figures, e.g. when you want a margin figure, all you need to do is the chunk option <code>fig.margin = TRUE</code>, and we will take care of the deails for you, so you never need to think about <code>\begin{marginfigure} \end{marginfigure}</code> or <code>&lt;span class=&quot;marginfigure&quot;&gt; &lt;/span&gt;</code>; the LaTeX and HTML code under the hood may be complicated, but you never need to learn or write such code.</li>
+</ol>
+<p>If you have any feature requests or find bugs in <strong>tufte</strong>, please do not hesitate to file them to <a href="https://github.com/rstudio/tufte/issues" class="uri">https://github.com/rstudio/tufte/issues</a>. For general questions, you may ask them on StackOverflow: <a href="http://stackoverflow.com/tags/rmarkdown" class="uri">http://stackoverflow.com/tags/rmarkdown</a>.</p>
+</div>
+<div id="headings" class="section level1">
+<h1>Headings</h1>
+<p>This style provides first and second-level headings (that is, <code>#</code> and <code>##</code>), demonstrated in the next section. You may get unexpected output if you try to use <code>###</code> and smaller headings.</p>
+<p><span class="newthought">In his later books</span><label for="tufte-sn-2" class="margin-toggle sidenote-number">2</label><input type="checkbox" id="tufte-sn-2" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">2</span> <a href="http://www.edwardtufte.com/tufte/books_be">Beautiful Evidence</a></span>, Tufte starts each section with a bit of vertical space, a non-indented paragraph, and sets the first few words of the sentence in small caps. To accomplish this using this style, call the <code>newthought()</code> function in <strong>tufte</strong> in an <em>inline R expression</em> <code>`r `</code> as demonstrated at the beginning of this paragraph.<label for="tufte-sn-3" class="margin-toggle sidenote-number">3</label><input type="checkbox" id="tufte-sn-3" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">3</span> Note you should not assume <strong>tufte</strong> has been attached to your R session. You should either <code>library(tufte)</code> in your R Markdown document before you call <code>newthought()</code>, or use <code>tufte::newthought()</code>.</span></p>
+</div>
+<div id="figures" class="section level1">
+<h1>Figures</h1>
+<div id="margin-figures" class="section level2">
+<h2>Margin Figures</h2>
+<p>Images and graphics play an integral role in Tufte’s work. To place figures in the margin you can use the <strong>knitr</strong> chunk option <code>fig.margin = TRUE</code>. For example:</p>
+<p>
+<label for="tufte-mn-2" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-2" class="margin-toggle"><span class="marginnote"><!--
+<div class="figure">--> <img src="index_files/figure-html/fig-margin-1.png" alt="MPG vs horsepower, colored by transmission." width="336"  /> <!--
+<p class="caption marginnote">-->MPG vs horsepower, colored by transmission.<!--</p>--> <!--</div>--></span>
+</p>
+<pre class="r"><code>library(ggplot2)
+mtcars2 &lt;- mtcars
+mtcars2$am &lt;- factor(
+  mtcars$am, labels = c(&#39;automatic&#39;, &#39;manual&#39;)
+)
+ggplot(mtcars2, aes(hp, mpg, color = am)) +
+  geom_point() + geom_smooth() +
+  theme(legend.position = &#39;bottom&#39;)</code></pre>
+<p>Note the use of the <code>fig.cap</code> chunk option to provide a figure caption. You can adjust the proportions of figures using the <code>fig.width</code> and <code>fig.height</code> chunk options. These are specified in inches, and will be automatically scaled down to fit within the handout margin.</p>
+</div>
+<div id="arbitrary-margin-content" class="section level2">
+<h2>Arbitrary Margin Content</h2>
+<p>In fact, you can include anything in the margin using the <strong>knitr</strong> engine named <code>marginfigure</code>. Unlike R code chunks <code>```{r}</code>, you write a chunk starting with <code>```{marginfigure}</code> instead, then put the content in the chunk. See an example on the right about the first fundamental theorem of calculus.</p>
+<p><label for="tufte-mn-3" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-3" class="margin-toggle"><span class="marginnote"><span style="display: block;">We know from <em>the first fundamental theorem of calculus</em> that for <span class="math inline"><em>x</em></span> in <span class="math inline">[<em>a</em>, <em>b</em>]</span>: <br /><span class="math display"><span class="math display">\[\frac{d}{dx}\left( \int_{0}^{x} f(u)\,du\right)=f(x).\]</span></span><br /></span></span></p>
+<p>For the sake of portability between LaTeX and HTML, you should keep the margin content as simple as possible (syntax-wise) in the <code>marginefigure</code> blocks. You may use simple Markdown syntax like <code>**bold**</code> and <code>_italic_</code> text, but please refrain from using footnotes, citations, or block-level elements (e.g. blockquotes and lists) there.</p>
+</div>
+<div id="full-width-figures" class="section level2">
+<h2>Full Width Figures</h2>
+<p>You can arrange for figures to span across the entire page by using the chunk option <code>fig.fullwidth = TRUE</code>.</p>
+<pre class="r"><code>ggplot(diamonds, aes(carat, price)) + geom_smooth() +
+  facet_grid(~ cut)</code></pre>
+<div class="figure fullwidth">
+<img src="index_files/figure-html/fig-fullwidth-1.png" alt="A full width figure." width="960"  /> <label for="tufte-mn-4" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-4" class="margin-toggle">
+<p class="caption marginnote">
+A full width figure.
+</p>
+</div>
+<p>Other chunk options related to figures can still be used, such as <code>fig.width</code>, <code>fig.cap</code>, <code>out.width</code>, and so on. For full width figures, usually <code>fig.width</code> is large and <code>fig.height</code> is small. In the above example, the plot size is <span class="math inline">\(10 \times 2\)</span>.</p>
+</div>
+<div id="main-column-figures" class="section level2">
+<h2>Main Column Figures</h2>
+<p>Besides margin and full width figures, you can of course also include figures constrained to the main column. This is the default type of figures in the LaTeX/HTML output.</p>
+<pre class="r"><code>ggplot(diamonds, aes(cut, price)) + geom_boxplot()</code></pre>
+<div class="figure">
+<label for="tufte-mn-5" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-5" class="margin-toggle">
+<p class="caption marginnote">
+A figure in the main column.
+</p>
+<img src="index_files/figure-html/fig-main-1.png" alt="A figure in the main column." width="672"  />
+</div>
+</div>
+</div>
+<div id="sidenotes" class="section level1">
+<h1>Sidenotes</h1>
+<p>One of the most prominent and distinctive features of this style is the extensive use of sidenotes. There is a wide margin to provide ample room for sidenotes and small figures. Any use of a footnote will automatically be converted to a sidenote.<label for="tufte-sn-4" class="margin-toggle sidenote-number">4</label><input type="checkbox" id="tufte-sn-4" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">4</span> This is a sidenote that was entered using a footnote.</span></p>
+<p>If you’d like to place ancillary information in the margin without the sidenote mark (the superscript number), you can use the <code>margin_note()</code> function from <strong>tufte</strong> in an inline R expression. <label for="tufte-mn-6" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-6" class="margin-toggle"><span class="marginnote">This is a margin note. Notice that there is no number preceding the note.</span> This function does not process the text with Pandoc, so Markdown syntax will not work here. If you need to write anything in Markdown syntax, please use the <code>marginfigure</code> block described previously.</p>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<p>References can be displayed as margin notes for HTML output. For example, we can cite R here <span class="citation">(R Core Team <label for="tufte-mn-7" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-7" class="margin-toggle">2015<span class="marginnote">R Core Team. 2015. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</span>)</span>. To enable this feature, you must set <code>link-citations: yes</code> in the YAML metadata, and the version of <code>pandoc-citeproc</code> should be at least 0.7.2. The latter may be a problem if you are using the RStudio IDE, but you can always install your own version of Pandoc from <a href="http://pandoc.org/installing.html" class="uri">http://pandoc.org/installing.html</a>. To check the version of <code>pandoc-citeproc</code> in your system, you may run this in R:</p>
+<pre class="r"><code>system2(&#39;pandoc-citeproc&#39;, &#39;--version&#39;)</code></pre>
+<p>If your version of <code>pandoc-citeproc</code> is too low, or you did not set <code>link-citations: yes</code> in YAML, references in the HTML output will be placed at the end of the output document.</p>
+</div>
+<div id="tables" class="section level1">
+<h1>Tables</h1>
+<p>You can use the <code>kable()</code> function from the <strong>knitr</strong> package to format tables that integrate well with the rest of the Tufte handout style. The table captions are placed in the margin like figures in the HTML output.</p>
+<pre class="r"><code>knitr::kable(
+  mtcars[1:6, 1:6], caption = &#39;A subset of mtcars.&#39;
+)</code></pre>
+<p><!--
+<caption>--><label for="tufte-mn-8" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-8" class="margin-toggle"><span class="marginnote">A subset of mtcars.</span><!--</caption>--></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.620</td>
+</tr>
+<tr class="even">
+<td align="left">Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.875</td>
+</tr>
+<tr class="odd">
+<td align="left">Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108</td>
+<td align="right">93</td>
+<td align="right">3.85</td>
+<td align="right">2.320</td>
+</tr>
+<tr class="even">
+<td align="left">Hornet 4 Drive</td>
+<td align="right">21.4</td>
+<td align="right">6</td>
+<td align="right">258</td>
+<td align="right">110</td>
+<td align="right">3.08</td>
+<td align="right">3.215</td>
+</tr>
+<tr class="odd">
+<td align="left">Hornet Sportabout</td>
+<td align="right">18.7</td>
+<td align="right">8</td>
+<td align="right">360</td>
+<td align="right">175</td>
+<td align="right">3.15</td>
+<td align="right">3.440</td>
+</tr>
+<tr class="even">
+<td align="left">Valiant</td>
+<td align="right">18.1</td>
+<td align="right">6</td>
+<td align="right">225</td>
+<td align="right">105</td>
+<td align="right">2.76</td>
+<td align="right">3.460</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="block-quotes" class="section level1">
+<h1>Block Quotes</h1>
+<p>We know from the Markdown syntax that paragraphs that start with <code>&gt;</code> are converted to block quotes. If you want to add a right-aligned footer for the quote, you may use the function <code>quote_footer()</code> from <strong>tufte</strong> in an inline R expression. Here is an example:</p>
+<blockquote>
+<p>“If it weren’t for my lawyer, I’d still be in prison. It went a lot faster with two people digging.”</p>
+<footer>
+— Joe Martin
+</footer>
+</blockquote>
+<p>Without using <code>quote_footer()</code>, it looks like this (the second line is just a normal paragraph):</p>
+<blockquote>
+<p>“Great people talk about ideas, average people talk about things, and small people talk about wine.”</p>
+<p>— Fran Lebowitz</p>
+</blockquote>
+</div>
+<div id="responsiveness" class="section level1">
+<h1>Responsiveness</h1>
+<p>The HTML page is responsive in the sense that when the page width is smaller than 760px, sidenotes and margin notes will be hidden by default. For sidenotes, you can click their numbers (the superscripts) to toggle their visibility. For margin notes, you may click the circled plus signs to toggle visibility.</p>
+</div>
+<div id="more-examples" class="section level1">
+<h1>More Examples</h1>
+<p>The rest of this document consists of a few test cases to make sure everything still works well in slightly more complicated scenarios. First we generate two plots in one figure environment with the chunk option <code>fig.show = 'hold'</code>:</p>
+<pre class="r"><code>p &lt;- ggplot(mtcars2, aes(hp, mpg, color = am)) +
+  geom_point()
+p
+p + geom_smooth()</code></pre>
+<div class="figure">
+<label for="tufte-mn-9" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-9" class="margin-toggle">
+<p class="caption marginnote">
+Two plots in one figure environment.
+</p>
+<img src="index_files/figure-html/fig-two-together-1.png" alt="Two plots in one figure environment." width="672"  /><img src="index_files/figure-html/fig-two-together-2.png" alt="Two plots in one figure environment." width="672"  />
+</div>
+<p>Then two plots in separate figure environments (the code is identical to the previous code chunk, but the chunk option is the default <code>fig.show = 'asis'</code> now):</p>
+<pre class="r"><code>p &lt;- ggplot(mtcars2, aes(hp, mpg, color = am)) +
+  geom_point()
+p</code></pre>
+<div class="figure">
+<label for="tufte-mn-10" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-10" class="margin-toggle">
+<p class="caption marginnote">
+Two plots in separate figure environments (the first plot).
+</p>
+<img src="index_files/figure-html/fig-two-separate-1.png" alt="Two plots in separate figure environments (the first plot)." width="672"  />
+</div>
+<pre class="r"><code>p + geom_smooth()</code></pre>
+<div class="figure">
+<label for="tufte-mn-11" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-11" class="margin-toggle">
+<p class="caption marginnote">
+Two plots in separate figure environments (the second plot).
+</p>
+<img src="index_files/figure-html/fig-two-separate-2.png" alt="Two plots in separate figure environments (the second plot)." width="672"  />
+</div>
+<p>You may have noticed that the two figures have different captions, and that is because we used a character vector of length 2 for the chunk option <code>fig.cap</code> (something like <code>fig.cap = c('first plot', 'second plot')</code>).</p>
+<p>Next we show multiple plots in margin figures. Similarly, two plots in the same figure environment in the margin:</p>
+<p>
+<label for="tufte-mn-12" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-12" class="margin-toggle"><span class="marginnote"><!--
+<div class="figure">--> <img src="index_files/figure-html/fig-margin-together-1.png" alt="Two plots in one figure environment in the margin." width="336"  /><img src="index_files/figure-html/fig-margin-together-2.png" alt="Two plots in one figure environment in the margin." width="336"  /> <!--
+<p class="caption marginnote">-->Two plots in one figure environment in the margin.<!--</p>--> <!--</div>--></span>
+</p>
+<pre class="r"><code>p
+p + geom_smooth(method = &#39;lm&#39;)</code></pre>
+<p>Then two plots from the same code chunk placed in different figure environments:</p>
+<pre class="r"><code>knitr::kable(head(iris, 15))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Sepal.Length</th>
+<th align="right">Sepal.Width</th>
+<th align="right">Petal.Length</th>
+<th align="right">Petal.Width</th>
+<th align="left">Species</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">5.1</td>
+<td align="right">3.5</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">4.9</td>
+<td align="right">3.0</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">4.7</td>
+<td align="right">3.2</td>
+<td align="right">1.3</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">4.6</td>
+<td align="right">3.1</td>
+<td align="right">1.5</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">5.0</td>
+<td align="right">3.6</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">5.4</td>
+<td align="right">3.9</td>
+<td align="right">1.7</td>
+<td align="right">0.4</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">4.6</td>
+<td align="right">3.4</td>
+<td align="right">1.4</td>
+<td align="right">0.3</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">5.0</td>
+<td align="right">3.4</td>
+<td align="right">1.5</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">4.4</td>
+<td align="right">2.9</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">4.9</td>
+<td align="right">3.1</td>
+<td align="right">1.5</td>
+<td align="right">0.1</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">5.4</td>
+<td align="right">3.7</td>
+<td align="right">1.5</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">4.8</td>
+<td align="right">3.4</td>
+<td align="right">1.6</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">4.8</td>
+<td align="right">3.0</td>
+<td align="right">1.4</td>
+<td align="right">0.1</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">4.3</td>
+<td align="right">3.0</td>
+<td align="right">1.1</td>
+<td align="right">0.1</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">5.8</td>
+<td align="right">4.0</td>
+<td align="right">1.2</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+</tbody>
+</table>
+<p>
+<label for="tufte-mn-13" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-13" class="margin-toggle"><span class="marginnote"><!--
+<div class="figure">--> <img src="index_files/figure-html/fig-margin-separate-1.png" alt="Two plots in separate figure environments in the margin (the first plot)." width="336"  /> <!--
+<p class="caption marginnote">-->Two plots in separate figure environments in the margin (the first plot).<!--</p>--> <!--</div>--></span>
+</p>
+<pre class="r"><code>p</code></pre>
+<pre class="r"><code>knitr::kable(head(iris, 12))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Sepal.Length</th>
+<th align="right">Sepal.Width</th>
+<th align="right">Petal.Length</th>
+<th align="right">Petal.Width</th>
+<th align="left">Species</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">5.1</td>
+<td align="right">3.5</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">4.9</td>
+<td align="right">3.0</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">4.7</td>
+<td align="right">3.2</td>
+<td align="right">1.3</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">4.6</td>
+<td align="right">3.1</td>
+<td align="right">1.5</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">5.0</td>
+<td align="right">3.6</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">5.4</td>
+<td align="right">3.9</td>
+<td align="right">1.7</td>
+<td align="right">0.4</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">4.6</td>
+<td align="right">3.4</td>
+<td align="right">1.4</td>
+<td align="right">0.3</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">5.0</td>
+<td align="right">3.4</td>
+<td align="right">1.5</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">4.4</td>
+<td align="right">2.9</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">4.9</td>
+<td align="right">3.1</td>
+<td align="right">1.5</td>
+<td align="right">0.1</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">5.4</td>
+<td align="right">3.7</td>
+<td align="right">1.5</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">4.8</td>
+<td align="right">3.4</td>
+<td align="right">1.6</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+</tbody>
+</table>
+<p>
+<label for="tufte-mn-14" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-14" class="margin-toggle"><span class="marginnote"><!--
+<div class="figure">--> <img src="index_files/figure-html/fig-margin-separate-2.png" alt="Two plots in separate figure environments in the margin (the second plot)." width="336"  /> <!--
+<p class="caption marginnote">-->Two plots in separate figure environments in the margin (the second plot).<!--</p>--> <!--</div>--></span>
+</p>
+<pre class="r"><code>p + geom_smooth(method = &#39;lm&#39;)</code></pre>
+<p>We blended some tables in the above code chunk only as <em>placeholders</em> to make sure there is enough vertical space among the margin figures, otherwise they will be stacked tightly together.</p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
