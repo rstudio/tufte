@@ -98,20 +98,6 @@ p { line-height: 2rem;
     padding-right: 0;
     vertical-align: baseline; }
 
-/* Chapter Epigraphs */
-div.epigraph { margin: 5em 0; }
-
-div.epigraph > blockquote { margin-top: 3em;
-                            margin-bottom: 3em; }
-
-div.epigraph > blockquote, div.epigraph > blockquote > p { font-style: italic; }
-
-div.epigraph > blockquote > footer { font-style: normal; }
-
-div.epigraph > blockquote > footer > cite { font-style: italic; }
-
-/* end chapter epigraphs styles */
-
 blockquote { font-size: 1.4rem; }
 
 blockquote p { width: 50%; }
@@ -185,15 +171,6 @@ img {max-width: 100%;}
                          vertical-align: baseline;
                          position: relative; }
 
-.table-caption { float:right;
-                 clear:right;
-                 margin-right: -60%;
-                 width: 50%;
-                 margin-top: 0;
-                 margin-bottom: 0;
-                 font-size: 1.0rem;
-                 line-height: 1.6; }
-
 .sidenote-number { font-family: et-book-roman-old-style;
                                            position: relative;
                                            vertical-align: baseline; }
@@ -210,9 +187,6 @@ div.fullwidth p.caption {
   margin-right: 0;
   max-width: 33%;
 }
-
-div.table-wrapper { overflow-x: auto;
-                    font-family: "Trebuchet MS", "Gill Sans", "Gill Sans MT", sans-serif; }
 
 @media screen and (max-width: 760px) { p, footer, ol, ul { width: 90%; }
                                        pre { width: 87.5%; }
@@ -269,16 +243,4 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
                             div.figure { max-width: 90%; }
                             pre { width: 90%;
                                        padding: 0; }
-                            .table-caption { display: block;
-                                             float: right;
-                                             clear: both;
-                                             width: 98%;
-                                             margin-top: 1rem;
-                                             margin-bottom: 0.5rem;
-                                             margin-left: 1%;
-                                             margin-right: 1%;
-                                             vertical-align: baseline;
-                                             position: relative; }
-                            div.table-wrapper, table, table.booktabs { width: 85%; }
-                            div.table-wrapper { border-right: 1px solid #efefef; }
                             }
