@@ -136,7 +136,8 @@ th {
   border-bottom: 1px solid #111;
 }
 
-div.figure { padding: 0;
+div.figure {
+         padding: 0;
          border: 0;
          font-size: 100%;
          font: inherit;
@@ -144,7 +145,8 @@ div.figure { padding: 0;
          max-width: 55%;
          -webkit-margin-start: 0;
          -webkit-margin-end: 0;
-         margin: 0 0 3em 0; }
+         margin: 0 0 3em 0;
+         }
 
 /* Links: replicate underline that clears descenders */
 a:link, a:visited { color: inherit; }
@@ -168,7 +170,7 @@ a:link::-moz-selection { text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.0
                          background: #b4d5fe; }
 
 /* Sidenotes, margin notes, figures, captions */
-img { max-width: 100%; }
+img {max-width: 100%;}
 
 .marginnote img { display: block; }
 
@@ -253,14 +255,16 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
                             .sidenote, .marginnote { display: none; }
                             .shownote,
                             .margin-toggle:checked + .sidenote,
-                            .margin-toggle:checked + .marginnote { display: block;
+                            .margin-toggle:checked + .marginnote {
+                                                                   display: block;
                                                                    float: left;
                                                                    left: 1rem;
                                                                    clear: both;
                                                                    width: 95%;
                                                                    margin: 1rem 2.5%;
                                                                    vertical-align: baseline;
-                                                                   position: relative; }
+                                                                   position: relative;
+                                                                   }
                             label { cursor: pointer; }
                             div.figure { max-width: 90%; }
                             pre { width: 90%;
