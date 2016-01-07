@@ -15,7 +15,11 @@ tufte_html = function(...) {
     options
   })
 
+  # make sure the existing post processor is called first in our new processor
+  post_processor = format$post_processor
   format$post_processor = function(metadata, input, output, clean, verbose) {
+
+    output = post_processor(metadata, input, output, clean, verbose)
 
     knitr::opts_hooks$restore(ohooks)
 
