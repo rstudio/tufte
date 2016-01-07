@@ -14,7 +14,7 @@ link-citations: yes
 
 ```{r setup, include=FALSE}
 library(tufte)
-knitr::opts_chunk$set(tidy = FALSE)
+knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
 options(htmltools.dir.version = FALSE)
 ```
 
