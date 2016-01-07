@@ -47,7 +47,7 @@ tufte_html = function(...) {
     x = margin_references(x)
 
     # place figure captions in margin notes
-    x[x == '<p class="caption">'] = marginnote_html('\n<p class="caption marginnote">')
+    x[x == '<p class="caption">'] = '<p class="caption marginnote shownote">'
 
     # place table captions in the margin
     r = '^<caption>(.+)</caption>$'
@@ -56,7 +56,7 @@ tufte_html = function(...) {
       cap = gsub(r, '\\1', x[i])
       x[i] = '<table>'
       x[i - 1] = paste0(
-        '<p><!--\n<caption>-->', marginnote_html(), '<span class="marginnote">',
+        '<p><!--\n<caption>-->', '<span class="marginnote shownote">',
         cap, '</span><!--</caption>--></p>'
       )
     }
@@ -87,14 +87,13 @@ tufte_html = function(...) {
       res = gsub_fixed('</div>', '<!--</div>--></span></p>', res)
       res = gsub_fixed(
         '<div class="figure">', paste0(
-          '<p>', marginnote_html(), '<span class="marginnote">',
-          '<!--\n<div class="figure">-->'
+          '<p>', '<span class="marginnote shownote">', '<!--\n<div class="figure">-->'
         ), res
       )
     } else if (fig_fullwd) {
       res = gsub_fixed('<div class="figure">', '<div class="figure fullwidth">', res)
       res = gsub_fixed(
-        '<p class="caption">', marginnote_html('\n<p class="caption marginnote">'), res
+        '<p class="caption">', '<p class="caption marginnote shownote">', res
       )
     }
     res
