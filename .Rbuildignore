@@ -1,0 +1,6 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+skeleton_files$
+skeleton_cache$
+skeleton\.pdf$
+skeleton\.html$
