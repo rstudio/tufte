@@ -38,7 +38,7 @@ tufte_html = function(...) {
         '<input type="checkbox" id="tufte-sn-%d" class="margin-toggle">',
         '<span class="sidenote"><span class="sidenote-number">%d</span> %s</span>'
       ), i, i, i, i, notes[i])
-      x = sub(num, con, x, fixed = TRUE)
+      x = gsub_fixed(num, con, x)
     }
     # remove footnotes at the bottom
     if (length(footnotes$range)) x = x[-footnotes$range]
