@@ -3,6 +3,7 @@
 \alias{margin_note}
 \alias{newthought}
 \alias{quote_footer}
+\alias{sans_serif}
 \alias{tufte_handout}
 \alias{tufte_html}
 \title{Tufte handout formats (PDF and HTML)}
@@ -17,6 +18,8 @@ newthought(text)
 margin_note(text, icon = "&#8853;")
 
 quote_footer(text)
+
+sans_serif(text)
 }
 \arguments{
 \item{fig_width}{Default width (in inches) for figures}
@@ -65,6 +68,8 @@ class: \url{https://tufte-latex.github.io/tufte-latex/}.
 \code{quote_footer()} formats text as the footer of a quote. It puts
   \code{text} in \samp{<footer></footer>} for HTML output, and
   after \samp{\\hfill} for LaTeX output (to right-align text).
+
+\code{sans_serif()} applies sans-serif fonts to \code{text}.
 }
 \examples{
 library(tufte)
