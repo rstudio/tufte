@@ -176,5 +176,5 @@ We blended some tables in the above code chunk only as _placeholders_ to make su
 
 ```{r bib, include=FALSE}
 # create a bib file for the R packages used in this document
-knitr::write_bib(file = 'skeleton.bib')
+knitr::write_bib(c('base', 'rmarkdown'), file = 'skeleton.bib')
 ```
