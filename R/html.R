@@ -103,6 +103,8 @@ tufte_html = function(...) {
     eng_block(options)
   })
 
+  format$inherits = 'html_document'
+
   format
 }
 

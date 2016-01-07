@@ -60,5 +60,6 @@ tufte_handout = function(
 
   # override the knitr settings of the base format and return the format
   format$knitr = knitr_options
+  format$inherits = 'pdf_document'
   format
 }
