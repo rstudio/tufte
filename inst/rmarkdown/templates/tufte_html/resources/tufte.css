@@ -212,7 +212,7 @@ div.fullwidth p.caption {
 div.table-wrapper { overflow-x: auto;
                     font-family: "Trebuchet MS", "Gill Sans", "Gill Sans MT", sans-serif; }
 
-@media screen and (max-width: 760px) { p, footer { width: 90%; }
+@media screen and (max-width: 760px) { p, footer, ol, ul { width: 90%; }
                                        pre { width: 87.5%; }
                                        ul { width: 85%; }
                                        figure { max-width: 90%; }
