@@ -12,6 +12,7 @@
 #'   \code{tufte_html()}; these arguments have been set internally)
 #'
 #' @export
+#' @examples library(tufte)
 tufte_handout = function(
   fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = 'pdf',
   highlight = 'default', ...

@@ -6,6 +6,7 @@
 #'   (using small caps), or a margin note, or a footer of a quote
 #' @rdname tufte_handout
 #' @export
+#' @examples newthought('In this section')
 newthought = function(text) {
   if (is_html_output()) {
     sprintf('<span class="newthought">%s</span>', text)
