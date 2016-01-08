@@ -170,9 +170,28 @@ knitr::kable(head(iris, 15))
 p
 knitr::kable(head(iris, 12))
 p + geom_smooth(method = 'lm')
+knitr::kable(head(iris, 5))
 ```
 
-We blended some tables in the above code chunk only as _placeholders_ to make sure there is enough vertical space among the margin figures, otherwise they will be stacked tightly together.
+We blended some tables in the above code chunk only as _placeholders_ to make sure there is enough vertical space among the margin figures, otherwise they will be stacked tightly together. For a practical document, you should not insert too many margin figures consecutively and make the margin crowded. 
+
+You do not have to assign captions to figures. We show three figures with no captions below in the margin, in the main column, and in full width, respectively.
+
+```{r fig-nocap-margin, fig.margin=TRUE, fig.width=3.5, fig.height=2, cache=TRUE}
+# a boxplot of weight vs transmission; this figure
+# will be placed in the margin
+ggplot(mtcars2, aes(am, wt)) + geom_boxplot() +
+  coord_flip()
+```
+```{r fig-nocap-main, cache=TRUE}
+# a figure in the main column
+p <- ggplot(mtcars, aes(wt, hp)) + geom_point()
+p
+```
+```{r fig-nocap-fullwidth, fig.fullwidth=TRUE, fig.width=10, fig.height=3, cache=TRUE}
+# a fullwidth figure
+p + geom_smooth(method = 'lm') + facet_grid(~ gear)
+```
 
 # Some Notes on Tufte CSS
 
