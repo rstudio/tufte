@@ -51,8 +51,10 @@ tufte_handout = function(
     # determine figure type
     if (isTRUE(options$fig.margin)) {
       options$fig.env = 'marginfigure'
+      if (is.null(options$fig.cap)) options$fig.cap = ''
     } else if (isTRUE(options$fig.fullwidth)) {
       options$fig.env = 'figure*'
+      if (is.null(options$fig.cap)) options$fig.cap = ''
     }
 
     knitr::hook_plot_tex(x, options)
