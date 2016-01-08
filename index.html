@@ -11,7 +11,7 @@
 
 <meta name="author" content="JJ Allaire and Yihui Xie" />
 
-<meta name="date" content="2016-01-07" />
+<meta name="date" content="2016-01-08" />
 
 <title>Tufte Handout</title>
 
@@ -42,7 +42,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h1 class="title">Tufte Handout</h1>
 <h3 class="subtitle"><em>An implementation in R Markdown</em></h3>
 <h4 class="author"><em>JJ Allaire and Yihui Xie</em></h4>
-<h4 class="date"><em>2016-01-07</em></h4>
+<h4 class="date"><em>2016-01-08</em></h4>
 </div>
 
 
@@ -496,7 +496,77 @@ p + geom_smooth(method = &#39;lm&#39;)</code></pre>
 <p class="caption marginnote">-->Two plots in separate figure environments in the margin (the second plot).<!--</p>--> <!--</div>--></span>
 </p>
 <pre class="r"><code>p + geom_smooth(method = &#39;lm&#39;)</code></pre>
-<p>We blended some tables in the above code chunk only as <em>placeholders</em> to make sure there is enough vertical space among the margin figures, otherwise they will be stacked tightly together.</p>
+<pre class="r"><code>knitr::kable(head(iris, 5))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Sepal.Length</th>
+<th align="right">Sepal.Width</th>
+<th align="right">Petal.Length</th>
+<th align="right">Petal.Width</th>
+<th align="left">Species</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">5.1</td>
+<td align="right">3.5</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">4.9</td>
+<td align="right">3.0</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">4.7</td>
+<td align="right">3.2</td>
+<td align="right">1.3</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">4.6</td>
+<td align="right">3.1</td>
+<td align="right">1.5</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">5.0</td>
+<td align="right">3.6</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+</tbody>
+</table>
+<p>We blended some tables in the above code chunk only as <em>placeholders</em> to make sure there is enough vertical space among the margin figures, otherwise they will be stacked tightly together. For a practical document, you should not insert too many margin figures consecutively and make the margin crowded.</p>
+<p>You do not have to assign captions to figures. We show three figures with no captions below in the margin, in the main column, and in full width, respectively.</p>
+<p>
+<span class="marginnote shownote"><!--
+<div class="figure">--> <img src="index_files/figure-html/fig-nocap-margin-1.png" alt=" " width="336"  /> <!--
+<p class="caption marginnote">--> <!--</p>--> <!--</div>--></span>
+</p>
+<pre class="r"><code># a boxplot of weight vs transmission; this figure
+# will be placed in the margin
+ggplot(mtcars2, aes(am, wt)) + geom_boxplot() +
+  coord_flip()</code></pre>
+<pre class="r"><code># a figure in the main column
+p &lt;- ggplot(mtcars, aes(wt, hp)) + geom_point()
+p</code></pre>
+<p><img src="index_files/figure-html/fig-nocap-main-1.png" title="" alt="" width="672"  /></p>
+<pre class="r"><code># a fullwidth figure
+p + geom_smooth(method = &#39;lm&#39;) + facet_grid(~ gear)</code></pre>
+<div class="figure fullwidth">
+<img src="index_files/figure-html/fig-nocap-fullwidth-1.png" alt=" " width="960"  />
+<p class="caption marginnote shownote">
+</p>
+</div>
 </div>
 <div id="some-notes-on-tufte-css" class="section level1">
 <h1>Some Notes on Tufte CSS</h1>
