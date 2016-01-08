@@ -77,9 +77,12 @@ tufte_html = function(...) {
     if (is.null(options$out.extra)) options$out.extra = ''
     fig_margin = isTRUE(options$fig.margin)
     fig_fullwd = isTRUE(options$fig.fullwidth)
-    # for normal figures, place captions at the top of images
-    if (!fig_margin && !fig_fullwd && is.null(options$fig.topcaption))
+    if (fig_margin || fig_fullwd) {
+      if (is.null(options$fig.cap)) options$fig.cap = ' ' # empty caption
+    } else if (is.null(options$fig.topcaption)) {
+      # for normal figures, place captions at the top of images
       options$fig.topcaption = TRUE
+    }
     res = knitr::hook_plot_md(x, options)
     if (fig_margin) {
       res = gsub_fixed('<p class="caption">', '<!--\n<p class="caption marginnote">-->', res)
