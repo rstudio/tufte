@@ -17,6 +17,22 @@ tufte_handout = function(
   fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = 'pdf',
   highlight = 'default', ...
 ) {
+ tufte_pdf('tufte-handout', fig_width, fig_height, fig_crop, dev, highlight, ...)
+}
+
+#' @rdname tufte_handout
+#' @export
+tufte_book = function(
+  fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = 'pdf',
+  highlight = 'default', ...
+) {
+  tufte_pdf('tufte-book', fig_width, fig_height, fig_crop, dev, highlight, ...)
+}
+
+tufte_pdf = function(
+  documentclass = c('tufte-handout', 'tufte-book'), fig_width = 4, fig_height = 2.5,
+  fig_crop = TRUE, dev = 'pdf', highlight = 'default', ...
+) {
 
   # resolve default highlight
   if (identical(highlight, 'default')) highlight = 'pygments'
@@ -28,6 +44,13 @@ tufte_handout = function(
   format = rmarkdown::pdf_document(
     fig_width = fig_width, fig_height = fig_height, fig_crop = fig_crop,
     dev = dev, highlight = highlight, template = template, ...
+  )
+
+  # LaTeX document class
+  documentclass = match.arg(documentclass)
+  format$pandoc$args = c(
+    format$pandoc$args, '--variable', paste0('documentclass:', documentclass),
+    if (documentclass == 'tufte-book') '--chapters'
   )
 
   knitr::knit_engines$set(marginfigure = function(options) {
