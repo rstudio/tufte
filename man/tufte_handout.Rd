@@ -4,11 +4,15 @@
 \alias{newthought}
 \alias{quote_footer}
 \alias{sans_serif}
+\alias{tufte_book}
 \alias{tufte_handout}
 \alias{tufte_html}
 \title{Tufte handout formats (PDF and HTML)}
 \usage{
 tufte_handout(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "pdf", 
+    highlight = "default", ...)
+
+tufte_book(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "pdf", 
     highlight = "default", ...)
 
 tufte_html(...)
