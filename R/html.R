@@ -62,9 +62,10 @@ tufte_html = function(...) {
     # place table captions in the margin
     r = '^<caption>(.+)</caption>$'
     for (i in grep(r, x)) {
-      if (x[i - 1] != '<table>') next
+      # the previous line should be <table> or <table class=...>
+      if (!grepl('^<table( class=.+)?>$', x[i - 1])) next
       cap = gsub(r, '\\1', x[i])
-      x[i] = '<table>'
+      x[i] = x[i - 1]
       x[i - 1] = paste0(
         '<p><!--\n<caption>-->', '<span class="marginnote shownote">',
         cap, '</span><!--</caption>--></p>'
