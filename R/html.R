@@ -49,6 +49,16 @@ tufte_html = function(...) {
     # place figure captions in margin notes
     x[x == '<p class="caption">'] = '<p class="caption marginnote shownote">'
 
+    # move </caption> to the same line as <caption>; the previous line should
+    # start with <table
+    for (i in intersect(grep('^<caption>', x), grep('^<table', x) + 1)) {
+      j = 0
+      while (!grepl('</caption>$', x[i])) {
+        j = j + 1
+        x[i] = paste0(x[i], x[i + j])
+        x[i + j] = ''
+      }
+    }
     # place table captions in the margin
     r = '^<caption>(.+)</caption>$'
     for (i in grep(r, x)) {
