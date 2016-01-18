@@ -4,5 +4,7 @@
 skeleton_files$
 skeleton_cache$
 skeleton\.pdf$
+skeleton\.bbl$
+skeleton\.bib$
 skeleton\.html$
 ^CONTRIBUTING\.md$
