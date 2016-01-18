@@ -179,16 +179,21 @@ img {max-width: 100%;}
                          top: -0.5rem;
                          left: 0.1rem; }
 
-p, footer, table, div.table-wrapper-small, div.supertable-wrapper > p, div.booktabs-wrapper { width: 55%; }
+p, footer, table { width: 55%; }
+table table, li p, li pre { width: auto; }
+li p, li pre {margin-top: auto; }
 
 div.fullwidth, table.fullwidth { max-width: 90%; }
+
+#TOC, h1.title { max-width: 90%; }
+#TOC ol, #TOC ul { width: auto; }
 
 div.fullwidth p.caption {
   margin-right: 0;
   max-width: 33%;
 }
 
-@media screen and (max-width: 760px) { p, footer, ol, ul { width: 90%; }
+@media screen and (max-width: 760px) { p, footer, ol, ul, table { width: 90%; }
                                        pre { width: 87.5%; }
                                        ul { width: 85%; }
                                        figure { max-width: 90%; }
