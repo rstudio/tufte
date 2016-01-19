@@ -163,8 +163,13 @@ margin_references = function(x) {
   # to merge the two links
   x = gsub('(<a href="#[^"]+">)([^<]+)</a>\\1([^<]+)</a>', '\\1\\2\\3</a>', x)
   ids = gsub(r, '\\1', x[k])
-  ids = sprintf('<a href="#%s">(.+?)</a>', ids)
+  ids = sprintf('<a href="#%s">([^<]+)</a>', ids)
   ref = gsub('^<p>|</p>$', '', x[k + 1])
+  # replace 3 em-dashes with author names
+  dashes = paste0('^', intToUtf8(rep(8212, 3)), '[.]')
+  for (j in grep(dashes, ref)) {
+    ref[j] = sub(dashes, sub('^([^.]+[.])( .+)$', '\\1', ref[j - 1]), ref[j])
+  }
   ref = marginnote_html(paste0('\\1<span class="marginnote">', ref, '</span>'))
   for (j in seq_len(n)) {
     x = gsub(ids[j], ref[j], x)
