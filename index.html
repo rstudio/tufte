@@ -91,7 +91,7 @@ ggplot(mtcars2, aes(hp, mpg, color = am)) +
 <div id="arbitrary-margin-content" class="section level2">
 <h2>Arbitrary Margin Content</h2>
 <p>In fact, you can include anything in the margin using the <strong>knitr</strong> engine named <code>marginfigure</code>. Unlike R code chunks <code>```{r}</code>, you write a chunk starting with <code>```{marginfigure}</code> instead, then put the content in the chunk. See an example on the right about the first fundamental theorem of calculus.</p>
-<p><label for="tufte-mn-2" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-2" class="margin-toggle"><span class="marginnote"><span style="display: block;">We know from <em>the first fundamental theorem of calculus</em> that for <span class="math inline"><em>x</em></span> in <span class="math inline">[<em>a</em>, <em>b</em>]</span>: <br /><span class="math display"><span class="math display">\[\frac{d}{dx}\left( \int_{0}^{x} f(u)\,du\right)=f(x).\]</span></span><br /></span></span></p>
+<p><label for="tufte-mn-2" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-2" class="margin-toggle"><span class="marginnote"><span style="display: block;">We know from <em>the first fundamental theorem of calculus</em> that for <span class="math inline"><em>x</em></span> in <span class="math inline">[<em>a</em>, <em>b</em>]</span>: <br /><span class="math display"><span class="math display">\[\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).\]</span></span><br /></span></span></p>
 <p>For the sake of portability between LaTeX and HTML, you should keep the margin content as simple as possible (syntax-wise) in the <code>marginefigure</code> blocks. You may use simple Markdown syntax like <code>**bold**</code> and <code>_italic_</code> text, but please refrain from using footnotes, citations, or block-level elements (e.g. blockquotes and lists) there.</p>
 </div>
 <div id="full-width-figures" class="section level2">
@@ -126,7 +126,7 @@ A figure in the main column.
 </div>
 <div id="references" class="section level1">
 <h1>References</h1>
-<p>References can be displayed as margin notes for HTML output. For example, we can cite R here <span class="citation">(R Core Team <label for="tufte-mn-4" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-4" class="margin-toggle">2015<span class="marginnote">R Core Team. 2015. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</span>)</span>. To enable this feature, you must set <code>link-citations: yes</code> in the YAML metadata, and the version of <code>pandoc-citeproc</code> should be at least 0.7.2. The latter may be a problem if you are using the RStudio IDE, but you can always install your own version of Pandoc from <a href="http://pandoc.org/installing.html" class="uri">http://pandoc.org/installing.html</a>. To check the version of <code>pandoc-citeproc</code> in your system, you may run this in R:</p>
+<p>References can be displayed as margin notes for HTML output. For example, we can cite R here <span class="citation">(R Core Team <label for="tufte-mn-4" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-4" class="margin-toggle">2015<span class="marginnote">R Core Team. 2015. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</span>)</span>. To enable this feature, you must set <code>link-citations: yes</code> in the YAML metadata, and the version of <code>pandoc-citeproc</code> should be at least 0.7.2. You can always install your own version of Pandoc from <a href="http://pandoc.org/installing.html" class="uri">http://pandoc.org/installing.html</a> if the version is not sufficient. To check the version of <code>pandoc-citeproc</code> in your system, you may run this in R:</p>
 <pre class="r"><code>system2(&#39;pandoc-citeproc&#39;, &#39;--version&#39;)</code></pre>
 <p>If your version of <code>pandoc-citeproc</code> is too low, or you did not set <code>link-citations: yes</code> in YAML, references in the HTML output will be placed at the end of the output document.</p>
 </div>
@@ -578,6 +578,12 @@ p + geom_smooth(method = &#39;lm&#39;) + facet_grid(~ gear)</code></pre>
 </footer>
 </blockquote>
 <p>We hope you will enjoy the simplicity of R Markdown and this R package, and we sincerely thank the authors of the Tufte-CSS and Tufte-LaTeX projects for developing the beautiful CSS and LaTeX classes. Our <strong>tufte</strong> package would not have been possible without their heavy lifting.</p>
+<p>To see the R Markdown source of this example document, you may follow <a href="https://github.com/rstudio/tufte/raw/master/inst/rmarkdown/templates/tufte_html/skeleton/skeleton.Rmd">this link to Github</a>, use the wizard in RStudio IDE (<code>File -&gt; New File -&gt; R Markdown -&gt; From Template</code>), or open the Rmd file in the package:</p>
+<pre class="r"><code>file.edit(
+  tufte:::template_resources(
+    &#39;tufte_html&#39;, &#39;..&#39;, &#39;skeleton&#39;, &#39;skeleton.Rmd&#39;
+  )
+)</code></pre>
 </div>
 
 
