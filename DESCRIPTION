@@ -1,7 +1,7 @@
 Package: tufte
 Type: Package
 Title: Tufte's Styles for R Markdown Documents
-Version: 0.0.6
+Version: 0.0.7
 Date: 2016-01-06
 Authors@R: c(
     person("Yihui", "Xie", email = "xie@yihui.name", role = c("aut", "cre")),
@@ -10,7 +10,7 @@ Authors@R: c(
     person(family = "RStudio, Inc.", role = "cph")
     )
 Maintainer: Yihui Xie <xie@yihui.name>
-Description: Provides R Markdown output formats to use Tufte styles.
+Description: Provides R Markdown output formats to use Tufte styles for PDF and HTML output.
 License: GPL-3
 LazyData: TRUE
 URL: https://github.com/rstudio/tufte
