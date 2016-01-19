@@ -74,10 +74,19 @@ tufte_html = function(...) {
 
     # add an incremental number to the id of <label> and <input> for margin notes
     r = '(<label|<input type="checkbox") (id|for)(="tufte-mn)-(" )'
-    mn = grep(r, x)
-    for (i in seq_along(mn)) {
-      x[mn[i]] = gsub(r, paste0('\\1 \\2\\3-', i, '\\4'), x[mn[i]])
-    }
+    m = gregexpr(r, x)
+    j = 1
+    regmatches(x, m) = lapply(regmatches(x, m), function(z) {
+      n = length(z)
+      if (n == 0) return(z)
+      if (n %% 2 != 0) warning('The number of labels is different with checkboxes')
+      for (i in seq(1, n, 2)) {
+        if (i + 1 > n) break
+        z[i + (0:1)] =  gsub(r, paste0('\\1 \\2\\3-', j, '\\4'), z[i + (0:1)])
+        j <<- j + 1
+      }
+      z
+    })
     writeUTF8(x, output)
     output
   }
