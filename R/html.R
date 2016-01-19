@@ -158,6 +158,10 @@ margin_references = function(x) {
   k = k[k > i]
   n = length(k)
   if (n == 0) return(x)
+  # pandoc-citeproc may generate a link on both the year and the alphabetic
+  # suffix, e.g. <a href="#cite-key">2016</a><a href="#cite-key">a</a>; we need
+  # to merge the two links
+  x = gsub('(<a href="#[^"]+">)([^<]+)</a>\\1([^<]+)</a>', '\\1\\2\\3</a>', x)
   ids = gsub(r, '\\1', x[k])
   ids = sprintf('<a href="#%s">(.+?)</a>', ids)
   ref = gsub('^<p>|</p>$', '', x[k + 1])
