@@ -10,7 +10,7 @@
 #'   \code{\link{html_document}} (note you cannot use the \code{template}
 #'   argument in \code{tufte_handout} or the \code{theme} argument in
 #'   \code{tufte_html()}; these arguments have been set internally)
-#'
+#' @references See \url{http://rstudio.github.io/tufte} for an example.
 #' @export
 #' @examples library(tufte)
 tufte_handout = function(

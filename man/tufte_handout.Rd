@@ -79,3 +79,6 @@ class: \url{https://tufte-latex.github.io/tufte-latex/}.
 library(tufte)
 newthought("In this section")
 }
+\references{
+See \url{http://rstudio.github.io/tufte} for an example.
+}
