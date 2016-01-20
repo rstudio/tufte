@@ -4,9 +4,12 @@
 #' @export
 tufte_html = function(...) {
 
-  format = rmarkdown::html_document(
-    theme = NULL, ..., extra_dependencies = tufte_html_dependency()
-  )
+  html_document2 = function(..., extra_dependencies = list()) {
+    rmarkdown::html_document(
+      ..., extra_dependencies = c(extra_dependencies, tufte_html_dependency())
+    )
+  }
+  format = html_document2(theme = NULL, ...)
 
   # when fig.margin = TRUE, set fig.beforecode = TRUE so plots are moved before
   # code blocks, and they can be top-aligned
