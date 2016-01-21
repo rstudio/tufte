@@ -16,6 +16,12 @@ $endif$
   \@ifpackageloaded{fontspec}{}{\usepackage{fontspec}}
   \makeatother
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \makeatletter
+  \@ifpackageloaded{soul}{
+     \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+     \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+   }{}
+  \makeatother
 $if(euro)$
   \newcommand{\euro}{€}
 $endif$
