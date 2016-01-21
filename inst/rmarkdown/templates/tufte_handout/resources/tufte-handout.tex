@@ -12,6 +12,9 @@ $if(euro)$
   \usepackage{eurosym}
 $endif$
 \else % if luatex or xelatex
+  \makeatletter
+  \@ifpackageloaded{fontspec}{}{\usepackage{fontspec}}
+  \makeatother
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 $if(euro)$
   \newcommand{\euro}{€}
