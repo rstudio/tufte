@@ -1,9 +1,13 @@
-# CHANGES IN tufte VERSION 0.1.1
+# CHANGES IN tufte VERSION 0.2
+
+## NEW FEATURES
 
 ## BUG FIXES
 
 - the default LaTeX template for `tufte_handout()` may not work when the LaTeX
   package **soul** is installed, or **ifxetex**/**xltxtra** are not installed
+
+- the `number_sections` option did not work for LaTeX output
 
 # CHANGES IN tufte VERSION 0.1
 

@@ -58,6 +58,12 @@ $endfor$
 \fi
 $endif$
 
+$if(numbersections)$
+\setcounter{secnumdepth}{2}
+$else$
+\setcounter{secnumdepth}{-1}
+$endif$
+
 % citations
 $if(natbib)$
 \usepackage{natbib}
