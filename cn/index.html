@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="JJ Allaire，谢益辉" />
+
+<meta name="date" content="2016-02-05" />
+
+<title>Tufte样式</title>
+
+<link href="../index_files/tufte-css/tufte.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="../index_files/highlight/default.css"
+      type="text/css" />
+<script src="../index_files/highlight/highlight.js"></script>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+</head>
+
+<body>
+
+
+
+<div class="fluid-row" id="header">
+
+
+<h1 class="title">Tufte样式</h1>
+<h3 class="subtitle"><em>一个R Markdown实现</em></h3>
+<h4 class="author"><em>JJ Allaire，谢益辉</em></h4>
+<h4 class="date"><em>2016-02-05</em></h4>
+
+</div>
+
+
+<div class="section level1">
+<h1>引言</h1>
+<p>Tufte样式在Edward Tufte的书以及物理学家费曼的教科书很常见，它的一个显著特点就是边栏的使用。例如脚注和边栏注解，以及放在边栏里的小型插图。Tufte样式在LaTeX和HTML/CSS中都有实现<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> 参见Github库<a href="https://github.com/tufte-latex/tufte-latex">tufte-latex</a>和 <a href="https://github.com/edwardtufte/tufte-css">tufte-css</a></span>。我们将这两种实现都纳入了<a href="https://github.com/rstudio/tufte"><strong>tufte</strong>包</a>。若需要LaTeX/PDF输出，使用输出格式<code>tufte_handout</code>即可，类似地，<code>tufte_book</code>可以用来输出PDF书，<code>tufte_html</code>生成HTML网页。这些输出格式可以在YAML元数据中指定，或者传给<code>rmarkdown::render()</code>函数。若对<strong>rmarkdown</strong>包不熟悉，可参见 <span class="citation">Allaire et al. (<label for="tufte-mn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle">2015<span class="marginnote">Allaire, JJ, Joe Cheng, Yihui Xie, Jonathan McPherson, Winston Chang, Jeff Allen, Hadley Wickham, Aron Atkins, and Rob Hyndman. 2015. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</span>)</span>。</p>
+<pre class="yaml"><code>---
+title: &quot;一个Tufte样式示例&quot;
+author: &quot;张三&quot;
+ctex: yes
+output:
+  tufte::tufte_handout: default
+  tufte::tufte_html: default
+---</code></pre>
+</div>
+<div class="section level1">
+<h1>章节标题</h1>
+<p>Tufte样式不主张太深的章节目录，一般仅仅使用一级标题（Markdown中用一个井号<code>#</code>）和二级标题（两个井号）。</p>
+</div>
+<div class="section level1">
+<h1>插图</h1>
+<div class="section level2">
+<h2>边栏插图</h2>
+<p>插图在Tufte的书中非常常见，我们可以使用三种插图：边栏图、全宽图、主栏图。先说边栏图：使用<strong>knitr</strong>代码段选项<code>fig.margin = TRUE</code>即可将图形放置在边栏中，如：</p>
+<p>
+<span class="marginnote shownote"><!--
+<div class="figure">--> <img src="../index_files/figure-html/fig-margin-1.png" alt="MPG与horsepower两个变量的散点图；颜色代表自动挡或手动挡。" width="336"  /> <!--
+<p class="caption marginnote">-->MPG与horsepower两个变量的散点图；颜色代表自动挡或手动挡。<!--</p>--> <!--</div>--></span>
+</p>
+<pre class="r"><code>library(ggplot2)
+mtcars2 &lt;- mtcars
+mtcars2$am &lt;- factor(
+  mtcars$am, labels = c(&#39;automatic&#39;, &#39;manual&#39;)
+)
+ggplot(mtcars2, aes(hp, mpg, color = am)) +
+  geom_point() + geom_smooth() +
+  theme(legend.position = &#39;bottom&#39;)</code></pre>
+<p>注意我们使用代码段选项<code>fig.cap</code>设定了图的标题。当然我们也可以设置图的长宽。</p>
+</div>
+<div class="section level2">
+<h2>任意边栏内容</h2>
+<p>事实上我们可以在边栏中放置除了图之外的内容，此时我们不再使用<code>```{r}</code>写代码段，而是用<code>```{marginfigure}</code>。例如右边有一个微积分第一基本定理。</p>
+<p><label for="tufte-mn-2" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-2" class="margin-toggle"><span class="marginnote"><span style="display: block;">根据微积分第一基本定理我们知道，对<span class="math inline"><em>x</em> ∈ [<em>a</em>, <em>b</em>]</span>有 <br /><span class="math display"><span class="math display">\[\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).\]</span></span><br /></span></span></p>
+<p>为了文本内容的可移植性（同样的内容可以生成HTML和LaTeX文档），我们建议边栏中不要放置太复杂的内容，简单的加粗、倾斜都没有问题，但不建议在边栏中使用列表、参考文献等内容。</p>
+</div>
+<div class="section level2">
+<h2>全宽插图</h2>
+<p>代码段选项<code>fig.fullwidth = TRUE</code>可以使得一幅图占用全部页宽，例如：</p>
+<pre class="r"><code>ggplot(diamonds, aes(carat, price)) + geom_smooth() +
+  facet_grid(~ cut)</code></pre>
+<div class="figure fullwidth">
+<img src="../index_files/figure-html/fig-fullwidth-1.png" alt="一幅全宽图形。" width="960"  />
+<p class="caption marginnote shownote">
+一幅全宽图形。
+</p>
+</div>
+<p>其它和图形有关的代码段选项仍然可以使用，一般情况下，全款图形的<code>fig.width</code>选项会较大，而<code>fig.height</code>相对较小。上图的尺寸是<span class="math inline">\(10 \times 2\)</span>英寸.</p>
+</div>
+<div class="section level2">
+<h2>主栏插图</h2>
+<p>默认情况下，R代码段生成的图形放置在主栏里，其标题放在边栏中，例如：</p>
+<pre class="r"><code>ggplot(diamonds, aes(cut, price)) + geom_boxplot()</code></pre>
+<div class="figure">
+<p class="caption marginnote shownote">
+一幅主栏插图。
+</p>
+<img src="../index_files/figure-html/fig-main-1.png" alt="一幅主栏插图。" width="672"  />
+</div>
+</div>
+</div>
+<div class="section level1">
+<h1>边栏附注</h1>
+<p>Tufte样式的文档中，脚注会被自动转换为边栏附注<label for="tufte-sn-2" class="margin-toggle sidenote-number">2</label><input type="checkbox" id="tufte-sn-2" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">2</span> 这里本来是一个脚注</span>。脚注是带编号的，另一种边栏附注是不带编号的，这种附注需要用<strong>tufte</strong>包中的R函数<code>margin_note()</code>在<strong>knitr</strong>行内代码中生成。<label for="tufte-mn-3" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-3" class="margin-toggle"><span class="marginnote">这是一个边栏附注，它没有编号。</span>与边栏插图一样，边栏附注中我们也不建议写太复杂的内容，通常只是一句简单的文字。</p>
+</div>
+<div class="section level1">
+<h1>参考文献</h1>
+<p>HTML输出中，参考文献默认也放在边栏中。例如这里我们可以引用<span class="citation">(R Core Team <label for="tufte-mn-4" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-4" class="margin-toggle">2015<span class="marginnote">R Core Team. 2015. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</span>)</span>。这个功能需要在YAML元数据中设置<code>link-citations: yes</code>，而且<code>pandoc-citeproc</code>程序的版本应该至少是0.7.2。若这两个条件不满足，参考文献会被放在文档末尾。</p>
+</div>
+<div class="section level1">
+<h1>表格</h1>
+<p>我们可以用<strong>knitr</strong>包中的<code>kable()</code>函数生成简单的表格。HTML输出中表格的标题也会被放在边栏中。</p>
+<pre class="r"><code>knitr::kable(
+  mtcars[1:6, 1:6], caption = &#39;mtcars数据的前几行。&#39;
+)</code></pre>
+<p><!--
+<caption>--><span class="marginnote shownote">mtcars数据的前几行。</span><!--</caption>--></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.620</td>
+</tr>
+<tr class="even">
+<td align="left">Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.875</td>
+</tr>
+<tr class="odd">
+<td align="left">Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108</td>
+<td align="right">93</td>
+<td align="right">3.85</td>
+<td align="right">2.320</td>
+</tr>
+<tr class="even">
+<td align="left">Hornet 4 Drive</td>
+<td align="right">21.4</td>
+<td align="right">6</td>
+<td align="right">258</td>
+<td align="right">110</td>
+<td align="right">3.08</td>
+<td align="right">3.215</td>
+</tr>
+<tr class="odd">
+<td align="left">Hornet Sportabout</td>
+<td align="right">18.7</td>
+<td align="right">8</td>
+<td align="right">360</td>
+<td align="right">175</td>
+<td align="right">3.15</td>
+<td align="right">3.440</td>
+</tr>
+<tr class="even">
+<td align="left">Valiant</td>
+<td align="right">18.1</td>
+<td align="right">6</td>
+<td align="right">225</td>
+<td align="right">105</td>
+<td align="right">2.76</td>
+<td align="right">3.460</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level1">
+<h1>引文</h1>
+<p>Markdown语法使用<code>&gt;</code>来生成引文，如果需要在引文下面用行内代码以及<code>quote_footer()</code>函数加上一句引文来源，例如：</p>
+<blockquote>
+<p>“多亏了我的律师，要不然我现在还在牢里。两个人一起挖确实比一个人快很多啊。”</p>
+<footer>
+— Joe Martin
+</footer>
+</blockquote>
+<p>如果不用这个函数的话，引文底部的话只是一个普通段落：</p>
+<blockquote>
+<p>“伟人论道，凡人论事，小人论酒。”</p>
+<p>— Fran Lebowitz</p>
+</blockquote>
+</div>
+<div class="section level1">
+<h1>响应式页面</h1>
+<p>这个包生成的HTML页面是响应式的：如果页宽小于760像素，边栏内容会自动隐藏。此时我们可以点击脚注的序号显示它，其它边栏附注则可以通过点击圆圈加号的符号显示。</p>
+</div>
+<div class="section level1">
+<h1>结语</h1>
+<p>希望诸位喜欢R Markdown的超级简洁性，同时我们感谢Tufte-CSS和Tufte-LaTeX项目的作者们，没有他们的辛勤劳动，就没有这个<strong>tufte</strong>包。这份文档的R Markdown源文档可以在<a href="https://github.com/rstudio/tufte/raw/master/inst/rmarkdown/templates/tufte_ctex/skeleton/skeleton.Rmd">Github上找到</a>，或者直接使用RStudio菜单<code>File -&gt; New File -&gt; R Markdown -&gt; From Template</code>新建一个文档，或直接从R里面打开这个Rmd文件：</p>
+<pre class="r"><code>file.edit(
+  tufte:::template_resources(
+    &#39;tufte_ctex&#39;, &#39;..&#39;, &#39;skeleton&#39;, &#39;skeleton.Rmd&#39;
+  )
+)</code></pre>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
