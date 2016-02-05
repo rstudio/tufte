@@ -34,7 +34,8 @@ title: "一个Tufte样式示例"
 author: "张三"
 ctex: yes
 output:
-  tufte::tufte_handout: default
+  tufte::tufte_handout:
+    latex_engine: xelatex
   tufte::tufte_html: default
 ---
 ```
