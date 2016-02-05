@@ -2,6 +2,8 @@
 
 ## NEW FEATURES
 
+- it is possible to generate PDF output using the ctex package for R Markdown documents in Chinese; you just need to specify `ctex: yes` in the YAML metadata
+
 ## BUG FIXES
 
 - the default LaTeX template for `tufte_handout()` may not work when the LaTeX

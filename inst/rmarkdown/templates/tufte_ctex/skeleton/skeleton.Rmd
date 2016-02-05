@@ -1,0 +1,146 @@
+---
+title: "Tufte样式"
+subtitle: "一个R Markdown实现"
+author: "JJ Allaire，谢益辉"
+date: "`r Sys.Date()`"
+output:
+  tufte::tufte_html: default
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+  tufte::tufte_handout:
+    citation_package: natbib
+    latex_engine: xelatex
+ctex: yes
+biblio-title: 参考文献
+bibliography: skeleton.bib
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+library(tufte)
+# tufte版本变化之后更新knitr缓存
+knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
+options(htmltools.dir.version = FALSE)
+```
+
+# 引言
+
+Tufte样式在Edward Tufte的书以及物理学家费曼的教科书很常见，它的一个显著特点就是边栏的使用。例如脚注和边栏注解，以及放在边栏里的小型插图。Tufte样式在LaTeX和HTML/CSS中都有实现^[参见Github库[tufte-latex](https://github.com/tufte-latex/tufte-latex)和 [tufte-css](https://github.com/edwardtufte/tufte-css)]。我们将这两种实现都纳入了[**tufte**包](https://github.com/rstudio/tufte)。若需要LaTeX/PDF输出，使用输出格式`tufte_handout`即可，类似地，`tufte_book`可以用来输出PDF书，`tufte_html`生成HTML网页。这些输出格式可以在YAML元数据中指定，或者传给`rmarkdown::render()`函数。若对**rmarkdown**包不熟悉，可参见 @R-rmarkdown。
+
+```yaml
+---
+title: "一个Tufte样式示例"
+author: "张三"
+ctex: yes
+output:
+  tufte::tufte_handout: default
+  tufte::tufte_html: default
+---
+```
+
+# 章节标题
+
+Tufte样式不主张太深的章节目录，一般仅仅使用一级标题（Markdown中用一个井号`#`）和二级标题（两个井号）。
+
+# 插图
+
+## 边栏插图
+
+插图在Tufte的书中非常常见，我们可以使用三种插图：边栏图、全宽图、主栏图。先说边栏图：使用**knitr**代码段选项`fig.margin = TRUE`即可将图形放置在边栏中，如：
+
+```{r fig-margin, fig.margin = TRUE, fig.cap = "MPG与horsepower两个变量的散点图；颜色代表自动挡或手动挡。", fig.width=3.5, fig.height=3.5, cache=TRUE}
+library(ggplot2)
+mtcars2 <- mtcars
+mtcars2$am <- factor(
+  mtcars$am, labels = c('automatic', 'manual')
+)
+ggplot(mtcars2, aes(hp, mpg, color = am)) +
+  geom_point() + geom_smooth() +
+  theme(legend.position = 'bottom')
+```
+
+注意我们使用代码段选项`fig.cap`设定了图的标题。当然我们也可以设置图的长宽。
+
+## 任意边栏内容
+
+事实上我们可以在边栏中放置除了图之外的内容，此时我们不再使用```` ```{r} ````写代码段，而是用```` ```{marginfigure} ````。例如右边有一个微积分第一基本定理。
+
+```{marginfigure}
+根据微积分第一基本定理我们知道，对$x \in [a, b]$有
+$$\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).$$
+```
+
+为了文本内容的可移植性（同样的内容可以生成HTML和LaTeX文档），我们建议边栏中不要放置太复杂的内容，简单的加粗、倾斜都没有问题，但不建议在边栏中使用列表、参考文献等内容。
+
+## 全宽插图
+
+代码段选项`fig.fullwidth = TRUE`可以使得一幅图占用全部页宽，例如：
+
+```{r fig-fullwidth, fig.width = 10, fig.height = 2, fig.fullwidth = TRUE, fig.cap = "一幅全宽图形。", warning=FALSE, cache=TRUE}
+ggplot(diamonds, aes(carat, price)) + geom_smooth() +
+  facet_grid(~ cut)
+```
+
+其它和图形有关的代码段选项仍然可以使用，一般情况下，全款图形的`fig.width`选项会较大，而`fig.height`相对较小。上图的尺寸是$10 \times 2$英寸.
+
+## 主栏插图
+
+默认情况下，R代码段生成的图形放置在主栏里，其标题放在边栏中，例如：
+
+```{r fig-main, fig.cap = "一幅主栏插图。", cache=TRUE}
+ggplot(diamonds, aes(cut, price)) + geom_boxplot()
+```
+
+# 边栏附注
+
+Tufte样式的文档中，脚注会被自动转换为边栏附注^[这里本来是一个脚注]。脚注是带编号的，另一种边栏附注是不带编号的，这种附注需要用**tufte**包中的R函数`margin_note()`在**knitr**行内代码中生成。`r margin_note("这是一个边栏附注，它没有编号。")`与边栏插图一样，边栏附注中我们也不建议写太复杂的内容，通常只是一句简单的文字。
+
+# 参考文献
+
+HTML输出中，参考文献默认也放在边栏中。例如这里我们可以引用[@R-base]。这个功能需要在YAML元数据中设置`link-citations: yes`，而且`pandoc-citeproc`程序的版本应该至少是0.7.2。若这两个条件不满足，参考文献会被放在文档末尾。
+
+# 表格
+
+我们可以用**knitr**包中的`kable()`函数生成简单的表格。HTML输出中表格的标题也会被放在边栏中。
+
+```{r}
+knitr::kable(
+  mtcars[1:6, 1:6], caption = 'mtcars数据的前几行。'
+)
+```
+
+# 引文
+
+Markdown语法使用`>`来生成引文，如果需要在引文下面用行内代码以及`quote_footer()`函数加上一句引文来源，例如：
+
+> "多亏了我的律师，要不然我现在还在牢里。两个人一起挖确实比一个人快很多啊。"
+>
+> `r tufte::quote_footer('--- Joe Martin')`
+
+如果不用这个函数的话，引文底部的话只是一个普通段落：
+
+> "伟人论道，凡人论事，小人论酒。"
+>
+> --- Fran Lebowitz
+
+# 响应式页面
+
+这个包生成的HTML页面是响应式的：如果页宽小于760像素，边栏内容会自动隐藏。此时我们可以点击脚注的序号显示它，其它边栏附注则可以通过点击圆圈加号的符号显示。
+
+# 结语
+
+希望诸位喜欢R Markdown的超级简洁性，同时我们感谢Tufte-CSS和Tufte-LaTeX项目的作者们，没有他们的辛勤劳动，就没有这个**tufte**包。这份文档的R Markdown源文档可以在[Github上找到](https://github.com/rstudio/tufte/raw/master/inst/rmarkdown/templates/tufte_ctex/skeleton/skeleton.Rmd)，或者直接使用RStudio菜单`File -> New File -> R Markdown -> From Template`新建一个文档，或直接从R里面打开这个Rmd文件：
+
+```{r eval=FALSE}
+file.edit(
+  tufte:::template_resources(
+    'tufte_ctex', '..', 'skeleton', 'skeleton.Rmd'
+  )
+)
+```
+
+```{r bib, include=FALSE}
+# create a bib file for the R packages used in this document
+knitr::write_bib(c('base', 'rmarkdown'), file = 'skeleton.bib')
+```
