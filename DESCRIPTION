@@ -1,8 +1,8 @@
 Package: tufte
 Type: Package
 Title: Tufte's Styles for R Markdown Documents
-Version: 0.1.1
-Date: 2016-01-20
+Version: 0.2
+Date: 2016-02-07
 Authors@R: c(
     person("Yihui", "Xie", email = "xie@yihui.name", role = c("aut", "cre")),
     person("JJ", "Allaire", role = "aut"),
