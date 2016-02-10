@@ -3,13 +3,15 @@ sudo: false
 cache: packages
 
 env:
-  matrix:
-    - R_PKG="$(basename $TRAVIS_REPO_SLUG)"
   global:
-    secure: HBmO3FJR2acuKHP243TDcDrPxvc3tBl2ZUjMl7K6BPnrd7/AyHBvHMj67kRKCHyr6zDVW2/i9XFMfetQrAG7nY/0xBUCxQo91wVgGctPtpCza/ZsRnm9GE9NofyI+jNgSjaeDSHDgc9uFcuMcVPfkIPeL3ZLrFH9oVQWSqKORQwfY4lB84+cJAU4ztvrP3DeqXSKZh5/o2rekCIq6Claa6/wOSndldYb/QhFVyvBNY3G87stW9umv26Gb1SQV4oBTs/tCyxnYeA5XsJtw/MIm5cLFX3oMstXNyOtJz9l/JlgIIVc6Y139MENGdZk1oNTkhCsuRGqt0EeRUOt8bSbCMsdrYQwlBEuk/r4Kg+i1jzYptfOEVoRUdg1V2CVkpsd+H7ISzDFXUAm+9elAjxAbaIjOgLVpdmdT0kMaeQHR3YUXtRE2XQbxwl13To997bPQtTIonACZATL8ibPfggwXc1gy67ZEqCT/0LQhVBMTRwr2ysBLf9wm48ooaZnM4xMAvcjDOymIjbVF/47ejAulRAujFd2NfW9kcoagoDficWiBGA3/6rPJE+KMC1lhz9YGN2p/3edfnoKEmRnIl+CW5aKKEir/xH7Ce8BgjJkK8coG1efyeWqkw/Lk5vDXeJIs7Z/8AyARn30ZDiOt8HPYZvsVLlhwG99EUYd+IN8cXc=
+    - R_PKG="$(basename $TRAVIS_REPO_SLUG)" R_KNITR_OPTIONS="knitr.chunk.tidy=TRUE"
+    - secure: HBmO3FJR2acuKHP243TDcDrPxvc3tBl2ZUjMl7K6BPnrd7/AyHBvHMj67kRKCHyr6zDVW2/i9XFMfetQrAG7nY/0xBUCxQo91wVgGctPtpCza/ZsRnm9GE9NofyI+jNgSjaeDSHDgc9uFcuMcVPfkIPeL3ZLrFH9oVQWSqKORQwfY4lB84+cJAU4ztvrP3DeqXSKZh5/o2rekCIq6Claa6/wOSndldYb/QhFVyvBNY3G87stW9umv26Gb1SQV4oBTs/tCyxnYeA5XsJtw/MIm5cLFX3oMstXNyOtJz9l/JlgIIVc6Y139MENGdZk1oNTkhCsuRGqt0EeRUOt8bSbCMsdrYQwlBEuk/r4Kg+i1jzYptfOEVoRUdg1V2CVkpsd+H7ISzDFXUAm+9elAjxAbaIjOgLVpdmdT0kMaeQHR3YUXtRE2XQbxwl13To997bPQtTIonACZATL8ibPfggwXc1gy67ZEqCT/0LQhVBMTRwr2ysBLf9wm48ooaZnM4xMAvcjDOymIjbVF/47ejAulRAujFd2NfW9kcoagoDficWiBGA3/6rPJE+KMC1lhz9YGN2p/3edfnoKEmRnIl+CW5aKKEir/xH7Ce8BgjJkK8coG1efyeWqkw/Lk5vDXeJIs7Z/8AyARn30ZDiOt8HPYZvsVLlhwG99EUYd+IN8cXc=
+
+repos:
+  XRAN: http://yihui.name/xran
 
 before_install:
-  - "wget -q -O - http://yihui.name/xran/r-config | bash"
+  - "wget -q http://yihui.name/xran/.gitconfig -O ~/.gitconfig"
 
 # deploy to XRAN
 after_success:
