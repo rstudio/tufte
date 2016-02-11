@@ -13,6 +13,5 @@ repos:
 before_install:
   - "wget -q http://yihui.name/xran/.gitconfig -O ~/.gitconfig"
 
-# deploy to XRAN
 after_success:
   - "(wget -q -O - http://yihui.name/xran/r-xran | bash)"
