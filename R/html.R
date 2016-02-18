@@ -127,7 +127,7 @@ tufte_html = function(...) {
 
   knitr::knit_engines$set(marginfigure = function(options) {
     options$type = 'marginnote'
-    options$html.tag = 'span'
+    if (is.null(options$html.tag)) options$html.tag = 'span'
     options$html.before = marginnote_html()
     eng_block = knitr::knit_engines$get('block')
     eng_block(options)
