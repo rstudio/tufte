@@ -17,13 +17,13 @@ tufte_book(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "pdf",
 
 tufte_html(...)
 
-newthought(text)
+newthought(text, escape = TRUE)
 
-margin_note(text, icon = "&#8853;")
+margin_note(text, icon = "&#8853;", escape = TRUE)
 
-quote_footer(text)
+quote_footer(text, escape = TRUE)
 
-sans_serif(text)
+sans_serif(text, escape = TRUE)
 }
 \arguments{
 \item{fig_width}{Default width (in inches) for figures}
@@ -46,6 +46,8 @@ argument in \code{tufte_handout} or the \code{theme} argument in
 
 \item{text}{A character string to be presented as a \dQuote{new thought}
 (using small caps), or a margin note, or a footer of a quote}
+
+\item{escape}{Whether to escape special HTML/LaTeX characters in \code{text}}
 
 \item{icon}{A character string to indicate there is a hidden margin note when
 the page width is too narrow (by default it is a circled plus sign)}
