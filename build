@@ -2,8 +2,14 @@
 
 cp ../tufte/inst/rmarkdown/templates/tufte_html/skeleton/skeleton.Rmd index.Rmd
 Rscript -e "rmarkdown::render('index.Rmd', tufte::tufte_html(self_contained = FALSE))"
-rm index.Rmd
-cd cn
+
+cd envisioned
+mv ../index.Rmd ./
+Rscript -e "rmarkdown::render('index.Rmd', tufte::tufte_html(self_contained = FALSE, tufte_variant = 'envisioned'))"
+rm -r index_files index.Rmd
+sed -e "s@index_files/@../index_files/@" -i "" index.html
+
+cd ../cn
 cp ../../tufte/inst/rmarkdown/templates/tufte_ctex/skeleton/skeleton.Rmd index.Rmd
 Rscript -e "rmarkdown::render('index.Rmd', tufte::tufte_html(self_contained = FALSE))"
 rm -r index_files index.Rmd
