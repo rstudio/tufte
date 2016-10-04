@@ -207,6 +207,39 @@ There are a few other things in Tufte CSS that we have not mentioned so far. If 
 
 We hope you will enjoy the simplicity of R Markdown and this R package, and we sincerely thank the authors of the Tufte-CSS and Tufte-LaTeX projects for developing the beautiful CSS and LaTeX classes. Our **tufte** package would not have been possible without their heavy lifting.
 
+You can turn on/off some features of the Tufte style in HTML output. The default features enabled are:
+
+```yaml
+output:
+  tufte::tufte_html:
+    tufte_features: ["fonts", "background", "italics"]
+```
+
+If you do not want the page background to be lightyellow, you can remove `background` from `tufte_features`. You can also customize the style of the HTML page via a CSS file. For example, if you do not want the subtitle to be italic, you can define
+
+```css
+h3.subtitle em {
+  font-style: normal;
+}
+```
+
+in, say, a CSS file `my_style.css` (under the same directory of your Rmd document), and apply it to your HTML output via the `css` option, e.g.,
+
+```yaml
+output:
+  tufte::tufte_html:
+    tufte_features: ["fonts", "background"]
+    css: "my_style.css"
+```
+
+There is also a variant of the Tufte style in HTML/CSS named "[Envisoned CSS](http://nogginfuel.com/envisioned-css/)". This style can be used by specifying the argument `tufte_variant = 'envisioned'` in `tufte_html()`, e.g.
+
+```yaml
+output:
+  tufte::tufte_html:
+    tufte_variant: "envisioned"
+```
+
 To see the R Markdown source of this example document, you may follow [this link to Github](https://github.com/rstudio/tufte/raw/master/inst/rmarkdown/templates/tufte_html/skeleton/skeleton.Rmd), use the wizard in RStudio IDE (`File -> New File -> R Markdown -> From Template`), or open the Rmd file in the package:
 
 ```{r eval=FALSE}
