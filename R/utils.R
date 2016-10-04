@@ -8,13 +8,7 @@
 #' @export
 #' @examples newthought('In this section')
 newthought = function(text) {
-  if (is_html_output()) {
-    sprintf('<span class="newthought">%s</span>', text)
-  } else if (is_latex_output()) {
-    sprintf('\\newthought{%s}', text)
-  } else {
-    sprintf('<span style="font-variant:small-caps;">%s</span>', text)
-  }
+  sprintf('\\newthought<span class="newthought">%s</span>', text)
 }
 
 #' @details \code{margin_note()} can be used in inline R expressions to write a
@@ -40,28 +34,14 @@ margin_note = function(text, icon = '&#8853;') {
 #' @rdname tufte_handout
 #' @export
 quote_footer = function(text) {
-  if (is_html_output()) {
-    sprintf('<footer>%s</footer>', text)
-  } else if (is_latex_output()) {
-    sprintf('\\hfill %s', text)
-  } else {
-    warning('quote_footer() only works for HTML and LaTeX output', call. = FALSE)
-    text
-  }
+  sprintf('\\hfill<span class="blockquote footer">%s</span>', text)
 }
 
 #' @details \code{sans_serif()} applies sans-serif fonts to \code{text}.
 #' @rdname tufte_handout
 #' @export
 sans_serif = function(text) {
-  if (is_html_output()) {
-    sprintf('<span class="sans">%s</span>', text)
-  } else if (is_latex_output()) {
-    sprintf('\\textsf{%s}', text)
-  } else {
-    warning('sans_serif() only works for HTML and LaTeX output', call. = FALSE)
-    text
-  }
+  sprintf('\\textsf<span class="sans">%s</span>', text)
 }
 
 template_resources = function(name, ...) {

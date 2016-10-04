@@ -110,6 +110,12 @@ tufte_html = function(
       }
       z
     })
+
+    # restore blockquote footer from <span class="blockquote footer">
+    r = '^<p><span class="blockquote footer">(.+)</span></p>$'
+    i = grep(r, x)
+    x[i] = gsub(r, '<footer>\\1</footer>', x[i])
+
     writeUTF8(x, output)
     output
   }
