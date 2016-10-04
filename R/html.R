@@ -1,12 +1,32 @@
 #' @details \code{tufte_html()} provides the HTML format based on the Tufte CSS:
 #'   \url{https://edwardtufte.github.io/tufte-css/}.
+#' @param tufte_features A character vector of the CSS features to enable:
+#'   \code{fonts} stands for the \code{et-book} fonts in the \code{tufte-css}
+#'   project, \code{background} means the lightyellow background color of the
+#'   page, and \code{italics} means whether to use italics for the headers. You
+#'   can enable a subset of these features, or just disable all of them by
+#'   \code{NULL}. When this argument is not used and the \code{tufte_variant}
+#'   argument is not \code{default}, no features are enabled.
+#' @param tufte_variant A variant of the Tufte style. Currently supported styles
+#'   are \code{default} (from the \code{tufte-css} project), and
+#'   \code{envisioned} (inspired by the project \code{Envisioned CSS}
+#'   \url{http://nogginfuel.com/envisioned-css/} but essentially just sets the
+#'   font family to \code{Roboto Condensed}, and changed the
+#'   background/foregroudn colors).
 #' @rdname tufte_handout
 #' @export
-tufte_html = function(...) {
+tufte_html = function(
+  ..., tufte_features = c('fonts', 'background', 'italics'),
+  tufte_variant = c('default', 'envisioned')
+) {
 
+  tufte_variant = match.arg(tufte_variant)
+  if (missing(tufte_features) && tufte_variant != 'default') tufte_features = character()
   html_document2 = function(..., extra_dependencies = list()) {
     rmarkdown::html_document(
-      ..., extra_dependencies = c(extra_dependencies, tufte_html_dependency())
+      ..., extra_dependencies = c(
+        extra_dependencies, tufte_html_dependency(tufte_features, tufte_variant)
+      )
     )
   }
   format = html_document2(theme = NULL, ...)
@@ -139,10 +159,13 @@ tufte_html = function(...) {
 }
 
 #' @importFrom htmltools htmlDependency
-tufte_html_dependency = function() {
+tufte_html_dependency = function(features, variant) {
   list(htmlDependency(
     'tufte-css', '2015.12.29',
-    src = template_resources('tufte_html'), stylesheet = 'tufte.css'
+    src = template_resources('tufte_html'), stylesheet = c(
+      sprintf('tufte-%s.css', features), 'tufte.css',
+      if (variant != 'default') sprintf('%s.css', variant)
+    )
   ))
 }
 
