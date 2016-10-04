@@ -16,16 +16,14 @@
 
 <title>Tufte Handout</title>
 
-<link href="index_files/tufte-css/tufte-fonts.css" rel="stylesheet" />
-<link href="index_files/tufte-css/tufte-background.css" rel="stylesheet" />
-<link href="index_files/tufte-css/tufte-italics.css" rel="stylesheet" />
-<link href="index_files/tufte-css/tufte.css" rel="stylesheet" />
+<link href="../index_files/tufte-css/tufte.css" rel="stylesheet" />
+<link href="../index_files/tufte-css/envisioned.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
-      href="index_files/highlight/default.css"
+      href="../index_files/highlight/default.css"
       type="text/css" />
-<script src="index_files/highlight/highlight.js"></script>
+<script src="../index_files/highlight/highlight.js"></script>
 <script type="text/javascript">
 if (window.hljs && document.readyState && document.readyState === "complete") {
    window.setTimeout(function() {
@@ -81,7 +79,7 @@ output:
 <p>Images and graphics play an integral role in Tufte’s work. To place figures in the margin you can use the <strong>knitr</strong> chunk option <code>fig.margin = TRUE</code>. For example:</p>
 <p>
 <span class="marginnote shownote"><!--
-<div class="figure">--> <img src="index_files/figure-html/fig-margin-1.png" alt="MPG vs horsepower, colored by transmission." width="336"  /> <!--
+<div class="figure">--> <img src="../index_files/figure-html/fig-margin-1.png" alt="MPG vs horsepower, colored by transmission." width="336"  /> <!--
 <p class="caption marginnote">-->MPG vs horsepower, colored by transmission.<!--</p>--> <!--</div>--></span>
 </p>
 <pre class="r"><code>library(ggplot2)
@@ -106,7 +104,7 @@ ggplot(mtcars2, aes(hp, mpg, color = am)) +
 <pre class="r"><code>ggplot(diamonds, aes(carat, price)) + geom_smooth() +
   facet_grid(~ cut)</code></pre>
 <div class="figure fullwidth">
-<img src="index_files/figure-html/fig-fullwidth-1.png" alt="A full width figure." width="960"  />
+<img src="../index_files/figure-html/fig-fullwidth-1.png" alt="A full width figure." width="960"  />
 <p class="caption marginnote shownote">
 A full width figure.
 </p>
@@ -121,7 +119,7 @@ A full width figure.
 <p class="caption marginnote shownote">
 A figure in the main column.
 </p>
-<img src="index_files/figure-html/fig-main-1.png" alt="A figure in the main column." width="672"  />
+<img src="../index_files/figure-html/fig-main-1.png" alt="A figure in the main column." width="672"  />
 </div>
 </div>
 </div>
@@ -242,7 +240,7 @@ p + geom_smooth()</code></pre>
 <p class="caption marginnote shownote">
 Two plots in one figure environment.
 </p>
-<img src="index_files/figure-html/fig-two-together-1.png" alt="Two plots in one figure environment." width="672"  /><img src="index_files/figure-html/fig-two-together-2.png" alt="Two plots in one figure environment." width="672"  />
+<img src="../index_files/figure-html/fig-two-together-1.png" alt="Two plots in one figure environment." width="672"  /><img src="index_files/figure-html/fig-two-together-2.png" alt="Two plots in one figure environment." width="672"  />
 </div>
 <p>Then two plots in separate figure environments (the code is identical to the previous code chunk, but the chunk option is the default <code>fig.show = 'asis'</code> now):</p>
 <pre class="r"><code>p &lt;- ggplot(mtcars2, aes(hp, mpg, color = am)) +
@@ -252,20 +250,20 @@ p</code></pre>
 <p class="caption marginnote shownote">
 Two plots in separate figure environments (the first plot).
 </p>
-<img src="index_files/figure-html/fig-two-separate-1.png" alt="Two plots in separate figure environments (the first plot)." width="672"  />
+<img src="../index_files/figure-html/fig-two-separate-1.png" alt="Two plots in separate figure environments (the first plot)." width="672"  />
 </div>
 <pre class="r"><code>p + geom_smooth()</code></pre>
 <div class="figure">
 <p class="caption marginnote shownote">
 Two plots in separate figure environments (the second plot).
 </p>
-<img src="index_files/figure-html/fig-two-separate-2.png" alt="Two plots in separate figure environments (the second plot)." width="672"  />
+<img src="../index_files/figure-html/fig-two-separate-2.png" alt="Two plots in separate figure environments (the second plot)." width="672"  />
 </div>
 <p>You may have noticed that the two figures have different captions, and that is because we used a character vector of length 2 for the chunk option <code>fig.cap</code> (something like <code>fig.cap = c('first plot', 'second plot')</code>).</p>
 <p>Next we show multiple plots in margin figures. Similarly, two plots in the same figure environment in the margin:</p>
 <p>
 <span class="marginnote shownote"><!--
-<div class="figure">--> <img src="index_files/figure-html/fig-margin-together-1.png" alt="Two plots in one figure environment in the margin." width="336"  /><img src="index_files/figure-html/fig-margin-together-2.png" alt="Two plots in one figure environment in the margin." width="336"  /> <!--
+<div class="figure">--> <img src="../index_files/figure-html/fig-margin-together-1.png" alt="Two plots in one figure environment in the margin." width="336"  /><img src="index_files/figure-html/fig-margin-together-2.png" alt="Two plots in one figure environment in the margin." width="336"  /> <!--
 <p class="caption marginnote">-->Two plots in one figure environment in the margin.<!--</p>--> <!--</div>--></span>
 </p>
 <pre class="r"><code>p
@@ -392,7 +390,7 @@ p + geom_smooth(method = &#39;lm&#39;)</code></pre>
 </table>
 <p>
 <span class="marginnote shownote"><!--
-<div class="figure">--> <img src="index_files/figure-html/fig-margin-separate-1.png" alt="Two plots in separate figure environments in the margin (the first plot)." width="336"  /> <!--
+<div class="figure">--> <img src="../index_files/figure-html/fig-margin-separate-1.png" alt="Two plots in separate figure environments in the margin (the first plot)." width="336"  /> <!--
 <p class="caption marginnote">-->Two plots in separate figure environments in the margin (the first plot).<!--</p>--> <!--</div>--></span>
 </p>
 <pre class="r"><code>p</code></pre>
@@ -496,7 +494,7 @@ p + geom_smooth(method = &#39;lm&#39;)</code></pre>
 </table>
 <p>
 <span class="marginnote shownote"><!--
-<div class="figure">--> <img src="index_files/figure-html/fig-margin-separate-2.png" alt="Two plots in separate figure environments in the margin (the second plot)." width="336"  /> <!--
+<div class="figure">--> <img src="../index_files/figure-html/fig-margin-separate-2.png" alt="Two plots in separate figure environments in the margin (the second plot)." width="336"  /> <!--
 <p class="caption marginnote">-->Two plots in separate figure environments in the margin (the second plot).<!--</p>--> <!--</div>--></span>
 </p>
 <pre class="r"><code>p + geom_smooth(method = &#39;lm&#39;)</code></pre>
@@ -553,7 +551,7 @@ p + geom_smooth(method = &#39;lm&#39;)</code></pre>
 <p>You do not have to assign captions to figures. We show three figures with no captions below in the margin, in the main column, and in full width, respectively.</p>
 <p>
 <span class="marginnote shownote"><!--
-<div class="figure">--> <img src="index_files/figure-html/fig-nocap-margin-1.png" alt=" " width="336"  /> <!--
+<div class="figure">--> <img src="../index_files/figure-html/fig-nocap-margin-1.png" alt=" " width="336"  /> <!--
 <p class="caption marginnote">--> <!--</p>--> <!--</div>--></span>
 </p>
 <pre class="r"><code># a boxplot of weight vs transmission; this figure
@@ -563,11 +561,11 @@ ggplot(mtcars2, aes(am, wt)) + geom_boxplot() +
 <pre class="r"><code># a figure in the main column
 p &lt;- ggplot(mtcars, aes(wt, hp)) + geom_point()
 p</code></pre>
-<p><img src="index_files/figure-html/fig-nocap-main-1.png" width="672"  /></p>
+<p><img src="../index_files/figure-html/fig-nocap-main-1.png" width="672"  /></p>
 <pre class="r"><code># a fullwidth figure
 p + geom_smooth(method = &#39;lm&#39;) + facet_grid(~ gear)</code></pre>
 <div class="figure fullwidth">
-<img src="index_files/figure-html/fig-nocap-fullwidth-1.png" alt=" " width="960"  />
+<img src="../index_files/figure-html/fig-nocap-fullwidth-1.png" alt=" " width="960"  />
 <p class="caption marginnote shownote">
 </p>
 </div>
