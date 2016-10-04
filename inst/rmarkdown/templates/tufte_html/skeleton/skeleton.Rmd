@@ -250,6 +250,8 @@ file.edit(
 )
 ```
 
+This document is also available in [Chinese](http://rstudio.github.io/tufte/cn/), and its `envisioned` style can be found [here](http://rstudio.github.io/tufte/envisioned/).
+
 ```{r bib, include=FALSE}
 # create a bib file for the R packages used in this document
 knitr::write_bib(c('base', 'rmarkdown'), file = 'skeleton.bib')
