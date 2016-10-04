@@ -15,7 +15,8 @@ tufte_handout(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "pdf",
 tufte_book(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "pdf", 
     highlight = "default", ...)
 
-tufte_html(...)
+tufte_html(..., tufte_features = c("fonts", "background", "italics"), 
+    tufte_variant = c("default", "envisioned"))
 
 newthought(text)
 
@@ -43,6 +44,21 @@ sans_serif(text)
 \code{\link{html_document}} (note you cannot use the \code{template}
 argument in \code{tufte_handout} or the \code{theme} argument in
 \code{tufte_html()}; these arguments have been set internally)}
+
+\item{tufte_features}{A character vector of the CSS features to enable:
+\code{fonts} stands for the \code{et-book} fonts in the \code{tufte-css}
+project, \code{background} means the lightyellow background color of the
+page, and \code{italics} means whether to use italics for the headers. You
+can enable a subset of these features, or just disable all of them by
+\code{NULL}. When this argument is not used and the \code{tufte_variant}
+argument is not \code{default}, no features are enabled.}
+
+\item{tufte_variant}{A variant of the Tufte style. Currently supported styles
+are \code{default} (from the \code{tufte-css} project), and
+\code{envisioned} (inspired by the project \code{Envisioned CSS}
+\url{http://nogginfuel.com/envisioned-css/} but essentially just sets the
+font family to \code{Roboto Condensed}, and changed the
+background/foregroudn colors).}
 
 \item{text}{A character string to be presented as a \dQuote{new thought}
 (using small caps), or a margin note, or a footer of a quote}
