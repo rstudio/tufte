@@ -194,6 +194,8 @@ parse_footnotes = function(x) {
 margin_references = function(x) {
   i = which(x == '<div id="refs" class="references">')
   if (length(i) != 1) return(x)
+  # link-citations: no
+  if (length(grep('<a href="#ref-[^"]+">([^<]+)</a>', x)) == 0) return(x)
   r = '^<div id="(ref-[^"]+)">$'
   k = grep(r, x)
   k = k[k > i]

@@ -6,6 +6,10 @@
 
 - A new variant of the Tufte style, `envisioned`, is added to `tufte_html()`. You can use `tufte_html(tufte_variant = 'envisioned')` to enable this style. The major difference with the default Tufte style is: the font family is `Roboto Condensed`, the background color is `#fefefe`, and the text color is `#222` (thanks, @eddelbuettel, #21).
 
+## BUG FIXES
+
+- when `link-citations: no` in YAML, citations should not be moved into the page margin in the HTML output (http://stackoverflow.com/q/39053097/559676)
+
 # CHANGES IN tufte VERSION 0.2
 
 ## NEW FEATURES
