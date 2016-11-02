@@ -122,7 +122,7 @@ $endif$
 
 % title / author / date
 $if(title)$
-\title{$title$}
+\title$if(runtitle)$[runtitle]$endif${$title$}
 $endif$
 $if(author)$
 \author{$for(author)$$author$$sep$ \and $endfor$}
