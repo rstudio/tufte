@@ -10,6 +10,8 @@
 
 - when `link-citations: no` in YAML, citations should not be moved into the page margin in the HTML output (http://stackoverflow.com/q/39053097/559676)
 
+- horizontal lines could bisect margin notes and footnotes (thanks, @ajdamico, #32)
+
 # CHANGES IN tufte VERSION 0.2
 
 ## NEW FEATURES

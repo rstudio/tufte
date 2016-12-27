@@ -147,7 +147,8 @@ img {max-width: 100%;}
                          top: -0.5rem;
                          left: 0.1rem; }
 
-p, footer, table { width: 55%; }
+p, footer, table, hr { width: 55%; }
+hr { margin-left: 0; }
 table table, li p, li pre { width: auto; }
 li p, li pre {margin-top: auto; }
 
@@ -163,7 +164,7 @@ div.fullwidth p.caption {
 
 p.caption { text-align: left; }
 
-@media screen and (max-width: 760px) { p, footer, ol, ul, table { width: 90%; }
+@media screen and (max-width: 760px) { p, footer, ol, ul, table, hr { width: 90%; }
                                        pre { width: 87.5%; }
                                        ul { width: 85%; }
                                        figure { max-width: 90%; }
