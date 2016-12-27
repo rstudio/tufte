@@ -12,7 +12,7 @@
 
 <meta name="author" content="JJ Allaire and Yihui Xie" />
 
-<meta name="date" content="2016-10-04" />
+<meta name="date" content="2016-12-27" />
 
 <title>Tufte Handout</title>
 
@@ -20,12 +20,10 @@
 <link href="index_files/tufte-css/tufte-background.css" rel="stylesheet" />
 <link href="index_files/tufte-css/tufte-italics.css" rel="stylesheet" />
 <link href="index_files/tufte-css/tufte.css" rel="stylesheet" />
+<link href="index_files/highlightjs/default.css" rel="stylesheet" />
+<script src="index_files/highlightjs/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="index_files/highlight/default.css"
-      type="text/css" />
-<script src="index_files/highlight/highlight.js"></script>
 <script type="text/javascript">
 if (window.hljs && document.readyState && document.readyState === "complete") {
    window.setTimeout(function() {
@@ -48,13 +46,13 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h1 class="title toc-ignore">Tufte Handout</h1>
 <h3 class="subtitle"><em>An implementation in R Markdown</em></h3>
 <h4 class="author"><em>JJ Allaire and Yihui Xie</em></h4>
-<h4 class="date"><em>2016-10-04</em></h4>
+<h4 class="date"><em>2016-12-27</em></h4>
 
 
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>The Tufte handout style is a style that Edward Tufte uses in his books and handouts. Tufte’s style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. This style has been implemented in LaTeX and HTML/CSS<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> See Github repositories <a href="https://github.com/tufte-latex/tufte-latex">tufte-latex</a> and <a href="https://github.com/edwardtufte/tufte-css">tufte-css</a></span>, respectively. We have ported both implementations into the <a href="https://github.com/rstudio/tufte"><strong>tufte</strong> package</a>. If you want LaTeX/PDF output, you may use the <code>tufte_handout</code> format for handouts, and <code>tufte_book</code> for books. For HTML output, use <code>tufte_html</code>. These formats can be either specified in the YAML metadata at the beginning of an R Markdown document (see an example below), or passed to the <code>rmarkdown::render()</code> function. See <span class="citation">Allaire et al. (<label for="tufte-mn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle">2016<span class="marginnote">Allaire, JJ, Joe Cheng, Yihui Xie, Jonathan McPherson, Winston Chang, Jeff Allen, Hadley Wickham, Aron Atkins, and Rob Hyndman. 2016. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</span>)</span> more information about <strong>rmarkdown</strong>.</p>
+<p>The Tufte handout style is a style that Edward Tufte uses in his books and handouts. Tufte’s style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. This style has been implemented in LaTeX and HTML/CSS<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> See Github repositories <a href="https://github.com/tufte-latex/tufte-latex">tufte-latex</a> and <a href="https://github.com/edwardtufte/tufte-css">tufte-css</a></span>, respectively. We have ported both implementations into the <a href="https://github.com/rstudio/tufte"><strong>tufte</strong> package</a>. If you want LaTeX/PDF output, you may use the <code>tufte_handout</code> format for handouts, and <code>tufte_book</code> for books. For HTML output, use <code>tufte_html</code>. These formats can be either specified in the YAML metadata at the beginning of an R Markdown document (see an example below), or passed to the <code>rmarkdown::render()</code> function. See <span class="citation">Allaire et al. (<label for="tufte-mn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle">2016<span class="marginnote">Allaire, JJ, Joe Cheng, Yihui Xie, Jonathan McPherson, Winston Chang, Jeff Allen, Hadley Wickham, Aron Atkins, and Rob Hyndman. 2016. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="https://CRAN.R-project.org/package=rmarkdown" class="uri">https://CRAN.R-project.org/package=rmarkdown</a>.</span>)</span> more information about <strong>rmarkdown</strong>.</p>
 <pre class="yaml"><code>---
 title: &quot;An Example Using the Tufte Style&quot;
 author: &quot;John Smith&quot;
@@ -65,7 +63,7 @@ output:
 <p>There are two goals of this package:</p>
 <ol style="list-style-type: decimal">
 <li>To produce both PDF and HTML output with similar styles from the same R Markdown document;</li>
-<li>To provide simple syntax to write elements of the Tufte style such as side notes and margin figures, e.g. when you want a margin figure, all you need to do is the chunk option <code>fig.margin = TRUE</code>, and we will take care of the deails for you, so you never need to think about <code>\begin{marginfigure} \end{marginfigure}</code> or <code>&lt;span class=&quot;marginfigure&quot;&gt; &lt;/span&gt;</code>; the LaTeX and HTML code under the hood may be complicated, but you never need to learn or write such code.</li>
+<li>To provide simple syntax to write elements of the Tufte style such as side notes and margin figures, e.g. when you want a margin figure, all you need to do is the chunk option <code>fig.margin = TRUE</code>, and we will take care of the details for you, so you never need to think about <code>\begin{marginfigure} \end{marginfigure}</code> or <code>&lt;span class=&quot;marginfigure&quot;&gt; &lt;/span&gt;</code>; the LaTeX and HTML code under the hood may be complicated, but you never need to learn or write such code.</li>
 </ol>
 <p>If you have any feature requests or find bugs in <strong>tufte</strong>, please do not hesitate to file them to <a href="https://github.com/rstudio/tufte/issues" class="uri">https://github.com/rstudio/tufte/issues</a>. For general questions, you may ask them on StackOverflow: <a href="http://stackoverflow.com/tags/rmarkdown" class="uri">http://stackoverflow.com/tags/rmarkdown</a>.</p>
 </div>
@@ -99,6 +97,7 @@ ggplot(mtcars2, aes(hp, mpg, color = am)) +
 <p>In fact, you can include anything in the margin using the <strong>knitr</strong> engine named <code>marginfigure</code>. Unlike R code chunks <code>```{r}</code>, you write a chunk starting with <code>```{marginfigure}</code> instead, then put the content in the chunk. See an example on the right about the first fundamental theorem of calculus.</p>
 <p><label for="tufte-mn-2" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-2" class="margin-toggle"><span class="marginnote"><span style="display: block;">We know from <em>the first fundamental theorem of calculus</em> that for <span class="math inline"><em>x</em></span> in <span class="math inline">[<em>a</em>, <em>b</em>]</span>: <br /><span class="math display"><span class="math display">\[\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).\]</span></span><br /></span></span></p>
 <p>For the sake of portability between LaTeX and HTML, you should keep the margin content as simple as possible (syntax-wise) in the <code>marginefigure</code> blocks. You may use simple Markdown syntax like <code>**bold**</code> and <code>_italic_</code> text, but please refrain from using footnotes, citations, or block-level elements (e.g. blockquotes and lists) there.</p>
+<p>Note: if you set <code>echo = FALSE</code> in your global chunk options, you will have to add <code>echo = TRUE</code> to the chunk to display a margin figure, for example <code>```{marginfigure, echo = TRUE}</code>.</p>
 </div>
 <div id="full-width-figures" class="section level2">
 <h2>Full Width Figures</h2>

@@ -12,7 +12,7 @@
 
 <meta name="author" content="JJ Allaire，谢益辉" />
 
-<meta name="date" content="2016-10-04" />
+<meta name="date" content="2016-12-27" />
 
 <title>Tufte样式</title>
 
@@ -20,12 +20,10 @@
 <link href="../index_files/tufte-css/tufte-background.css" rel="stylesheet" />
 <link href="../index_files/tufte-css/tufte-italics.css" rel="stylesheet" />
 <link href="../index_files/tufte-css/tufte.css" rel="stylesheet" />
+<link href="../index_files/highlightjs/default.css" rel="stylesheet" />
+<script src="../index_files/highlightjs/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="../index_files/highlight/default.css"
-      type="text/css" />
-<script src="../index_files/highlight/highlight.js"></script>
 <script type="text/javascript">
 if (window.hljs && document.readyState && document.readyState === "complete") {
    window.setTimeout(function() {
@@ -48,13 +46,13 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h1 class="title toc-ignore">Tufte样式</h1>
 <h3 class="subtitle"><em>一个R Markdown实现</em></h3>
 <h4 class="author"><em>JJ Allaire，谢益辉</em></h4>
-<h4 class="date"><em>2016-10-04</em></h4>
+<h4 class="date"><em>2016-12-27</em></h4>
 
 
 
 <div class="section level1">
 <h1>引言</h1>
-<p>Tufte样式在Edward Tufte的书以及物理学家费曼的教科书很常见，它的一个显著特点就是边栏的使用。例如脚注和边栏注解，以及放在边栏里的小型插图。Tufte样式在LaTeX和HTML/CSS中都有实现<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> 参见Github库<a href="https://github.com/tufte-latex/tufte-latex">tufte-latex</a>和 <a href="https://github.com/edwardtufte/tufte-css">tufte-css</a></span>。我们将这两种实现都纳入了<a href="https://github.com/rstudio/tufte"><strong>tufte</strong>包</a>。若需要LaTeX/PDF输出，使用输出格式<code>tufte_handout</code>即可，类似地，<code>tufte_book</code>可以用来输出PDF书，<code>tufte_html</code>生成HTML网页。这些输出格式可以在YAML元数据中指定，或者传给<code>rmarkdown::render()</code>函数。若对<strong>rmarkdown</strong>包不熟悉，可参见 <span class="citation">Allaire et al. (<label for="tufte-mn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle">2016<span class="marginnote">Allaire, JJ, Joe Cheng, Yihui Xie, Jonathan McPherson, Winston Chang, Jeff Allen, Hadley Wickham, Aron Atkins, and Rob Hyndman. 2016. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</span>)</span>。</p>
+<p>Tufte样式在Edward Tufte的书以及物理学家费曼的教科书很常见，它的一个显著特点就是边栏的使用。例如脚注和边栏注解，以及放在边栏里的小型插图。Tufte样式在LaTeX和HTML/CSS中都有实现<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> 参见Github库<a href="https://github.com/tufte-latex/tufte-latex">tufte-latex</a>和 <a href="https://github.com/edwardtufte/tufte-css">tufte-css</a></span>。我们将这两种实现都纳入了<a href="https://github.com/rstudio/tufte"><strong>tufte</strong>包</a>。若需要LaTeX/PDF输出，使用输出格式<code>tufte_handout</code>即可，类似地，<code>tufte_book</code>可以用来输出PDF书，<code>tufte_html</code>生成HTML网页。这些输出格式可以在YAML元数据中指定，或者传给<code>rmarkdown::render()</code>函数。若对<strong>rmarkdown</strong>包不熟悉，可参见 <span class="citation">Allaire et al. (<label for="tufte-mn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle">2016<span class="marginnote">Allaire, JJ, Joe Cheng, Yihui Xie, Jonathan McPherson, Winston Chang, Jeff Allen, Hadley Wickham, Aron Atkins, and Rob Hyndman. 2016. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="https://CRAN.R-project.org/package=rmarkdown" class="uri">https://CRAN.R-project.org/package=rmarkdown</a>.</span>)</span>。</p>
 <pre class="yaml"><code>---
 title: &quot;一个Tufte样式示例&quot;
 author: &quot;张三&quot;
