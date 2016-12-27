@@ -50,7 +50,7 @@ Tufte样式不主张太深的章节目录，一般仅仅使用一级标题（Mar
 
 插图在Tufte的书中非常常见，我们可以使用三种插图：边栏图、全宽图、主栏图。先说边栏图：使用**knitr**代码段选项`fig.margin = TRUE`即可将图形放置在边栏中，如：
 
-```{r fig-margin, fig.margin = TRUE, fig.cap = "MPG与horsepower两个变量的散点图；颜色代表自动挡或手动挡。", fig.width=3.5, fig.height=3.5, cache=TRUE}
+```{r fig-margin, fig.margin = TRUE, fig.cap = "MPG与horsepower两个变量的散点图；颜色代表自动挡或手动挡。", fig.width=3.5, fig.height=3.5, cache=TRUE, message=FALSE}
 library(ggplot2)
 mtcars2 <- mtcars
 mtcars2$am <- factor(
@@ -78,7 +78,7 @@ $$\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).$$
 
 代码段选项`fig.fullwidth = TRUE`可以使得一幅图占用全部页宽，例如：
 
-```{r fig-fullwidth, fig.width = 10, fig.height = 2, fig.fullwidth = TRUE, fig.cap = "一幅全宽图形。", warning=FALSE, cache=TRUE}
+```{r fig-fullwidth, fig.width = 10, fig.height = 2, fig.fullwidth = TRUE, fig.cap = "一幅全宽图形。", warning=FALSE, cache=TRUE, message=FALSE}
 ggplot(diamonds, aes(carat, price)) + geom_smooth() +
   facet_grid(~ cut)
 ```
