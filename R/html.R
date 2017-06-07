@@ -48,7 +48,7 @@ tufte_html = function(
     knitr::opts_hooks$restore(ohooks)
 
     x = readUTF8(output)
-    fn_label = paste0(knitr::opts_knit$get("rmarkdown.pandoc.id_prefix"), "fn")
+    fn_label = paste0(knitr::opts_knit$get('rmarkdown.pandoc.id_prefix'), 'fn')
     footnotes = parse_footnotes(x, fn_label)
     notes = footnotes$items
     # replace footnotes with sidenotes
@@ -178,14 +178,16 @@ tufte_html_dependency = function(features, variant) {
 
 # we assume one footnote only contains one paragraph here, although it is
 # possible to write multiple paragraphs in a footnote with Pandoc's Markdown
-parse_footnotes = function(x, fn_label = "fn") {
+parse_footnotes = function(x, fn_label = 'fn') {
   i = which(x == '<div class="footnotes">')
   if (length(i) == 0) return(list(items = character(), range = integer()))
   j = which(x == '</div>')
   j = min(j[j > i])
   n = length(x)
-  r = sprintf('<li id="%s([0-9]+)"><p>(.+)<a href="#%sref\\1">.</a></p></li>',
-              fn_label, fn_label)
+  r = sprintf(
+    '<li id="%s([0-9]+)"><p>(.+)<a href="#%sref\\1">.</a></p></li>',
+    fn_label, fn_label
+  )
   list(
     items = gsub(r, '\\2', grep(r, x[i:n], value = TRUE)),
     range = i:j
