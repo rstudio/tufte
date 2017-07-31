@@ -83,7 +83,7 @@ ggplot(diamonds, aes(carat, price)) + geom_smooth() +
   facet_grid(~ cut)
 ```
 
-其它和图形有关的代码段选项仍然可以使用，一般情况下，全款图形的`fig.width`选项会较大，而`fig.height`相对较小。上图的尺寸是$10 \times 2$英寸.
+其它和图形有关的代码段选项仍然可以使用，一般情况下，全宽图形的`fig.width`选项会较大，而`fig.height`相对较小。上图的尺寸是$10 \times 2$英寸.
 
 ## 主栏插图
 
