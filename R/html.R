@@ -1,6 +1,6 @@
 #' @details \code{tufte_html()} provides the HTML format based on the Tufte CSS:
 #'   \url{https://edwardtufte.github.io/tufte-css/}.
-#' @param tufte_features A character vector of the CSS features to enable:
+#' @param tufte_features A character vector of the \code{tufte_html()} features to enable:
 #'   \code{fonts} stands for the \code{et-book} fonts in the \code{tufte-css}
 #'   project, \code{background} means the lightyellow background color of the
 #'   page, \code{italics} means whether to use italics for the headers, and
