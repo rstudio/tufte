@@ -3,7 +3,8 @@
 #' @param tufte_features A character vector of the CSS features to enable:
 #'   \code{fonts} stands for the \code{et-book} fonts in the \code{tufte-css}
 #'   project, \code{background} means the lightyellow background color of the
-#'   page, and \code{italics} means whether to use italics for the headers. You
+#'   page, \code{italics} means whether to use italics for the headers, and
+#'   \code{margin_references} places citations in margin notes. You
 #'   can enable a subset of these features, or just disable all of them by
 #'   \code{NULL}. When this argument is not used and the \code{tufte_variant}
 #'   argument is not \code{default}, no features are enabled.
@@ -16,7 +17,7 @@
 #' @rdname tufte_handout
 #' @export
 tufte_html = function(
-  ..., tufte_features = c('fonts', 'background', 'italics'),
+  ..., tufte_features = c('fonts', 'background', 'italics', 'margin_references'),
   tufte_variant = c('default', 'envisioned')
 ) {
 
@@ -68,7 +69,8 @@ tufte_html = function(
     if (length(footnotes$range)) x = x[-footnotes$range]
 
     # replace citations with margin notes
-    x = margin_references(x)
+    if ('margin_references' %in% tufte_features)
+      x = margin_references(x)
 
     # place figure captions in margin notes
     x[x == '<p class="caption">'] = '<p class="caption marginnote shownote">'

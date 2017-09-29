@@ -16,8 +16,8 @@ tufte_handout(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "pdf",
 tufte_book(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "pdf", 
     highlight = "default", ...)
 
-tufte_html(..., tufte_features = c("fonts", "background", "italics"), 
-    tufte_variant = c("default", "envisioned"))
+tufte_html(..., tufte_features = c("fonts", "background", "italics", 
+    "margin_references"), tufte_variant = c("default", "envisioned"))
 
 newthought(text)
 
@@ -49,7 +49,8 @@ argument in \code{tufte_handout} or the \code{theme} argument in
 \item{tufte_features}{A character vector of the CSS features to enable:
 \code{fonts} stands for the \code{et-book} fonts in the \code{tufte-css}
 project, \code{background} means the lightyellow background color of the
-page, and \code{italics} means whether to use italics for the headers. You
+page, \code{italics} means whether to use italics for the headers, and
+\code{margin_references} places citations in margin notes. You
 can enable a subset of these features, or just disable all of them by
 \code{NULL}. When this argument is not used and the \code{tufte_variant}
 argument is not \code{default}, no features are enabled.}
