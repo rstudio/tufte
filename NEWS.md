@@ -2,7 +2,11 @@
 
 ## NEW FEATURES
 
-- It is possible to select a subset of some features of the default Tufte style (`tufte-css`) via the `tufte_features` argument of `tufte_html()`. For example, you can disable the `et-book` fonts and the background color.
+- It is possible to select a subset of some features of the default Tufte style (`tufte-css`) via the `tufte_features` argument of `tufte_html()`. 
+    - You can disable the `et-book` fonts 
+    - Remove the default light-yellow background color
+    - Use italics for document headers or not
+    - Choose whether references from citations should be placed in the document margins or at the bottom
 
 - A new variant of the Tufte style, `envisioned`, is added to `tufte_html()`. You can use `tufte_html(tufte_variant = 'envisioned')` to enable this style. The major difference with the default Tufte style is: the font family is `Roboto Condensed`, the background color is `#fefefe`, and the text color is `#222` (thanks, @eddelbuettel, #21).
 
