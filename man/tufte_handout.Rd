@@ -46,7 +46,7 @@ sans_serif(text)
 argument in \code{tufte_handout} or the \code{theme} argument in
 \code{tufte_html()}; these arguments have been set internally)}
 
-\item{tufte_features}{A character vector of the \code{tufte_html()} features to enable:
+\item{tufte_features}{A character vector of style features to enable:
 \code{fonts} stands for the \code{et-book} fonts in the \code{tufte-css}
 project, \code{background} means the lightyellow background color of the
 page, \code{italics} means whether to use italics for the headers, and
