@@ -3,6 +3,7 @@
 ## NEW FEATURES
 
 - It is possible to select a subset of some features of the default Tufte style (`tufte-css`) via the `tufte_features` argument of `tufte_html()`. 
+
     - You can disable the `et-book` fonts 
     - Remove the default light-yellow background color
     - Use italics for document headers or not
