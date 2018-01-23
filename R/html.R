@@ -31,6 +31,7 @@ tufte_html = function(
     )
   }
   format = html_document2(theme = NULL, ...)
+  pandoc2 = pandoc2.0()
 
   # when fig.margin = TRUE, set fig.beforecode = TRUE so plots are moved before
   # code blocks, and they can be top-aligned
@@ -55,8 +56,8 @@ tufte_html = function(
     # replace footnotes with sidenotes
     for (i in seq_along(notes)) {
       num = sprintf(
-        '<a href="#%s%d" class="footnoteRef" id="%sref%d"><sup>%d</sup></a>',
-        fn_label, i, fn_label, i, i
+        '<a href="#%s%d" class="%s" id="%sref%d"><sup>%d</sup></a>',
+        fn_label, i, if (pandoc2) 'footnote-ref' else 'footnoteRef', fn_label, i, i
       )
       con = sprintf(paste0(
         '<label for="tufte-sn-%d" class="margin-toggle sidenote-number">%d</label>',
@@ -186,7 +187,7 @@ parse_footnotes = function(x, fn_label = 'fn') {
   j = min(j[j > i])
   n = length(x)
   r = sprintf(
-    '<li id="%s([0-9]+)"><p>(.+)<a href="#%sref\\1">.</a></p></li>',
+    '<li id="%s([0-9]+)"><p>(.+)<a href="#%sref\\1"([^>]*)>.</a></p></li>',
     fn_label, fn_label
   )
   list(

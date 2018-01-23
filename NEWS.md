@@ -14,9 +14,11 @@
 
 ## BUG FIXES
 
-- when `link-citations: no` in YAML, citations should not be moved into the page margin in the HTML output (http://stackoverflow.com/q/39053097/559676)
+- When `link-citations: no` in YAML, citations should not be moved into the page margin in the HTML output (http://stackoverflow.com/q/39053097/559676).
 
-- horizontal lines could bisect margin notes and footnotes (thanks, @ajdamico, #32)
+- Horizontal lines could bisect margin notes and footnotes (thanks, @ajdamico, #32).
+
+- Compatibility issues with Pandoc 2.0 (thanks, @peetCreative, #51).
 
 # CHANGES IN tufte VERSION 0.2
 
