@@ -142,7 +142,7 @@ tufte_html = function(
       res = gsub_fixed('</div>', '<!--</div>--></span></p>', res)
       res = gsub_fixed(
         '<div class="figure">', paste0(
-          '<p>', '<span class="marginnote shownote">', '<!--\n<div class="figure">-->'
+          '<p>', '<span class="marginnote shownote">', '\n<!--\n<div class="figure">-->'
         ), res
       )
     } else if (fig_fullwd) {
