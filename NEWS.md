@@ -1,4 +1,4 @@
-# CHANGES IN tufte VERSION 0.3 (unreleased)
+# CHANGES IN tufte VERSION 0.3
 
 ## NEW FEATURES
 
