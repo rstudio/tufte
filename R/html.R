@@ -49,7 +49,7 @@ tufte_html = function(
 
     knitr::opts_hooks$restore(ohooks)
 
-    x = readUTF8(output)
+    x = xfun::read_utf8(output)
     fn_label = paste0(knitr::opts_knit$get('rmarkdown.pandoc.id_prefix'), 'fn')
     footnotes = parse_footnotes(x, fn_label)
     notes = footnotes$items
@@ -119,7 +119,7 @@ tufte_html = function(
     i = grep(r, x)
     x[i] = gsub(r, '<footer>\\1</footer>', x[i])
 
-    writeUTF8(x, output)
+    xfun::write_utf8(x, output)
     output
   }
 
