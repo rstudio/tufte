@@ -1,3 +1,9 @@
+# CHANGES IN tufte VERSION 0.4 (unreleased)
+
+## BUG FIXES
+
+- Should use the Pandoc argument `--top-level-division=chapter` instead of `--chapters` for `tufte_book()` (thanks, @jtth, #52).
+
 # CHANGES IN tufte VERSION 0.3
 
 ## NEW FEATURES
