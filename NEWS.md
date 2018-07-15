@@ -1,8 +1,10 @@
-# CHANGES IN tufte VERSION 0.4 (unreleased)
+# CHANGES IN tufte VERSION 0.4
 
 ## BUG FIXES
 
 - Should use the Pandoc argument `--top-level-division=chapter` instead of `--chapters` for `tufte_book()` (thanks, @jtth, #52).
+
+- Processing of multi-line footnotes fails with the Pandoc option `--wrap preserve` (thanks, @aoles, #57 #58).
 
 # CHANGES IN tufte VERSION 0.3
 
