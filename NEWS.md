@@ -1,3 +1,7 @@
+# CHANGES IN tufte VERSION 0.6
+
+
+
 # CHANGES IN tufte VERSION 0.5
 
 ## BUG FIXES
