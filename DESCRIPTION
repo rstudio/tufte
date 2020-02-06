@@ -7,7 +7,7 @@ Authors@R: c(
     person("JJ", "Allaire", role = "aut"),
     person("Andrzej", "Oles", role = "ctb"),
     person("Dave", "Liepmann", role = "ctb", comment = "Tufte CSS in inst/rmarkdown/templates/tufte_html/resources"),
-    person(family = "RStudio, Inc.", role = "cph")
+    person(family = "RStudio, PBC", role = "cph")
     )
 Maintainer: Yihui Xie <xie@yihui.name>
 Description: Provides R Markdown output formats to use Tufte styles for PDF and HTML output.
