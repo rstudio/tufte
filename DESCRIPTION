@@ -1,7 +1,7 @@
 Package: tufte
 Type: Package
 Title: Tufte's Styles for R Markdown Documents
-Version: 0.5.1
+Version: 0.5.2
 Authors@R: c(
     person("Yihui", "Xie", role = c("aut", "cre"), email = "xie@yihui.name", comment = c(ORCID = "0000-0003-0645-5666")),
     person("JJ", "Allaire", role = "aut"),
@@ -20,4 +20,4 @@ Imports:
     xfun (>= 0.6),
     knitr (>= 1.22),
     rmarkdown (>= 1.12)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
