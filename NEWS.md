@@ -1,6 +1,8 @@
 # CHANGES IN tufte VERSION 0.6
 
+## BUG FIXES
 
+- Footnotes no longer work with Pandoc >= 2.7 (thanks, @grimbough, #76).
 
 # CHANGES IN tufte VERSION 0.5
 
