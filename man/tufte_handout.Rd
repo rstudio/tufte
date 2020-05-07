@@ -10,14 +10,30 @@
 \alias{sans_serif}
 \title{Tufte handout formats (PDF and HTML)}
 \usage{
-tufte_handout(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "pdf", 
-    highlight = "default", ...)
+tufte_handout(
+  fig_width = 4,
+  fig_height = 2.5,
+  fig_crop = TRUE,
+  dev = "pdf",
+  highlight = "default",
+  ...
+)
 
-tufte_book(fig_width = 4, fig_height = 2.5, fig_crop = TRUE, dev = "pdf", 
-    highlight = "default", ...)
+tufte_book(
+  fig_width = 4,
+  fig_height = 2.5,
+  fig_crop = TRUE,
+  dev = "pdf",
+  highlight = "default",
+  ...
+)
 
-tufte_html(..., tufte_features = c("fonts", "background", "italics"), 
-    tufte_variant = c("default", "envisioned"), margin_references = TRUE)
+tufte_html(
+  ...,
+  tufte_features = c("fonts", "background", "italics"),
+  tufte_variant = c("default", "envisioned"),
+  margin_references = TRUE
+)
 
 newthought(text)
 
