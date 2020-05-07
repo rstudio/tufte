@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="JJ Allaire and Yihui Xie" />
 
-<meta name="date" content="2018-01-23" />
+<meta name="date" content="2020-05-07" />
 
 <title>Tufte Handout</title>
 
@@ -38,6 +38,9 @@ if (window.hljs) {
 
 
 
+
+
+
 </head>
 
 <body>
@@ -46,15 +49,15 @@ if (window.hljs) {
 
 
 <h1 class="title toc-ignore">Tufte Handout</h1>
-<h3 class="subtitle"><em>An implementation in R Markdown</em></h3>
-<h4 class="author"><em>JJ Allaire and Yihui Xie</em></h4>
-<h4 class="date"><em>2018-01-23</em></h4>
+<h3 class="subtitle">An implementation in R Markdown</h3>
+<h4 class="author">JJ Allaire and Yihui Xie</h4>
+<h4 class="date">2020-05-07</h4>
 
 
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>The Tufte handout style is a style that Edward Tufte uses in his books and handouts. Tufte’s style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. This style has been implemented in LaTeX and HTML/CSS<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> See Github repositories <a href="https://github.com/tufte-latex/tufte-latex">tufte-latex</a> and <a href="https://github.com/edwardtufte/tufte-css">tufte-css</a></span>, respectively. We have ported both implementations into the <a href="https://github.com/rstudio/tufte"><strong>tufte</strong> package</a>. If you want LaTeX/PDF output, you may use the <code>tufte_handout</code> format for handouts, and <code>tufte_book</code> for books. For HTML output, use <code>tufte_html</code>. These formats can be either specified in the YAML metadata at the beginning of an R Markdown document (see an example below), or passed to the <code>rmarkdown::render()</code> function. See <span class="citation">Allaire et al. (<label for="tufte-mn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle">2018<span class="marginnote">Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, and Winston Chang. 2018. <em>Rmarkdown: Dynamic Documents for R</em>.</span>)</span> more information about <strong>rmarkdown</strong>.</p>
+<p>The Tufte handout style is a style that Edward Tufte uses in his books and handouts. Tufte’s style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. This style has been implemented in LaTeX and HTML/CSS<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> See Github repositories <a href="https://github.com/tufte-latex/tufte-latex">tufte-latex</a> and <a href="https://github.com/edwardtufte/tufte-css">tufte-css</a></span>, respectively. We have ported both implementations into the <a href="https://github.com/rstudio/tufte"><strong>tufte</strong> package</a>. If you want LaTeX/PDF output, you may use the <code>tufte_handout</code> format for handouts, and <code>tufte_book</code> for books. For HTML output, use <code>tufte_html</code>. These formats can be either specified in the YAML metadata at the beginning of an R Markdown document (see an example below), or passed to the <code>rmarkdown::render()</code> function. See <span class="citation">Allaire et al. (<label for="tufte-mn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle">2020<span class="marginnote">Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2020. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>.</span>)</span> for more information about <strong>rmarkdown</strong>.</p>
 <pre class="yaml"><code>---
 title: &quot;An Example Using the Tufte Style&quot;
 author: &quot;John Smith&quot;
@@ -65,7 +68,7 @@ output:
 <p>There are two goals of this package:</p>
 <ol style="list-style-type: decimal">
 <li>To produce both PDF and HTML output with similar styles from the same R Markdown document;</li>
-<li>To provide simple syntax to write elements of the Tufte style such as side notes and margin figures, e.g. when you want a margin figure, all you need to do is the chunk option <code>fig.margin = TRUE</code>, and we will take care of the details for you, so you never need to think about <code>\begin{marginfigure} \end{marginfigure}</code> or <code>&lt;span class=&quot;marginfigure&quot;&gt; &lt;/span&gt;</code>; the LaTeX and HTML code under the hood may be complicated, but you never need to learn or write such code.</li>
+<li>To provide simple syntax to write elements of the Tufte style such as side notes and margin figures, e.g. when you want a margin figure, all you need to do is the chunk option <code>fig.margin = TRUE</code>, and we will take care of the details for you, so you never need to think about <code>\begin{marginfigure} \end{marginfigure}</code> or <code>&lt;span class="marginfigure"&gt; &lt;/span&gt;</code>; the LaTeX and HTML code under the hood may be complicated, but you never need to learn or write such code.</li>
 </ol>
 <p>If you have any feature requests or find bugs in <strong>tufte</strong>, please do not hesitate to file them to <a href="https://github.com/rstudio/tufte/issues" class="uri">https://github.com/rstudio/tufte/issues</a>. For general questions, you may ask them on StackOverflow: <a href="http://stackoverflow.com/tags/rmarkdown" class="uri">http://stackoverflow.com/tags/rmarkdown</a>.</p>
 </div>
@@ -114,6 +117,17 @@ A full width figure.
 </div>
 <p>Other chunk options related to figures can still be used, such as <code>fig.width</code>, <code>fig.cap</code>, <code>out.width</code>, and so on. For full width figures, usually <code>fig.width</code> is large and <code>fig.height</code> is small. In the above example, the plot size is <span class="math inline">\(10 \times 2\)</span>.</p>
 </div>
+<div id="arbitrary-full-width-content" class="section level2">
+<h2>Arbitrary Full Width Content</h2>
+<p>Any content can span to the full width of the page. This feature requires Pandoc 2.0 or above. All you need is to put your content in a fenced <code>Div</code> with the class <code>fullwidth</code>, e.g.,</p>
+<pre class="md"><code>::: {.fullwidth}
+Any _full width_ content here.
+:::</code></pre>
+<p>Below is an example:</p>
+<div class="fullwidth">
+<p><em>R is free software and comes with ABSOLUTELY NO WARRANTY.</em> You are welcome to redistribute it under the terms of the GNU General Public License versions 2 or 3. For more information about these matters see <a href="http://www.gnu.org/licenses/" class="uri">http://www.gnu.org/licenses/</a>.</p>
+</div>
+</div>
 <div id="main-column-figures" class="section level2">
 <h2>Main Column Figures</h2>
 <p>Besides margin and full width figures, you can of course also include figures constrained to the main column. This is the default type of figures in the LaTeX/HTML output.</p>
@@ -133,7 +147,7 @@ A figure in the main column.
 </div>
 <div id="references" class="section level1">
 <h1>References</h1>
-<p>References can be displayed as margin notes for HTML output. For example, we can cite R here <span class="citation">(R Core Team <label for="tufte-mn-4" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-4" class="margin-toggle">2017<span class="marginnote">R Core Team. 2017. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</span>)</span>. To enable this feature, you must set <code>link-citations: yes</code> in the YAML metadata, and the version of <code>pandoc-citeproc</code> should be at least 0.7.2. You can always install your own version of Pandoc from <a href="http://pandoc.org/installing.html" class="uri">http://pandoc.org/installing.html</a> if the version is not sufficient. To check the version of <code>pandoc-citeproc</code> in your system, you may run this in R:</p>
+<p>References can be displayed as margin notes for HTML output. For example, we can cite R here <span class="citation">(R Core Team <label for="tufte-mn-4" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-4" class="margin-toggle">2020<span class="marginnote">R Core Team. 2020. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</span>)</span>. To enable this feature, you must set <code>link-citations: yes</code> in the YAML metadata, and the version of <code>pandoc-citeproc</code> should be at least 0.7.2. You can always install your own version of Pandoc from <a href="http://pandoc.org/installing.html" class="uri">http://pandoc.org/installing.html</a> if the version is not sufficient. To check the version of <code>pandoc-citeproc</code> in your system, you may run this in R:</p>
 <pre class="r"><code>system2(&#39;pandoc-citeproc&#39;, &#39;--version&#39;)</code></pre>
 <p>If your version of <code>pandoc-citeproc</code> is too low, or you did not set <code>link-citations: yes</code> in YAML, references in the HTML output will be placed at the end of the output document.</p>
 </div>
@@ -273,6 +287,7 @@ Two plots in separate figure environments (the second plot).
 </p>
 <pre class="r"><code>p
 p + geom_smooth(method = &#39;lm&#39;)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p>Then two plots from the same code chunk placed in different figure environments:</p>
 <pre class="r"><code>knitr::kable(head(iris, 15))</code></pre>
 <table>
@@ -503,6 +518,7 @@ p + geom_smooth(method = &#39;lm&#39;)</code></pre>
 <p class="caption marginnote">-->Two plots in separate figure environments in the margin (the second plot).<!--</p>--> <!--</div>--></span>
 </p>
 <pre class="r"><code>p + geom_smooth(method = &#39;lm&#39;)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <pre class="r"><code>knitr::kable(head(iris, 5))</code></pre>
 <table>
 <thead>
@@ -569,6 +585,7 @@ p</code></pre>
 <p><img src="index_files/figure-html/fig-nocap-main-1.png" width="672"  /></p>
 <pre class="r"><code># a fullwidth figure
 p + geom_smooth(method = &#39;lm&#39;) + facet_grid(~ gear)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <div class="figure fullwidth">
 <img src="index_files/figure-html/fig-nocap-fullwidth-1.png" alt=" " width="960"  />
 <p class="caption marginnote shownote">
@@ -611,6 +628,9 @@ p + geom_smooth(method = &#39;lm&#39;) + facet_grid(~ gear)</code></pre>
 <p>This document is also available in <a href="http://rstudio.github.io/tufte/cn/">Chinese</a>, and its <code>envisioned</code> style can be found <a href="http://rstudio.github.io/tufte/envisioned/">here</a>.</p>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
