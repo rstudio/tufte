@@ -8,6 +8,8 @@
 
 - Footnotes no longer work with Pandoc >= 2.7 (thanks, @grimbough, #76).
 
+- Margin references do not work with Pandoc 2.9.2.1 (thanks, @Selbosh, #78).
+
 # CHANGES IN tufte VERSION 0.5
 
 ## BUG FIXES
