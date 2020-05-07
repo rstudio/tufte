@@ -90,7 +90,23 @@ ggplot(diamonds, aes(carat, price)) + geom_smooth() +
   facet_grid(~ cut)
 ```
 
- Other chunk options related to figures can still be used, such as `fig.width`, `fig.cap`, `out.width`, and so on. For full width figures, usually `fig.width` is large and `fig.height` is small. In the above example, the plot size is $10 \times 2$.
+Other chunk options related to figures can still be used, such as `fig.width`, `fig.cap`, `out.width`, and so on. For full width figures, usually `fig.width` is large and `fig.height` is small. In the above example, the plot size is $10 \times 2$.
+
+## Arbitrary Full Width Content
+
+Any content can span to the full width of the page. This feature requires Pandoc 2.0 or above. All you need is to put your content in a fenced `Div` with the class `fullwidth`, e.g.,
+
+```md
+::: {.fullwidth}
+Any _full width_ content here.
+:::
+```
+
+Below is an example:
+
+::: {.fullwidth}
+_R is free software and comes with ABSOLUTELY NO WARRANTY._ You are welcome to redistribute it under the terms of the GNU General Public License versions 2 or 3. For more information about these matters see http://www.gnu.org/licenses/.
+:::
 
 ## Main Column Figures
 

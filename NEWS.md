@@ -1,5 +1,9 @@
 # CHANGES IN tufte VERSION 0.6
 
+## NEW FEATURES
+
+- Arbitrary full width content is supported now; see https://rstudio.github.io/tufte/#arbitrary-full-width-content for the syntax (thanks, @mlovelace @josiekre, #33).
+
 ## BUG FIXES
 
 - Footnotes no longer work with Pandoc >= 2.7 (thanks, @grimbough, #76).

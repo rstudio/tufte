@@ -153,6 +153,7 @@ table table, li p, li pre { width: auto; }
 li p, li pre {margin-top: auto; }
 
 div.fullwidth, table.fullwidth { max-width: 90%; }
+div.fullwidth > * { width: auto; }
 
 #TOC, h1.title { max-width: 90%; }
 #TOC ol, #TOC ul { width: auto; }
