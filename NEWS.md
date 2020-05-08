@@ -1,3 +1,6 @@
+# CHANGES IN tufte VERSION 0.7
+
+
 # CHANGES IN tufte VERSION 0.6
 
 ## NEW FEATURES
