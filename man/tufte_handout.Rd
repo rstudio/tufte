@@ -73,8 +73,8 @@ argument is not \code{default}, no features are enabled.}
 \item{tufte_variant}{A variant of the Tufte style. Currently supported styles
 are \code{default} (from the \code{tufte-css} project), and
 \code{envisioned} (inspired by the project \code{Envisioned CSS}
-\url{http://nogginfuel.com/envisioned-css/} but essentially just sets the
-font family to \code{Roboto Condensed}, and changed the
+\url{https://github.com/nogginfuel/envisioned-css} but essentially just
+sets the font family to \code{Roboto Condensed}, and changed the
 background/foregroudn colors).}
 
 \item{margin_references}{Whether to place citations in margin notes.}
