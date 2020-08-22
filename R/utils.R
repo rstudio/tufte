@@ -22,6 +22,7 @@ newthought = function(text) {
 #' @param icon A character string to indicate there is a hidden margin note when
 #'   the page width is too narrow (by default it is a circled plus sign)
 #' @rdname tufte_handout
+#' @importFrom knitr is_html_output is_latex_output
 #' @export
 margin_note = function(text, icon = '&#8853;') {
   if (is_html_output()) {
@@ -68,11 +69,6 @@ template_resources = function(name, ...) {
   system.file('rmarkdown', 'templates', name, 'resources', ..., package = 'tufte')
 }
 
-# import two helper functions from knitr
-is_html_output = function(...) knitr:::is_html_output(...)
-is_latex_output = function(...) knitr:::is_latex_output(...)
-
 gsub_fixed = function(...) gsub(..., fixed = TRUE)
 
-readUTF8 = function(file, ...) readLines(file, encoding = 'UTF-8', warn = FALSE, ...)
-writeUTF8 = function(text, ...) writeLines(enc2utf8(text), ..., useBytes = TRUE)
+pandoc2.0 = function() rmarkdown::pandoc_available('2.0')

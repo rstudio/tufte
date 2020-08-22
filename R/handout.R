@@ -48,7 +48,8 @@ tufte_pdf = function(
   documentclass = match.arg(documentclass)
   format$pandoc$args = c(
     format$pandoc$args, '--variable', paste0('documentclass:', documentclass),
-    if (documentclass == 'tufte-book') '--chapters'
+    if (documentclass == 'tufte-book')
+      if (pandoc2.0()) '--top-level-division=chapter' else '--chapters'
   )
 
   knitr::knit_engines$set(marginfigure = function(options) {

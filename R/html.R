@@ -1,15 +1,37 @@
 #' @details \code{tufte_html()} provides the HTML format based on the Tufte CSS:
 #'   \url{https://edwardtufte.github.io/tufte-css/}.
+#' @param tufte_features A character vector of style features to enable:
+#'   \code{fonts} stands for the \code{et-book} fonts in the \code{tufte-css}
+#'   project, \code{background} means the lightyellow background color of the
+#'   page, and \code{italics} means whether to use italics for the headers. You
+#'   can enable a subset of these features, or just disable all of them by
+#'   \code{NULL}. When this argument is not used and the \code{tufte_variant}
+#'   argument is not \code{default}, no features are enabled.
+#' @param tufte_variant A variant of the Tufte style. Currently supported styles
+#'   are \code{default} (from the \code{tufte-css} project), and
+#'   \code{envisioned} (inspired by the project \code{Envisioned CSS}
+#'   \url{https://github.com/nogginfuel/envisioned-css} but essentially just
+#'   sets the font family to \code{Roboto Condensed}, and changed the
+#'   background/foregroudn colors).
+#' @param margin_references Whether to place citations in margin notes.
 #' @rdname tufte_handout
 #' @export
-tufte_html = function(...) {
+tufte_html = function(
+  ..., tufte_features = c('fonts', 'background', 'italics'),
+  tufte_variant = c('default', 'envisioned'), margin_references = TRUE
+) {
 
+  tufte_variant = match.arg(tufte_variant)
+  if (missing(tufte_features) && tufte_variant != 'default') tufte_features = character()
   html_document2 = function(..., extra_dependencies = list()) {
     rmarkdown::html_document(
-      ..., extra_dependencies = c(extra_dependencies, tufte_html_dependency())
+      ..., extra_dependencies = c(
+        extra_dependencies, tufte_html_dependency(tufte_features, tufte_variant)
+      )
     )
   }
   format = html_document2(theme = NULL, ...)
+  pandoc2 = pandoc2.0()
 
   # when fig.margin = TRUE, set fig.beforecode = TRUE so plots are moved before
   # code blocks, and they can be top-aligned
@@ -27,14 +49,15 @@ tufte_html = function(...) {
 
     knitr::opts_hooks$restore(ohooks)
 
-    x = readUTF8(output)
-    footnotes = parse_footnotes(x)
+    x = xfun::read_utf8(output)
+    fn_label = paste0(knitr::opts_knit$get('rmarkdown.pandoc.id_prefix'), 'fn')
+    footnotes = parse_footnotes(x, fn_label)
     notes = footnotes$items
     # replace footnotes with sidenotes
     for (i in seq_along(notes)) {
       num = sprintf(
-        '<a href="#fn%d" class="footnoteRef" id="fnref%d"><sup>%d</sup></a>',
-        i, i, i
+        '<a href="#%s%d" class="%s" id="%sref%d"><sup>%d</sup></a>',
+        fn_label, i, if (pandoc2) 'footnote-ref' else 'footnoteRef', fn_label, i, i
       )
       con = sprintf(paste0(
         '<label for="tufte-sn-%d" class="margin-toggle sidenote-number">%d</label>',
@@ -47,7 +70,7 @@ tufte_html = function(...) {
     if (length(footnotes$range)) x = x[-footnotes$range]
 
     # replace citations with margin notes
-    x = margin_references(x)
+    if (margin_references) x = margin_references(x)
 
     # place figure captions in margin notes
     x[x == '<p class="caption">'] = '<p class="caption marginnote shownote">'
@@ -90,7 +113,8 @@ tufte_html = function(...) {
       }
       z
     })
-    writeUTF8(x, output)
+
+    xfun::write_utf8(x, output)
     output
   }
 
@@ -113,7 +137,7 @@ tufte_html = function(...) {
       res = gsub_fixed('</div>', '<!--</div>--></span></p>', res)
       res = gsub_fixed(
         '<div class="figure">', paste0(
-          '<p>', '<span class="marginnote shownote">', '<!--\n<div class="figure">-->'
+          '<p>', '<span class="marginnote shownote">', '\n<!--\n<div class="figure">-->'
         ), res
       )
     } else if (fig_fullwd) {
@@ -139,32 +163,41 @@ tufte_html = function(...) {
 }
 
 #' @importFrom htmltools htmlDependency
-tufte_html_dependency = function() {
+tufte_html_dependency = function(features, variant) {
   list(htmlDependency(
     'tufte-css', '2015.12.29',
-    src = template_resources('tufte_html'), stylesheet = 'tufte.css'
+    src = template_resources('tufte_html'), stylesheet = c(
+      sprintf('tufte-%s.css', features), 'tufte.css',
+      if (variant != 'default') sprintf('%s.css', variant)
+    )
   ))
 }
 
 # we assume one footnote only contains one paragraph here, although it is
 # possible to write multiple paragraphs in a footnote with Pandoc's Markdown
-parse_footnotes = function(x) {
+parse_footnotes = function(x, fn_label = 'fn') {
   i = which(x == '<div class="footnotes">')
   if (length(i) == 0) return(list(items = character(), range = integer()))
   j = which(x == '</div>')
   j = min(j[j > i])
   n = length(x)
-  r = '<li id="fn([0-9]+)"><p>(.+)<a href="#fnref\\1">.</a></p></li>'
+  r = sprintf(
+    '<li id="%s([0-9]+)"><p>(.+)<a href="#%sref\\1"([^>]*)>.{1,2}</a></p></li>',
+    fn_label, fn_label
+  )
+  s = paste(x[i:j], collapse = '\n')
   list(
-    items = gsub(r, '\\2', grep(r, x[i:n], value = TRUE)),
+    items = gsub(r, '\\2', unlist(regmatches(s, gregexpr(r, s)))),
     range = i:j
   )
 }
 
 # move reference items from the bottom to the margin (as margin notes)
 margin_references = function(x) {
-  i = which(x == '<div id="refs" class="references">')
+  i = grep('^<div id="refs" class="references[^"]*">$', x)
   if (length(i) != 1) return(x)
+  # link-citations: no
+  if (length(grep('<a href="#ref-[^"]+"[^>]*>([^<]+)</a>', x)) == 0) return(x)
   r = '^<div id="(ref-[^"]+)">$'
   k = grep(r, x)
   k = k[k > i]
@@ -173,9 +206,9 @@ margin_references = function(x) {
   # pandoc-citeproc may generate a link on both the year and the alphabetic
   # suffix, e.g. <a href="#cite-key">2016</a><a href="#cite-key">a</a>; we need
   # to merge the two links
-  x = gsub('(<a href="#[^"]+">)([^<]+)</a>\\1([^<]+)</a>', '\\1\\2\\3</a>', x)
+  x = gsub('(<a href="#[^"]+"[^>]*>)([^<]+)</a>\\1([^<]+)</a>', '\\1\\2\\3</a>', x)
   ids = gsub(r, '\\1', x[k])
-  ids = sprintf('<a href="#%s">([^<]+)</a>', ids)
+  ids = sprintf('<a href="#%s"[^>]*>([^<]+)</a>', ids)
   ref = gsub('^<p>|</p>$', '', x[k + 1])
   # replace 3 em-dashes with author names
   dashes = paste0('^', intToUtf8(rep(8212, 3)), '[.]')

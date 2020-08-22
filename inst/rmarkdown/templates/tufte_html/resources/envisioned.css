@@ -1,0 +1,7 @@
+@import 'https://fonts.googleapis.com/css?family=Roboto+Condensed';
+body {
+  font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
+  background-color: #fefefe;
+  color: #222;
+}
+.numeral, .sidenote-number { font-family: "Roboto Condensed"; }
