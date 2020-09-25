@@ -6,7 +6,7 @@
 
 # CHANGES IN tufte VERSION 0.7
 
-- Added the cslreferences environment the template (thanks, @jonathan-g, #80)
+- Added the `cslreferences` environment the template (thanks, @jonathan-g, #80).
 
 # CHANGES IN tufte VERSION 0.6
 
