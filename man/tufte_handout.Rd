@@ -115,5 +115,5 @@ library(tufte)
 newthought("In this section")
 }
 \references{
-See \url{http://rstudio.github.io/tufte} for an example.
+See \url{https://rstudio.github.io/tufte/} for an example.
 }

@@ -2,6 +2,8 @@
 
 - Add a `runningheader` variable in the template for `tufte_handout()` and `tufte_book()` to have a different running header than the title if provided. (#82)
 
+- Added the cslreferences environment the template (thanks, @jonathan-g, #80)
+
 # CHANGES IN tufte VERSION 0.6
 
 ## NEW FEATURES
@@ -44,7 +46,7 @@
 
 ## BUG FIXES
 
-- When `link-citations: no` in YAML, citations should not be moved into the page margin in the HTML output (http://stackoverflow.com/q/39053097/559676).
+- When `link-citations: no` in YAML, citations should not be moved into the page margin in the HTML output (https://stackoverflow.com/q/39053097/559676).
 
 - Horizontal lines could bisect margin notes and footnotes (thanks, @ajdamico, #32).
 

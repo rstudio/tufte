@@ -20,4 +20,4 @@ Imports:
     xfun (>= 0.13),
     knitr (>= 1.28),
     rmarkdown (>= 2.1)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
