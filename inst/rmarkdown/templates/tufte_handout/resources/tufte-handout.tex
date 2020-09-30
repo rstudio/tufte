@@ -131,7 +131,7 @@ $endif$
 
 % title / author / date
 $if(title)$
-\title{$title$}
+\title$if(runningheader)$[$runningheader$]$endif${$title$}
 $endif$
 $if(author)$
 \author{$for(author)$$author$$sep$ \and $endfor$}

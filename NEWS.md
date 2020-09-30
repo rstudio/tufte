@@ -3,6 +3,8 @@
 
 # CHANGES IN tufte VERSION 0.7
 
+- Add a `runningheader` variable in the template for `tufte_handout()` and `tufte_book()` to have a different running header than the title if provided. (#82)
+
 - Added the cslreferences environment the template (thanks, @jonathan-g, #80)
 
 # CHANGES IN tufte VERSION 0.6

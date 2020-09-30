@@ -1,6 +1,7 @@
 ---
-title: "Tufte Handout"
-subtitle: "An implementation in R Markdown"
+title: "A Tufte Handout Example"
+runningheader: "Tufte Handout with R Markdown" # only for pdf output
+subtitle: "An implementation in R Markdown" # only for html output
 author: "JJ Allaire and Yihui Xie"
 date: "`r Sys.Date()`"
 output:
