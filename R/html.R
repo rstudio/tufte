@@ -204,9 +204,18 @@ margin_references = function(x) {
   n = length(k)
   if (n == 0) return(x)
   # pandoc-citeproc may generate a link on both the year and the alphabetic
-  # suffix, e.g. <a href="#cite-key">2016</a><a href="#cite-key">a</a>; we need
-  # to merge the two links
-  x = gsub('(<a href="#[^"]+"[^>]*>)([^<]+)</a>\\1([^<]+)</a>', '\\1\\2\\3</a>', x)
+  # suffix, e.g. <a href="#cite-key">2016</a><a href="#cite-key">a</a>;
+  # Pandoc 2.11+ may also generate several links with parenthesis between links,
+  # but this is different, e.g
+  # <a href="#ref-R-rmarkdown" role="doc-biblioref">Allaire et al.</a> (<a href="#ref-R-rmarkdown" role="doc-biblioref">2020</a>)</span>
+  # we need to merge the two links
+  r2 = '(<a href="#ref-[^"]+"[^>]*>)([^<]+)</a>([^<]*)\\1([^<]+)</a>([^<]*)'
+  i2 = grep(r2, x)
+  if (length(i2) != 0L) {
+    m = regmatches(x[i2], regexec(r2, x[i2]))
+    m = vapply(m, function(x) paste(c(x[-1], "</a>"), collapse = ""), character(1))
+    for (j in seq_along(i2)) x[i2[j]] = gsub(r2, m[j], x[i2[j]])
+  }
   ids = gsub(r, '\\1', x[k])
   ids = sprintf('<a href="#%s"[^>]*>([^<]+)</a>', ids)
   ref = gsub('^<p>|</p>$', '', x[k + 1])
