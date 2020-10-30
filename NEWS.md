@@ -1,3 +1,6 @@
+# CHANGES IN tufte VERSION 0.9
+
+
 # CHANGES IN tufte VERSION 0.8
 
 - References are now moved in the margin correctly with Pandoc 2.11 (#86).
