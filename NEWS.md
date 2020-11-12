@@ -1,5 +1,6 @@
 # CHANGES IN tufte VERSION 0.9
 
+- Add the missing `CSLReferences` environment in the template required by Pandoc 2.11+ and its new citeproc (#89)
 
 # CHANGES IN tufte VERSION 0.8
 
@@ -9,7 +10,7 @@
 
 # CHANGES IN tufte VERSION 0.7
 
-- Added the `cslreferences` environment the template (thanks, @jonathan-g, #80).
+- Add the `cslreferences` environment in the template (thanks, @jonathan-g, #80).
 
 # CHANGES IN tufte VERSION 0.6
 
