@@ -19,7 +19,7 @@ link-citations: yes
 ```{r setup, include=FALSE}
 library(tufte)
 # invalidate cache when the tufte version changes
-knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
+knitr::opts_chunk$set(cache.extra = packageVersion('tufte'))
 options(htmltools.dir.version = FALSE)
 ```
 

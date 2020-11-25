@@ -20,7 +20,7 @@ link-citations: yes
 ```{r setup, include=FALSE}
 library(tufte)
 # tufte版本变化之后更新knitr缓存
-knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
+knitr::opts_chunk$set(cache.extra = packageVersion('tufte'))
 options(htmltools.dir.version = FALSE)
 ```
 

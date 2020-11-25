@@ -2,6 +2,8 @@
 
 - Add the missing `CSLReferences` environment in the template required by Pandoc 2.11+ and its new citeproc (#89)
 
+- `tufte_handout()` now uses default `tidy` knitr option, which is `FALSE`. It can be changed with `knitr::opts_chunk$set(tidy = TRUE)` and requires in that case the **formatR** package.
+
 # CHANGES IN tufte VERSION 0.8
 
 - References are now moved in the margin correctly with Pandoc 2.11 (#86).
