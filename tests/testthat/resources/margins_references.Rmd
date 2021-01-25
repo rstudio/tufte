@@ -1,6 +1,6 @@
 ---
 title: "Test margin references"
-link-citations: yes
+link-citations: {{linked}}
 references:
 - author:
   - family: Xie
