@@ -5,6 +5,7 @@ test_that("add marginnote", {
 
 
 test_that("put references in margin when link-citations: yes", {
+  skip_on_cran() # requires recent Pandoc
   rmd <- test_path("resources/margins_references.Rmd")
   out <- withr::local_tempfile(fileext = ".html")
   res <- rmarkdown::pandoc_convert(basename(rmd), "html4", "markdown",
