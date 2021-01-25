@@ -1,0 +1,53 @@
+---
+title: "Test margin references"
+link-citations: {{linked}}
+references:
+- author:
+  - family: Xie
+    given: Yihui
+  id: R-knitr
+  issued: 
+    year: 2020
+  note: R package version 1.30
+  title: "Knitr: A general-purpose package for dynamic report generation in r"
+  title-short: Knitr
+  type: book
+  url: "https://yihui.org/knitr/"
+- author:
+  - family: Xie
+    given: Yihui
+  id: R-knitr2
+  issued: 
+    year: 2020
+  note: R package version 1.29
+  title: "Knitr: A general-purpose package for dynamic report generation in r - duplicate"
+  title-short: Knitr
+  type: book
+  url: "https://yihui.org/knitr/"
+- author:
+  - family: Xie
+    given: Yihui
+  - family: Allaire
+    given: J. J.
+  - family: Grolemund
+    given: Garrett
+  id: rmarkdown2018
+  issued: 
+    year: 2018
+  note: ISBN 9781138359338
+  publisher: Chapman; Hall/CRC
+  publisher-place: Boca Raton, Florida
+  title: "R markdown: The definitive guide"
+  title-short: R markdown
+  type: book
+  url: "https://bookdown.org/yihui/rmarkdown"
+output: tufte::tufte_html
+---
+
+See [@R-knitr]. 
+
+See @R-knitr2
+
+See @R-knitr and @rmarkdown2018
+
+See [@R-knitr] and [@rmarkdown2018]

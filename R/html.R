@@ -210,12 +210,7 @@ margin_references = function(x) {
   # <a href="#ref-R-rmarkdown" role="doc-biblioref">Allaire et al.</a> (<a href="#ref-R-rmarkdown" role="doc-biblioref">2020</a>)</span>
   # we need to merge the two links
   r2 = '(<a href="#ref-[^"]+"[^>]*>)([^<]+)</a>([^<]*)\\1([^<]+)</a>([^<]*)'
-  i2 = grep(r2, x)
-  if (length(i2) != 0L) {
-    m = regmatches(x[i2], regexec(r2, x[i2]))
-    m = vapply(m, function(x) paste(c(x[-1], "</a>"), collapse = ""), character(1))
-    for (j in seq_along(i2)) x[i2[j]] = gsub(r2, m[j], x[i2[j]])
-  }
+  x = gsub(r2, "\\1\\2\\3\\4\\5</a>", x)
   ids = gsub(r, '\\1', x[k])
   ids = sprintf('<a href="#%s"[^>]*>([^<]+)</a>', ids)
   ref = gsub('^<p>|</p>$', '', x[k + 1])
