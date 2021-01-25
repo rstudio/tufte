@@ -21,3 +21,7 @@ Imports:
     knitr (>= 1.28),
     rmarkdown (>= 2.1)
 RoxygenNote: 7.1.1
+Suggests: 
+    testthat (>= 3.0.0),
+    withr
+Config/testthat/edition: 3

@@ -232,4 +232,3 @@ marginnote_html = function(text = '', icon = '&#8853;') {
     '<input type="checkbox" id="tufte-mn-" class="margin-toggle">%s'
   ), icon, text)
 }
-
