@@ -194,7 +194,7 @@ parse_footnotes = function(x, fn_label = 'fn') {
 
 # move reference items from the bottom to the margin (as margin notes)
 margin_references = function(x) {
-  i = grep('^<div id="refs" class="references[^"]*">$', x)
+  i = grep('^<div id="refs" class="references[^"]*"[^>]*>$', x)
   if (length(i) != 1) return(x)
   # link-citations: no
   if (length(grep('<a href="#ref-[^"]+"[^>]*>([^<]+)</a>', x)) == 0) return(x)
