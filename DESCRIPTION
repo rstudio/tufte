@@ -13,7 +13,6 @@ Authors@R: c(
 Maintainer: Yihui Xie <xie@yihui.name>
 Description: Provides R Markdown output formats to use Tufte styles for PDF and HTML output.
 License: GPL-3
-LazyData: TRUE
 URL: https://github.com/rstudio/tufte
 BugReports: https://github.com/rstudio/tufte/issues
 Imports:
