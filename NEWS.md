@@ -1,3 +1,6 @@
+# CHANGES IN tufte VERSION 0.11
+
+
 # CHANGES IN tufte VERSION 0.10
 
 - Fix an issue with the wrong references placed in margins when `link-citations: yes` is used with Pandoc 2.11+ (#92)
