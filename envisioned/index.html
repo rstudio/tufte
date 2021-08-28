@@ -12,14 +12,24 @@
 
 <meta name="author" content="JJ Allaire and Yihui Xie" />
 
-<meta name="date" content="2020-05-07" />
+<meta name="date" content="2021-08-28" />
 
-<title>Tufte Handout</title>
+<title>A Tufte Handout Example</title>
 
+<script src="../index_files/header-attrs/header-attrs.js"></script>
 <link href="../index_files/tufte-css/tufte.css" rel="stylesheet" />
 <link href="../index_files/tufte-css/envisioned.css" rel="stylesheet" />
 <link href="../index_files/highlightjs/default.css" rel="stylesheet" />
 <script src="../index_files/highlightjs/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
@@ -35,6 +45,29 @@ if (window.hljs) {
 
 
 
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 
 
 
@@ -46,16 +79,16 @@ if (window.hljs) {
 
 
 
-<h1 class="title toc-ignore">Tufte Handout</h1>
+<h1 class="title toc-ignore">A Tufte Handout Example</h1>
 <h3 class="subtitle">An implementation in R Markdown</h3>
 <h4 class="author">JJ Allaire and Yihui Xie</h4>
-<h4 class="date">2020-05-07</h4>
+<h4 class="date">2021-08-28</h4>
 
 
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>The Tufte handout style is a style that Edward Tufte uses in his books and handouts. Tufte’s style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. This style has been implemented in LaTeX and HTML/CSS<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> See Github repositories <a href="https://github.com/tufte-latex/tufte-latex">tufte-latex</a> and <a href="https://github.com/edwardtufte/tufte-css">tufte-css</a></span>, respectively. We have ported both implementations into the <a href="https://github.com/rstudio/tufte"><strong>tufte</strong> package</a>. If you want LaTeX/PDF output, you may use the <code>tufte_handout</code> format for handouts, and <code>tufte_book</code> for books. For HTML output, use <code>tufte_html</code>. These formats can be either specified in the YAML metadata at the beginning of an R Markdown document (see an example below), or passed to the <code>rmarkdown::render()</code> function. See <span class="citation">Allaire et al. (<label for="tufte-mn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle">2020<span class="marginnote">Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2020. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>.</span>)</span> for more information about <strong>rmarkdown</strong>.</p>
+<p>The Tufte handout style is a style that Edward Tufte uses in his books and handouts. Tufte’s style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. This style has been implemented in LaTeX and HTML/CSS<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> See Github repositories <a href="https://github.com/tufte-latex/tufte-latex">tufte-latex</a> and <a href="https://github.com/edwardtufte/tufte-css">tufte-css</a></span>, respectively. We have ported both implementations into the <a href="https://github.com/rstudio/tufte"><strong>tufte</strong> package</a>. If you want LaTeX/PDF output, you may use the <code>tufte_handout</code> format for handouts, and <code>tufte_book</code> for books. For HTML output, use <code>tufte_html</code>. These formats can be either specified in the YAML metadata at the beginning of an R Markdown document (see an example below), or passed to the <code>rmarkdown::render()</code> function. See <span class="citation">Allaire et al. (<label for="tufte-mn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle">2021<span class="marginnote">Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2021. <em>Rmarkdown: Dynamic Documents for r</em>.</span>)</span> for more information about <strong>rmarkdown</strong>.</p>
 <pre class="yaml"><code>---
 title: &quot;An Example Using the Tufte Style&quot;
 author: &quot;John Smith&quot;
@@ -68,12 +101,12 @@ output:
 <li>To produce both PDF and HTML output with similar styles from the same R Markdown document;</li>
 <li>To provide simple syntax to write elements of the Tufte style such as side notes and margin figures, e.g. when you want a margin figure, all you need to do is the chunk option <code>fig.margin = TRUE</code>, and we will take care of the details for you, so you never need to think about <code>\begin{marginfigure} \end{marginfigure}</code> or <code>&lt;span class="marginfigure"&gt; &lt;/span&gt;</code>; the LaTeX and HTML code under the hood may be complicated, but you never need to learn or write such code.</li>
 </ol>
-<p>If you have any feature requests or find bugs in <strong>tufte</strong>, please do not hesitate to file them to <a href="https://github.com/rstudio/tufte/issues" class="uri">https://github.com/rstudio/tufte/issues</a>. For general questions, you may ask them on StackOverflow: <a href="http://stackoverflow.com/tags/rmarkdown" class="uri">http://stackoverflow.com/tags/rmarkdown</a>.</p>
+<p>If you have any feature requests or find bugs in <strong>tufte</strong>, please do not hesitate to file them to <a href="https://github.com/rstudio/tufte/issues" class="uri">https://github.com/rstudio/tufte/issues</a>. For general questions, you may ask them on StackOverflow: <a href="https://stackoverflow.com/tags/rmarkdown" class="uri">https://stackoverflow.com/tags/rmarkdown</a>.</p>
 </div>
 <div id="headings" class="section level1">
 <h1>Headings</h1>
 <p>This style provides first and second-level headings (that is, <code>#</code> and <code>##</code>), demonstrated in the next section. You may get unexpected output if you try to use <code>###</code> and smaller headings.</p>
-<p><span class="newthought">In his later books</span><label for="tufte-sn-2" class="margin-toggle sidenote-number">2</label><input type="checkbox" id="tufte-sn-2" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">2</span> <a href="http://www.edwardtufte.com/tufte/books_be">Beautiful Evidence</a></span>, Tufte starts each section with a bit of vertical space, a non-indented paragraph, and sets the first few words of the sentence in small caps. To accomplish this using this style, call the <code>newthought()</code> function in <strong>tufte</strong> in an <em>inline R expression</em> <code>`r `</code> as demonstrated at the beginning of this paragraph.<label for="tufte-sn-3" class="margin-toggle sidenote-number">3</label><input type="checkbox" id="tufte-sn-3" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">3</span> Note you should not assume <strong>tufte</strong> has been attached to your R session. You should either <code>library(tufte)</code> in your R Markdown document before you call <code>newthought()</code>, or use <code>tufte::newthought()</code>.</span></p>
+<p><span class="newthought">In his later books</span><label for="tufte-sn-2" class="margin-toggle sidenote-number">2</label><input type="checkbox" id="tufte-sn-2" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">2</span> <a href="https://www.edwardtufte.com/tufte/books_be">Beautiful Evidence</a></span>, Tufte starts each section with a bit of vertical space, a non-indented paragraph, and sets the first few words of the sentence in small caps. To accomplish this using this style, call the <code>newthought()</code> function in <strong>tufte</strong> in an <em>inline R expression</em> <code>`r `</code> as demonstrated at the beginning of this paragraph.<label for="tufte-sn-3" class="margin-toggle sidenote-number">3</label><input type="checkbox" id="tufte-sn-3" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">3</span> Note you should not assume <strong>tufte</strong> has been attached to your R session. You should either <code>library(tufte)</code> in your R Markdown document before you call <code>newthought()</code>, or use <code>tufte::newthought()</code>.</span></p>
 </div>
 <div id="figures" class="section level1">
 <h1>Figures</h1>
@@ -123,7 +156,7 @@ Any _full width_ content here.
 :::</code></pre>
 <p>Below is an example:</p>
 <div class="fullwidth">
-<p><em>R is free software and comes with ABSOLUTELY NO WARRANTY.</em> You are welcome to redistribute it under the terms of the GNU General Public License versions 2 or 3. For more information about these matters see <a href="http://www.gnu.org/licenses/" class="uri">http://www.gnu.org/licenses/</a>.</p>
+<p><em>R is free software and comes with ABSOLUTELY NO WARRANTY.</em> You are welcome to redistribute it under the terms of the GNU General Public License versions 2 or 3. For more information about these matters see <a href="https://www.gnu.org/licenses/" class="uri">https://www.gnu.org/licenses/</a>.</p>
 </div>
 </div>
 <div id="main-column-figures" class="section level2">
@@ -140,12 +173,12 @@ A figure in the main column.
 </div>
 <div id="sidenotes" class="section level1">
 <h1>Sidenotes</h1>
-<p>One of the most prominent and distinctive features of this style is the extensive use of sidenotes. There is a wide margin to provide ample room for sidenotes and small figures. Any use of a footnote will automatically be converted to a sidenote.<label for="tufte-sn-4" class="margin-toggle sidenote-number">4</label><input type="checkbox" id="tufte-sn-4" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">4</span> This is a sidenote that was entered using a footnote.</span></p>
+<p>One of the most prominent and distinctive features of this style is the extensive use of sidenotes. There is a wide margin to provide ample room for sidenotes and small figures. Any use of a footnote will automatically be converted to a sidenote. <label for="tufte-sn-4" class="margin-toggle sidenote-number">4</label><input type="checkbox" id="tufte-sn-4" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">4</span> This is a sidenote that was entered using a footnote.</span></p>
 <p>If you’d like to place ancillary information in the margin without the sidenote mark (the superscript number), you can use the <code>margin_note()</code> function from <strong>tufte</strong> in an inline R expression. <label for="tufte-mn-3" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-3" class="margin-toggle"><span class="marginnote">This is a margin note. Notice that there is no number preceding the note.</span> This function does not process the text with Pandoc, so Markdown syntax will not work here. If you need to write anything in Markdown syntax, please use the <code>marginfigure</code> block described previously.</p>
 </div>
 <div id="references" class="section level1">
 <h1>References</h1>
-<p>References can be displayed as margin notes for HTML output. For example, we can cite R here <span class="citation">(R Core Team <label for="tufte-mn-4" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-4" class="margin-toggle">2020<span class="marginnote">R Core Team. 2020. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</span>)</span>. To enable this feature, you must set <code>link-citations: yes</code> in the YAML metadata, and the version of <code>pandoc-citeproc</code> should be at least 0.7.2. You can always install your own version of Pandoc from <a href="http://pandoc.org/installing.html" class="uri">http://pandoc.org/installing.html</a> if the version is not sufficient. To check the version of <code>pandoc-citeproc</code> in your system, you may run this in R:</p>
+<p>References can be displayed as margin notes for HTML output. For example, we can cite R here <span class="citation">(<label for="tufte-mn-4" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-4" class="margin-toggle">R Core Team 2021<span class="marginnote">R Core Team. 2021. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</span>)</span>. To enable this feature, you must set <code>link-citations: yes</code> in the YAML metadata, and the version of <code>pandoc-citeproc</code> should be at least 0.7.2. You can always install your own version of Pandoc from <a href="https://pandoc.org/installing.html" class="uri">https://pandoc.org/installing.html</a> if the version is not sufficient. To check the version of <code>pandoc-citeproc</code> in your system, you may run this in R:</p>
 <pre class="r"><code>system2(&#39;pandoc-citeproc&#39;, &#39;--version&#39;)</code></pre>
 <p>If your version of <code>pandoc-citeproc</code> is too low, or you did not set <code>link-citations: yes</code> in YAML, references in the HTML output will be placed at the end of the output document.</p>
 </div>
@@ -160,7 +193,7 @@ A figure in the main column.
 <table>
 <thead>
 <tr class="header">
-<th></th>
+<th align="left"></th>
 <th align="right">mpg</th>
 <th align="right">cyl</th>
 <th align="right">disp</th>
@@ -171,7 +204,7 @@ A figure in the main column.
 </thead>
 <tbody>
 <tr class="odd">
-<td>Mazda RX4</td>
+<td align="left">Mazda RX4</td>
 <td align="right">21.0</td>
 <td align="right">6</td>
 <td align="right">160</td>
@@ -180,7 +213,7 @@ A figure in the main column.
 <td align="right">2.620</td>
 </tr>
 <tr class="even">
-<td>Mazda RX4 Wag</td>
+<td align="left">Mazda RX4 Wag</td>
 <td align="right">21.0</td>
 <td align="right">6</td>
 <td align="right">160</td>
@@ -189,7 +222,7 @@ A figure in the main column.
 <td align="right">2.875</td>
 </tr>
 <tr class="odd">
-<td>Datsun 710</td>
+<td align="left">Datsun 710</td>
 <td align="right">22.8</td>
 <td align="right">4</td>
 <td align="right">108</td>
@@ -198,7 +231,7 @@ A figure in the main column.
 <td align="right">2.320</td>
 </tr>
 <tr class="even">
-<td>Hornet 4 Drive</td>
+<td align="left">Hornet 4 Drive</td>
 <td align="right">21.4</td>
 <td align="right">6</td>
 <td align="right">258</td>
@@ -207,7 +240,7 @@ A figure in the main column.
 <td align="right">3.215</td>
 </tr>
 <tr class="odd">
-<td>Hornet Sportabout</td>
+<td align="left">Hornet Sportabout</td>
 <td align="right">18.7</td>
 <td align="right">8</td>
 <td align="right">360</td>
@@ -216,7 +249,7 @@ A figure in the main column.
 <td align="right">3.440</td>
 </tr>
 <tr class="even">
-<td>Valiant</td>
+<td align="left">Valiant</td>
 <td align="right">18.1</td>
 <td align="right">6</td>
 <td align="right">225</td>
@@ -613,7 +646,7 @@ p + geom_smooth(method = &#39;lm&#39;) + facet_grid(~ gear)</code></pre>
   tufte::tufte_html:
     tufte_features: [&quot;fonts&quot;, &quot;background&quot;]
     css: &quot;my_style.css&quot;</code></pre>
-<p>There is also a variant of the Tufte style in HTML/CSS named “<a href="http://nogginfuel.com/envisioned-css/">Envisoned CSS</a>”. This style can be used by specifying the argument <code>tufte_variant = 'envisioned'</code> in <code>tufte_html()</code><label for="tufte-sn-5" class="margin-toggle sidenote-number">5</label><input type="checkbox" id="tufte-sn-5" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">5</span> The actual Envisioned CSS was not used in the <strong>tufte</strong> package. We only changed the fonts, background color, and text color based on the default Tufte style.</span>, e.g.</p>
+<p>There is also a variant of the Tufte style in HTML/CSS named “<a href="https://github.com/nogginfuel/envisioned-css">Envisoned CSS</a>”. This style can be used by specifying the argument <code>tufte_variant = 'envisioned'</code> in <code>tufte_html()</code><label for="tufte-sn-5" class="margin-toggle sidenote-number">5</label><input type="checkbox" id="tufte-sn-5" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">5</span> The actual Envisioned CSS was not used in the <strong>tufte</strong> package. We only changed the fonts, background color, and text color based on the default Tufte style.</span>, e.g.</p>
 <pre class="yaml"><code>output:
   tufte::tufte_html:
     tufte_variant: &quot;envisioned&quot;</code></pre>
@@ -623,7 +656,7 @@ p + geom_smooth(method = &#39;lm&#39;) + facet_grid(~ gear)</code></pre>
     &#39;tufte_html&#39;, &#39;..&#39;, &#39;skeleton&#39;, &#39;skeleton.Rmd&#39;
   )
 )</code></pre>
-<p>This document is also available in <a href="http://rstudio.github.io/tufte/cn/">Chinese</a>, and its <code>envisioned</code> style can be found <a href="http://rstudio.github.io/tufte/envisioned/">here</a>.</p>
+<p>This document is also available in <a href="https://rstudio.github.io/tufte/cn/">Chinese</a>, and its <code>envisioned</code> style can be found <a href="https://rstudio.github.io/tufte/envisioned/">here</a>.</p>
 </div>
 
 

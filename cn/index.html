@@ -12,16 +12,26 @@
 
 <meta name="author" content="JJ Allaire，谢益辉" />
 
-<meta name="date" content="2020-05-07" />
+<meta name="date" content="2021-08-28" />
 
 <title>Tufte样式</title>
 
+<script src="../index_files/header-attrs/header-attrs.js"></script>
 <link href="../index_files/tufte-css/tufte-fonts.css" rel="stylesheet" />
 <link href="../index_files/tufte-css/tufte-background.css" rel="stylesheet" />
 <link href="../index_files/tufte-css/tufte-italics.css" rel="stylesheet" />
 <link href="../index_files/tufte-css/tufte.css" rel="stylesheet" />
 <link href="../index_files/highlightjs/default.css" rel="stylesheet" />
 <script src="../index_files/highlightjs/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
@@ -37,6 +47,29 @@ if (window.hljs) {
 
 
 
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 
 
 
@@ -51,13 +84,13 @@ if (window.hljs) {
 <h1 class="title toc-ignore">Tufte样式</h1>
 <h3 class="subtitle">一个R Markdown实现</h3>
 <h4 class="author">JJ Allaire，谢益辉</h4>
-<h4 class="date">2020-05-07</h4>
+<h4 class="date">2021-08-28</h4>
 
 
 
 <div id="引言" class="section level1">
 <h1>引言</h1>
-<p>Tufte样式在Edward Tufte的书以及物理学家费曼的教科书很常见，它的一个显著特点就是边栏的使用。例如脚注和边栏注解，以及放在边栏里的小型插图。Tufte样式在LaTeX和HTML/CSS中都有实现<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> 参见Github库<a href="https://github.com/tufte-latex/tufte-latex">tufte-latex</a>和 <a href="https://github.com/edwardtufte/tufte-css">tufte-css</a></span>。我们将这两种实现都纳入了<a href="https://github.com/rstudio/tufte"><strong>tufte</strong>包</a>。若需要LaTeX/PDF输出，使用输出格式<code>tufte_handout</code>即可，类似地，<code>tufte_book</code>可以用来输出PDF书，<code>tufte_html</code>生成HTML网页。这些输出格式可以在YAML元数据中指定，或者传给<code>rmarkdown::render()</code>函数。若对<strong>rmarkdown</strong>包不熟悉，可参见 <span class="citation">Allaire et al. (<label for="tufte-mn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle">2020<span class="marginnote">Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2020. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>.</span>)</span>。</p>
+<p>Tufte样式在Edward Tufte的书以及物理学家费曼的教科书很常见，它的一个显著特点就是边栏的使用。例如脚注和边栏注解，以及放在边栏里的小型插图。Tufte样式在LaTeX和HTML/CSS中都有实现<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> 参见Github库<a href="https://github.com/tufte-latex/tufte-latex">tufte-latex</a>和 <a href="https://github.com/edwardtufte/tufte-css">tufte-css</a></span>。我们将这两种实现都纳入了<a href="https://github.com/rstudio/tufte"><strong>tufte</strong>包</a>。若需要LaTeX/PDF输出，使用输出格式<code>tufte_handout</code>即可，类似地，<code>tufte_book</code>可以用来输出PDF书，<code>tufte_html</code>生成HTML网页。这些输出格式可以在YAML元数据中指定，或者传给<code>rmarkdown::render()</code>函数。若对<strong>rmarkdown</strong>包不熟悉，可参见 <span class="citation">Allaire et al. (<label for="tufte-mn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle">2021<span class="marginnote">Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2021. <em>Rmarkdown: Dynamic Documents for r</em>.</span>)</span>。</p>
 <pre class="yaml"><code>---
 title: &quot;一个Tufte样式示例&quot;
 author: &quot;张三&quot;
@@ -129,7 +162,7 @@ ggplot(mtcars2, aes(hp, mpg, color = am)) +
 </div>
 <div id="参考文献" class="section level1">
 <h1>参考文献</h1>
-<p>HTML输出中，参考文献默认也放在边栏中。例如这里我们可以引用<span class="citation">(R Core Team <label for="tufte-mn-4" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-4" class="margin-toggle">2020<span class="marginnote">R Core Team. 2020. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</span>)</span>。这个功能需要在YAML元数据中设置<code>link-citations: yes</code>，而且<code>pandoc-citeproc</code>程序的版本应该至少是0.7.2。若这两个条件不满足，参考文献会被放在文档末尾。</p>
+<p>HTML输出中，参考文献默认也放在边栏中。例如这里我们可以引用<span class="citation">(<label for="tufte-mn-4" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-4" class="margin-toggle">R Core Team 2021<span class="marginnote">R Core Team. 2021. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</span>)</span>。这个功能需要在YAML元数据中设置<code>link-citations: yes</code>，而且<code>pandoc-citeproc</code>程序的版本应该至少是0.7.2。若这两个条件不满足，参考文献会被放在文档末尾。</p>
 </div>
 <div id="表格" class="section level1">
 <h1>表格</h1>
@@ -142,7 +175,7 @@ ggplot(mtcars2, aes(hp, mpg, color = am)) +
 <table>
 <thead>
 <tr class="header">
-<th></th>
+<th align="left"></th>
 <th align="right">mpg</th>
 <th align="right">cyl</th>
 <th align="right">disp</th>
@@ -153,7 +186,7 @@ ggplot(mtcars2, aes(hp, mpg, color = am)) +
 </thead>
 <tbody>
 <tr class="odd">
-<td>Mazda RX4</td>
+<td align="left">Mazda RX4</td>
 <td align="right">21.0</td>
 <td align="right">6</td>
 <td align="right">160</td>
@@ -162,7 +195,7 @@ ggplot(mtcars2, aes(hp, mpg, color = am)) +
 <td align="right">2.620</td>
 </tr>
 <tr class="even">
-<td>Mazda RX4 Wag</td>
+<td align="left">Mazda RX4 Wag</td>
 <td align="right">21.0</td>
 <td align="right">6</td>
 <td align="right">160</td>
@@ -171,7 +204,7 @@ ggplot(mtcars2, aes(hp, mpg, color = am)) +
 <td align="right">2.875</td>
 </tr>
 <tr class="odd">
-<td>Datsun 710</td>
+<td align="left">Datsun 710</td>
 <td align="right">22.8</td>
 <td align="right">4</td>
 <td align="right">108</td>
@@ -180,7 +213,7 @@ ggplot(mtcars2, aes(hp, mpg, color = am)) +
 <td align="right">2.320</td>
 </tr>
 <tr class="even">
-<td>Hornet 4 Drive</td>
+<td align="left">Hornet 4 Drive</td>
 <td align="right">21.4</td>
 <td align="right">6</td>
 <td align="right">258</td>
@@ -189,7 +222,7 @@ ggplot(mtcars2, aes(hp, mpg, color = am)) +
 <td align="right">3.215</td>
 </tr>
 <tr class="odd">
-<td>Hornet Sportabout</td>
+<td align="left">Hornet Sportabout</td>
 <td align="right">18.7</td>
 <td align="right">8</td>
 <td align="right">360</td>
@@ -198,7 +231,7 @@ ggplot(mtcars2, aes(hp, mpg, color = am)) +
 <td align="right">3.440</td>
 </tr>
 <tr class="even">
-<td>Valiant</td>
+<td align="left">Valiant</td>
 <td align="right">18.1</td>
 <td align="right">6</td>
 <td align="right">225</td>
