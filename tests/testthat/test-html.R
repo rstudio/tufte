@@ -3,8 +3,7 @@ test_that("add marginnote", {
   expect_snapshot(marginnote_html("text", "#"))
 })
 
-
-expect_refs_margin <- function(moved = FALSE, ...) {
+expect_refs_margin <- function(moved = FALSE, ..., variant = NULL) {
   rmd <- test_path("resources/margins_references.Rmd")
   out <- withr::local_tempfile(fileext = ".html")
   rmd_temp <- withr::local_tempfile(fileext = ".Rmd")
@@ -16,27 +15,32 @@ expect_refs_margin <- function(moved = FALSE, ...) {
                                    output = out, citeproc = TRUE, verbose = FALSE,
                                    wd = dirname(rmd_temp), ...)
   x <- xfun::read_utf8(out)
-  expect_snapshot(margin_references(x))
+  expect_snapshot(margin_references(x), variant = variant)
 }
 
-test_that("put references in margin when link-citations: yes using Pandoc 2.11+", {
-  skip_on_cran() # requires recent Pandoc
-  skip_if_not(rmarkdown::pandoc_available("2.11"))
-  expect_refs_margin(moved = TRUE)
-  expect_refs_margin(moved = FALSE)
-})
+citeproc_variant <- function() {
+  if (!rmarkdown::pandoc_available("2.11")) {
+    "pandoc-citeproc"
+  } else if (!rmarkdown::pandoc_available("2.14.1")) { # new citeproc creates links on author
+    "new-citeproc-post-2.14.0.2"
+  } else { # Pandoc 2.14.1 fixed  that
+    "new-citeproc-post-2.14.1"
+  }
+}
 
-test_that("put references in margin when link-citations: yes before Pandoc 2.11+", {
-  skip_on_cran() # requires recent Pandoc
-  skip_if(rmarkdown::pandoc_available("2.11"))
-  expect_refs_margin(moved = TRUE)
-  expect_refs_margin(moved = FALSE)
+pandoc_variant <- citeproc_variant()
+
+test_that("put references in margin when link-citations: yes", {
+  skip_on_cran()
+  skip_if_not_pandoc()
+  expect_refs_margin(moved = TRUE, variant = pandoc_variant)
+  expect_refs_margin(moved = FALSE, variant = pandoc_variant)
 })
 
 test_that("put references in margin when link-citations: yes using csl", {
   skip_on_cran() # requires recent Pandoc
-  skip_if_not(rmarkdown::pandoc_available("2.11"))
+  skip_if_not_pandoc("2.11")
   skip_if_offline("zotero.org")
-  expect_refs_margin(moved = TRUE, c("--csl", "https://www.zotero.org/styles/apa-6th-edition"))
-  expect_refs_margin(moved = TRUE, c("--csl", "https://www.zotero.org/styles/chicago-author-date-16th-edition"))
+  expect_refs_margin(moved = TRUE, variant = pandoc_variant, c("--csl", "https://www.zotero.org/styles/apa-6th-edition"))
+  expect_refs_margin(moved = TRUE, variant = pandoc_variant, c("--csl", "https://www.zotero.org/styles/chicago-author-date-16th-edition"))
 })
