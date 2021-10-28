@@ -131,7 +131,7 @@ Markdown语法使用`>`来生成引文，如果需要在引文下面用行内代
 
 # 结语
 
-希望诸位喜欢R Markdown的超级简洁性，同时我们感谢Tufte-CSS和Tufte-LaTeX项目的作者们，没有他们的辛勤劳动，就没有这个**tufte**包。这份文档的R Markdown源文档可以在[Github上找到](https://github.com/rstudio/tufte/raw/master/inst/rmarkdown/templates/tufte_ctex/skeleton/skeleton.Rmd)，或者直接使用RStudio菜单`File -> New File -> R Markdown -> From Template`新建一个文档，或直接从R里面打开这个Rmd文件：
+希望诸位喜欢R Markdown的超级简洁性，同时我们感谢Tufte-CSS和Tufte-LaTeX项目的作者们，没有他们的辛勤劳动，就没有这个**tufte**包。这份文档的R Markdown源文档可以在[Github上找到](https://github.com/rstudio/tufte/raw/main/inst/rmarkdown/templates/tufte_ctex/skeleton/skeleton.Rmd)，或者直接使用RStudio菜单`File -> New File -> R Markdown -> From Template`新建一个文档，或直接从R里面打开这个Rmd文件：
 
 ```{r eval=FALSE}
 file.edit(

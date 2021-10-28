@@ -259,7 +259,7 @@ output:
     tufte_variant: "envisioned"
 ```
 
-To see the R Markdown source of this example document, you may follow [this link to Github](https://github.com/rstudio/tufte/raw/master/inst/rmarkdown/templates/tufte_html/skeleton/skeleton.Rmd), use the wizard in RStudio IDE (`File -> New File -> R Markdown -> From Template`), or open the Rmd file in the package:
+To see the R Markdown source of this example document, you may follow [this link to Github](https://github.com/rstudio/tufte/raw/main/inst/rmarkdown/templates/tufte_html/skeleton/skeleton.Rmd), use the wizard in RStudio IDE (`File -> New File -> R Markdown -> From Template`), or open the Rmd file in the package:
 
 ```{r eval=FALSE}
 file.edit(
