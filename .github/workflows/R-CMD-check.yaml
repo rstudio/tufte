@@ -22,12 +22,13 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'release', pandoc: '2.14.2'}
-          - {os: windows-latest, r: 'release', pandoc: '2.7.3'}
-
-          # Use older ubuntu to maximise backward compatibility
-          - {os: ubuntu-18.04,   r: 'devel',   pandoc: '2.14.2', http-user-agent: 'release'}
+          - {os: macOS-latest,   r: 'release', pandoc: '2.16.1'}
+          - {os: windows-latest, r: 'release', pandoc: '2.16.1'}
           - {os: ubuntu-18.04,   r: 'release', pandoc: 'devel'}
+          - {os: ubuntu-18.04,   r: 'release', pandoc: '2.16.1'}
+          - {os: ubuntu-18.04,   r: 'release', pandoc: '2.14.2'}
+          # Previous R versions
+          - {os: ubuntu-18.04,   r: 'devel',   pandoc: '2.14.2', http-user-agent: 'release'}
           - {os: ubuntu-18.04,   r: 'oldrel',  pandoc: '2.14.2'}
 
     env:
