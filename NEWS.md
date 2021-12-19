@@ -1,3 +1,6 @@
+# CHANGES IN tufte VERSION 0.12
+
+
 # CHANGES IN tufte VERSION 0.11
 
 - Fix an issue with Pandoc's table support in `tufte_handout()` (thanks, @chrisjake, #104).
