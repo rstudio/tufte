@@ -2,7 +2,6 @@
 
 - Fix footnotes as sidenotes issue with Pandoc 2.15 and later (thanks, @MCMaurer, #108).
 
-
 # CHANGES IN tufte VERSION 0.11
 
 - Fix an issue with Pandoc's table support in `tufte_handout()` (thanks, @chrisjake, #104).
