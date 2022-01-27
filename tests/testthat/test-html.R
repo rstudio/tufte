@@ -45,3 +45,14 @@ test_that("put references in margin when link-citations: yes using csl", {
   expect_refs_margin(moved = TRUE, variant = pandoc_variant, c("--csl", "https://www.zotero.org/styles/apa-6th-edition"))
   expect_refs_margin(moved = TRUE, variant = pandoc_variant, c("--csl", "https://www.zotero.org/styles/chicago-author-date-16th-edition"))
 })
+
+test_that("footnotes are correctly parsed", {
+  skip_on_cran()
+  skip_if_not_pandoc()
+  pandoc_html <- local_pandoc_convert("Here is some text^[This should be a sidenote].",
+                                      to = "html4")
+  expect_identical(
+    parse_footnotes(pandoc_html),
+    list(items = "This should be a sidenote", range = 2:7)
+  )
+})

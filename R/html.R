@@ -176,7 +176,7 @@ tufte_html_dependency = function(features, variant) {
 # we assume one footnote only contains one paragraph here, although it is
 # possible to write multiple paragraphs in a footnote with Pandoc's Markdown
 parse_footnotes = function(x, fn_label = 'fn') {
-  i = which(x == '<div class="footnotes">')
+  i = grep('^<div class="footnotes[^"]*"[^>]*>', x)
   if (length(i) == 0) return(list(items = character(), range = integer()))
   j = which(x == '</div>')
   j = min(j[j > i])
