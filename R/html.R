@@ -12,7 +12,7 @@
 #'   \code{envisioned} (inspired by the project \code{Envisioned CSS}
 #'   \url{https://github.com/nogginfuel/envisioned-css} but essentially just
 #'   sets the font family to \code{Roboto Condensed}, and changed the
-#'   background/foregroudn colors).
+#'   background/foreground colors).
 #' @param margin_references Whether to place citations in margin notes.
 #' @rdname tufte_handout
 #' @export
