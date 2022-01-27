@@ -3,14 +3,13 @@ Package: tufte
 Title: Tufte's Styles for R Markdown Documents
 Version: 0.11.1
 Authors@R: c(
-    person("Yihui", "Xie", role = c("aut", "cre"), email = "xie@yihui.name", comment = c(ORCID = "0000-0003-0645-5666")),
+    person("Yihui", "Xie", role = c("aut"), email = "xie@yihui.name", comment = c(ORCID = "0000-0003-0645-5666")),
+    person("Christophe", "Dervieux", role = c("ctb", "cre"), email = "cderv@rstudio.com", comment = c(ORCID = "0000-0003-4474-2498")),
     person("JJ", "Allaire", role = "aut"),
-    person("Christophe", "Dervieux", role = "ctb", comment = c(ORCID = "0000-0003-4474-2498")),
     person("Andrzej", "Oles", role = "ctb"),
     person("Dave", "Liepmann", role = "ctb", comment = "Tufte CSS in inst/rmarkdown/templates/tufte_html/resources"),
     person(family = "RStudio, PBC", role = "cph")
     )
-Maintainer: Yihui Xie <xie@yihui.name>
 Description: Provides R Markdown output formats to use Tufte styles for
     PDF and HTML output.
 License: GPL-3
