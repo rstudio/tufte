@@ -1,5 +1,5 @@
-Package: tufte
 Type: Package
+Package: tufte
 Title: Tufte's Styles for R Markdown Documents
 Version: 0.11.1
 Authors@R: c(
@@ -11,17 +11,19 @@ Authors@R: c(
     person(family = "RStudio, PBC", role = "cph")
     )
 Maintainer: Yihui Xie <xie@yihui.name>
-Description: Provides R Markdown output formats to use Tufte styles for PDF and HTML output.
+Description: Provides R Markdown output formats to use Tufte styles for
+    PDF and HTML output.
 License: GPL-3
 URL: https://github.com/rstudio/tufte
 BugReports: https://github.com/rstudio/tufte/issues
 Imports:
     htmltools,
-    xfun (>= 0.13),
     knitr (>= 1.28),
-    rmarkdown (>= 2.1)
-RoxygenNote: 7.1.1
+    rmarkdown (>= 2.11),
+    xfun (>= 0.13)
 Suggests: 
     testthat (>= 3.1.0),
     withr (>= 2.3.0)
 Config/testthat/edition: 3
+Encoding: UTF-8
+RoxygenNote: 7.1.2
