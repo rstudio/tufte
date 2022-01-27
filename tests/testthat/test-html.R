@@ -3,7 +3,7 @@ test_that("add marginnote", {
   expect_snapshot(marginnote_html("text", "#"))
 })
 
-expect_refs_margin <- function(moved = FALSE, ..., variant = NULL) {
+expect_refs_margin <- function(moved = FALSE, options = NULL, ..., variant = NULL) {
   rmd <- test_path("resources/margins_references.Rmd")
   out <- withr::local_tempfile(fileext = ".html")
   rmd_temp <- withr::local_tempfile(fileext = ".Rmd")
@@ -12,8 +12,9 @@ expect_refs_margin <- function(moved = FALSE, ..., variant = NULL) {
     rmd_temp
   )
   rmarkdown::pandoc_convert(basename(rmd_temp), "html4", "markdown",
-                                   output = out, citeproc = TRUE, verbose = FALSE,
-                                   wd = dirname(rmd_temp), ...)
+                            output = out, citeproc = TRUE, verbose = FALSE,
+                            wd = dirname(rmd_temp),
+                            options = c("--wrap", "preserve", options), ...)
   x <- xfun::read_utf8(out)
   expect_snapshot(margin_references(x), variant = variant)
 }
