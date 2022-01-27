@@ -14,7 +14,7 @@ expect_refs_margin <- function(moved = FALSE, options = NULL, ..., variant = NUL
   rmarkdown::pandoc_convert(basename(rmd_temp), "html4", "markdown",
                             output = out, citeproc = TRUE, verbose = FALSE,
                             wd = dirname(rmd_temp),
-                            options = c("--wrap", "none", options), ...)
+                            options = c("--wrap", "preserve", options), ...)
   x <- xfun::read_utf8(out)
   expect_snapshot(margin_references(x), variant = variant)
 }
