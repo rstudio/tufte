@@ -114,7 +114,7 @@ class: \url{https://tufte-latex.github.io/tufte-latex/}.
 }
 \examples{
 library(tufte)
-newthought("In this section")
+newthought('In this section')
 }
 \references{
 See \url{https://rstudio.github.io/tufte/} for an example.
