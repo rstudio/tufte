@@ -1,3 +1,5 @@
+# CHANGES IN tufte VERSION 0.13
+
 # CHANGES IN tufte VERSION 0.12
 
 - Fix footnotes as sidenotes issue with Pandoc 2.15 and later (thanks, @MCMaurer, #108).
