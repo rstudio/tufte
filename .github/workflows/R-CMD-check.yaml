@@ -1,4 +1,4 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 #
 # NOTE: This workflow is overkill for most R packages and
@@ -22,10 +22,10 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'release', pandoc: '2.17.0.1'}
-          - {os: windows-latest, r: 'release', pandoc: '2.17.0.1'}
+          - {os: macOS-latest,   r: 'release', pandoc: '2.17.1.1'}
+          - {os: windows-latest, r: 'release', pandoc: '2.17.1.1'}
           - {os: ubuntu-18.04,   r: 'release', pandoc: 'devel'}
-          - {os: ubuntu-18.04,   r: 'release', pandoc: '2.17.0.1'}
+          - {os: ubuntu-18.04,   r: 'release', pandoc: '2.17.1.1'}
           - {os: ubuntu-18.04,   r: 'release', pandoc: '2.14.2'}
           - {os: ubuntu-18.04,   r: 'release', pandoc: '2.11.4'}
           - {os: ubuntu-18.04,   r: 'release', pandoc: '2.7.3'}
@@ -59,3 +59,12 @@ jobs:
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
+        with:
+          upload-snapshots: true
+
+      - name: Test coverage
+        if: success() && runner.os == 'Linux' && matrix.config.r == 'release' && matrix.config.pandoc == '2.7.3'
+        run: |
+          pak::pkg_install('covr')
+          covr::codecov()
+        shell: Rscript {0}

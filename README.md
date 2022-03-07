@@ -7,10 +7,11 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/tufte)](https://CRAN.R-project.org/package=tufte)
-[![R-CMD-check](https://github.com/rstudio/tufte/workflows/R-CMD-check/badge.svg)](https://github.com/rstudio/tufte/actions)
 [![Downloads from the RStudio CRAN
 mirror](https://cranlogs.r-pkg.org/badges/tufte)](https://cran.r-project.org/package=tufte)
-
+[![R-CMD-check](https://github.com/rstudio/tufte/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rstudio/tufte/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/rstudio/tufte/branch/main/graph/badge.svg)](https://app.codecov.io/gh/rstudio/tufte?branch=main)
 <!-- badges: end -->
 
 This R package provides a few R Markdown output formats that use the

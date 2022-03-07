@@ -21,6 +21,7 @@ Imports:
     rmarkdown (>= 2.11),
     xfun (>= 0.13)
 Suggests: 
+    covr,
     testthat (>= 3.1.0),
     withr (>= 2.3.0)
 Config/testthat/edition: 3
