@@ -55,12 +55,21 @@ if these two tools are available.}
 
 \item{dev}{Graphics device to use for figure output (defaults to pdf)}
 
-\item{highlight}{Syntax highlighting style. Supported styles include
-"default", "tango", "pygments", "kate", "monochrome", "espresso",
-"zenburn", and "haddock". Pass \code{NULL} to prevent syntax highlighting.}
+\item{highlight}{Syntax highlighting style passed to Pandoc.
 
-\item{...}{Other arguments to be passed to \code{\link{pdf_document}} or
-\code{\link{html_document}} (note you cannot use the \code{template}
+ Supported built-in styles include "default", "tango", "pygments", "kate",
+ "monochrome", "espresso", "zenburn", "haddock", and "breezedark".
+
+  Two custom styles are also included, "arrow", an accessible color scheme,
+  and "rstudio", which mimics the default IDE theme. Alternatively, supply a
+  path to a \samp{.theme} file to use
+  \href{https://pandoc.org/MANUAL.html#syntax-highlighting}{a custom Pandoc
+  style}. Note that custom theme requires Pandoc 2.0+.
+
+  Pass \code{NULL} to prevent syntax highlighting.}
+
+\item{...}{Other arguments to be passed to \code{\link[=pdf_document]{pdf_document()}} or
+\code{\link[=html_document]{html_document()}} (note you cannot use the \code{template}
 argument in \code{tufte_handout} or the \code{theme} argument in
 \code{tufte_html()}; these arguments have been set internally)}
 
@@ -74,9 +83,9 @@ argument is not \code{default}, no features are enabled.}
 
 \item{tufte_variant}{A variant of the Tufte style. Currently supported styles
 are \code{default} (from the \code{tufte-css} project), and
-\code{envisioned} (inspired by the project \code{Envisioned CSS}
+\code{envisioned} (inspired by the project \verb{Envisioned CSS}
 \url{https://github.com/nogginfuel/envisioned-css} but essentially just
-sets the font family to \code{Roboto Condensed}, and changed the
+sets the font family to \verb{Roboto Condensed}, and changed the
 background/foreground colors).}
 
 \item{margin_references}{Whether to place citations in margin notes.}
@@ -96,19 +105,22 @@ Richard Feynman.
 class: \url{https://tufte-latex.github.io/tufte-latex/}.
 
 \code{tufte_html()} provides the HTML format based on the Tufte CSS:
-  \url{https://edwardtufte.github.io/tufte-css/}.
+\url{https://edwardtufte.github.io/tufte-css/}.
 
 \code{newthought()} can be used in inline R expressions in R
-  Markdown (e.g. \samp{`r newthought(Some text)`}), and it works for both
-  HTML (\samp{<span class="newthought">text</span>}) and PDF
-  (\samp{\\newthought{text}}) output.
+Markdown\if{html}{\out{<div class="sourceCode r">}}\preformatted{`r newthought(Some text)`
+}\if{html}{\out{</div>}}
+
+and it works for both
+HTML (\samp{<span class="newthought">text</span>}) and PDF
+(\samp{\\newthought{text}}) output.
 
 \code{margin_note()} can be used in inline R expressions to write a
-  margin note (like a sidenote but not numbered).
+margin note (like a sidenote but not numbered).
 
 \code{quote_footer()} formats text as the footer of a quote. It puts
-  \code{text} in \samp{<footer></footer>} for HTML output, and
-  after \samp{\\hfill} for LaTeX output (to right-align text).
+\code{text} in \samp{<footer></footer>} for HTML output, and
+after \samp{\\hfill} for LaTeX output (to right-align text).
 
 \code{sans_serif()} applies sans-serif fonts to \code{text}.
 }

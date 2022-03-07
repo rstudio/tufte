@@ -3,14 +3,14 @@
 #' Templates for creating handouts according to the style of Edward R. Tufte and
 #' Richard Feynman.
 #'
-#' \code{tufte_handout()} provides the PDF format based on the Tufte-LaTeX
-#' class: \url{https://tufte-latex.github.io/tufte-latex/}.
+#' `tufte_handout()` provides the PDF format based on the Tufte-LaTeX
+#' class: <https://tufte-latex.github.io/tufte-latex/>.
 #' @inheritParams rmarkdown::pdf_document
-#' @param ... Other arguments to be passed to \code{\link{pdf_document}} or
-#'   \code{\link{html_document}} (note you cannot use the \code{template}
-#'   argument in \code{tufte_handout} or the \code{theme} argument in
-#'   \code{tufte_html()}; these arguments have been set internally)
-#' @references See \url{https://rstudio.github.io/tufte/} for an example.
+#' @param ... Other arguments to be passed to [pdf_document()] or
+#'   [html_document()] (note you cannot use the `template`
+#'   argument in `tufte_handout` or the `theme` argument in
+#'   `tufte_html()`; these arguments have been set internally)
+#' @references See <https://rstudio.github.io/tufte/> for an example.
 #' @export
 #' @examples library(tufte)
 tufte_handout = function(

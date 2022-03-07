@@ -1,17 +1,17 @@
-#' @details \code{tufte_html()} provides the HTML format based on the Tufte CSS:
-#'   \url{https://edwardtufte.github.io/tufte-css/}.
+#' @details `tufte_html()` provides the HTML format based on the Tufte CSS:
+#'   <https://edwardtufte.github.io/tufte-css/>.
 #' @param tufte_features A character vector of style features to enable:
-#'   \code{fonts} stands for the \code{et-book} fonts in the \code{tufte-css}
-#'   project, \code{background} means the lightyellow background color of the
-#'   page, and \code{italics} means whether to use italics for the headers. You
+#'   `fonts` stands for the `et-book` fonts in the `tufte-css`
+#'   project, `background` means the lightyellow background color of the
+#'   page, and `italics` means whether to use italics for the headers. You
 #'   can enable a subset of these features, or just disable all of them by
-#'   \code{NULL}. When this argument is not used and the \code{tufte_variant}
-#'   argument is not \code{default}, no features are enabled.
+#'   `NULL`. When this argument is not used and the `tufte_variant`
+#'   argument is not `default`, no features are enabled.
 #' @param tufte_variant A variant of the Tufte style. Currently supported styles
-#'   are \code{default} (from the \code{tufte-css} project), and
-#'   \code{envisioned} (inspired by the project \code{Envisioned CSS}
-#'   \url{https://github.com/nogginfuel/envisioned-css} but essentially just
-#'   sets the font family to \code{Roboto Condensed}, and changed the
+#'   are `default` (from the `tufte-css` project), and
+#'   `envisioned` (inspired by the project `Envisioned CSS`
+#'   <https://github.com/nogginfuel/envisioned-css> but essentially just
+#'   sets the font family to `Roboto Condensed`, and changed the
 #'   background/foreground colors).
 #' @param margin_references Whether to place citations in margin notes.
 #' @rdname tufte_handout
