@@ -12,9 +12,10 @@ expect_refs_margin <- function(moved = FALSE, options = NULL, ..., variant = NUL
     rmd_temp
   )
   rmarkdown::pandoc_convert(basename(rmd_temp), "html4", "markdown",
-                            output = out, citeproc = TRUE, verbose = FALSE,
-                            wd = dirname(rmd_temp),
-                            options = c("--wrap", "preserve", options), ...)
+    output = out, citeproc = TRUE, verbose = FALSE,
+    wd = dirname(rmd_temp),
+    options = c("--wrap", "preserve", options), ...
+  )
   x <- xfun::read_utf8(out)
   expect_snapshot(margin_references(x), variant = variant)
 }
@@ -50,7 +51,8 @@ test_that("footnotes are correctly parsed", {
   skip_on_cran()
   skip_if_not_pandoc()
   pandoc_html <- local_pandoc_convert("Here is some text^[This should be a sidenote].",
-                                      to = "html4")
+    to = "html4"
+  )
   expect_identical(
     parse_footnotes(pandoc_html),
     list(items = "This should be a sidenote", range = 2:7)

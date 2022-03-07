@@ -10,12 +10,12 @@
 #'   (using small caps), or a margin note, or a footer of a quote
 #' @rdname tufte_handout
 #' @export
-#' @examples newthought('In this section')
-newthought = function(text) {
+#' @examples newthought("In this section")
+newthought <- function(text) {
   if (is_html_output()) {
     sprintf('<span class="newthought">%s</span>', text)
   } else if (is_latex_output()) {
-    sprintf('\\newthought{%s}', text)
+    sprintf("\\newthought{%s}", text)
   } else {
     sprintf('<span style="font-variant:small-caps;">%s</span>', text)
   }
@@ -28,13 +28,13 @@ newthought = function(text) {
 #' @rdname tufte_handout
 #' @importFrom knitr is_html_output is_latex_output
 #' @export
-margin_note = function(text, icon = '&#8853;') {
+margin_note <- function(text, icon = "&#8853;") {
   if (is_html_output()) {
     marginnote_html(sprintf('<span class="marginnote">%s</span>', text), icon)
   } else if (is_latex_output()) {
-    sprintf('\\marginnote{%s}', text)
+    sprintf("\\marginnote{%s}", text)
   } else {
-    warning('marginnote() only works for HTML and LaTeX output', call. = FALSE)
+    warning("marginnote() only works for HTML and LaTeX output", call. = FALSE)
     text
   }
 }
@@ -44,13 +44,13 @@ margin_note = function(text, icon = '&#8853;') {
 #'   after \samp{\\hfill} for LaTeX output (to right-align text).
 #' @rdname tufte_handout
 #' @export
-quote_footer = function(text) {
+quote_footer <- function(text) {
   if (is_html_output()) {
-    sprintf('<footer>%s</footer>', text)
+    sprintf("<footer>%s</footer>", text)
   } else if (is_latex_output()) {
-    sprintf('\\hfill %s', text)
+    sprintf("\\hfill %s", text)
   } else {
-    warning('quote_footer() only works for HTML and LaTeX output', call. = FALSE)
+    warning("quote_footer() only works for HTML and LaTeX output", call. = FALSE)
     text
   }
 }
@@ -58,21 +58,21 @@ quote_footer = function(text) {
 #' @details `sans_serif()` applies sans-serif fonts to `text`.
 #' @rdname tufte_handout
 #' @export
-sans_serif = function(text) {
+sans_serif <- function(text) {
   if (is_html_output()) {
     sprintf('<span class="sans">%s</span>', text)
   } else if (is_latex_output()) {
-    sprintf('\\textsf{%s}', text)
+    sprintf("\\textsf{%s}", text)
   } else {
-    warning('sans_serif() only works for HTML and LaTeX output', call. = FALSE)
+    warning("sans_serif() only works for HTML and LaTeX output", call. = FALSE)
     text
   }
 }
 
-template_resources = function(name, ...) {
-  system.file('rmarkdown', 'templates', name, 'resources', ..., package = 'tufte')
+template_resources <- function(name, ...) {
+  system.file("rmarkdown", "templates", name, "resources", ..., package = "tufte")
 }
 
-gsub_fixed = function(...) gsub(..., fixed = TRUE)
+gsub_fixed <- function(...) gsub(..., fixed = TRUE)
 
-pandoc2.0 = function() rmarkdown::pandoc_available('2.0')
+pandoc2.0 <- function() rmarkdown::pandoc_available("2.0")
