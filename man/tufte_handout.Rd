@@ -126,7 +126,7 @@ after \samp{\\hfill} for LaTeX output (to right-align text).
 }
 \examples{
 library(tufte)
-newthought('In this section')
+newthought("In this section")
 }
 \references{
 See \url{https://rstudio.github.io/tufte/} for an example.
