@@ -125,7 +125,7 @@ If you'd like to place ancillary information in the margin without the sidenote 
 
 # References
 
-References can be displayed as margin notes for HTML output. For example, we can cite R here [@R-base]. To enable this feature, you must set `link-citations: yes` in the YAML metadata, and the version of `pandoc-citeproc` should be at least 0.7.2. You can always install your own version of Pandoc from https://pandoc.org/installing.html if the version is not sufficient. To check the version of `pandoc-citeproc` in your system, you may run this in R:
+References can be displayed as margin notes for HTML output. For example, we can cite R here [@R-base]. To enable this feature, you must set `link-citations: yes` in the YAML metadata, and the version of Pandoc should at least 2.11 or `pandoc-citeproc` should be available and at least 0.7.2. You can always install your own version of Pandoc from https://pandoc.org/installing.html if the version is not sufficient. To check the version of `pandoc-citeproc` in your system, you may run this in R:
 
 ```{r eval=FALSE}
 system2('pandoc-citeproc', '--version')
