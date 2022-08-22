@@ -1,9 +1,5 @@
 # Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
-#
-# NOTE: This workflow is overkill for most R packages and
-# check-standard.yaml is likely a better choice.
-# usethis::use_github_action("check-standard") will install it.
 on:
   push:
     branches: [main, master]
@@ -22,15 +18,17 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'release', pandoc: '2.17.1.1'}
-          - {os: windows-latest, r: 'release', pandoc: '2.17.1.1'}
-          - {os: ubuntu-18.04,   r: 'release', pandoc: 'devel'}
-          - {os: ubuntu-18.04,   r: 'release', pandoc: '2.17.1.1'}
-          - {os: ubuntu-18.04,   r: 'release', pandoc: '2.14.2'}
-          - {os: ubuntu-18.04,   r: 'release', pandoc: '2.11.4'}
-          - {os: ubuntu-18.04,   r: 'release', pandoc: '2.7.3'}
-          - {os: ubuntu-18.04,   r: 'devel',   pandoc: '2.14.2', http-user-agent: 'release'}
-          - {os: ubuntu-18.04,   r: 'oldrel',  pandoc: '2.14.2'}
+          - {os: macOS-latest,   r: 'release', pandoc: '2.19'}
+          - {os: windows-latest, r: 'release', pandoc: '2.19'}
+          - {os: ubuntu-latest,   r: 'release', pandoc: 'devel'}
+          - {os: ubuntu-latest,   r: 'release', pandoc: '2.19'}
+          - {os: ubuntu-latest,   r: 'release', pandoc: '2.18'}
+          - {os: ubuntu-latest,   r: 'release', pandoc: '2.17.1.1'}
+          - {os: ubuntu-latest,   r: 'release', pandoc: '2.14.2'}
+          - {os: ubuntu-latest,   r: 'release', pandoc: '2.11.4'}
+          - {os: ubuntu-latest,   r: 'release', pandoc: '2.7.3'}
+          - {os: ubuntu-latest,   r: 'devel',   pandoc: '2.14.2', http-user-agent: 'release'}
+          - {os: ubuntu-latest,   r: 'oldrel',  pandoc: '2.14.2'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
