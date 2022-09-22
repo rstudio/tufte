@@ -76,3 +76,14 @@ template_resources <- function(name, ...) {
 gsub_fixed <- function(...) gsub(..., fixed = TRUE)
 
 pandoc2.0 <- function() rmarkdown::pandoc_available("2.0")
+
+# add --wrap=preserve to pandoc args for pandoc 2.0:
+# https://github.com/rstudio/bookdown/issues/504
+# https://github.com/rstudio/tufte/issues/115
+add_wrap_preserve <- function(args, pandoc2 = pandoc2.0) {
+  if (pandoc2 && !length(grep("--wrap", args))) {
+    c("--wrap", "preserve", args)
+  } else {
+    args
+  }
+}

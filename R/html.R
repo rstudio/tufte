@@ -33,6 +33,9 @@ tufte_html <- function(..., tufte_features = c("fonts", "background", "italics")
   format <- html_document2(theme = NULL, ...)
   pandoc2 <- pandoc2.0()
 
+  # add --wrap=preserve to pandoc args for pandoc 2.0:
+  format$pandoc$args <-  add_wrap_preserve(format$pandoc$args, pandoc2)
+
   # when fig.margin = TRUE, set fig.beforecode = TRUE so plots are moved before
   # code blocks, and they can be top-aligned
   ohooks <- knitr::opts_hooks$set(fig.margin = function(options) {

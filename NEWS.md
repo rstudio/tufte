@@ -1,5 +1,7 @@
 # CHANGES IN tufte VERSION 0.13
 
+- Fix issue with margin content when using Pandoc 2.19 and later by adding `--wrap preserve` by default (thanks, @TomBen, #115).
+
 # CHANGES IN tufte VERSION 0.12
 
 - Fix footnotes as sidenotes issue with Pandoc 2.15 and later (thanks, @MCMaurer, #108).
