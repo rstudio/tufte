@@ -1,3 +1,10 @@
+.onLoad <- function(lib, pkg) {
+  # this engine will be overridden in tufte_html/tufte_handout formats
+  knitr::knit_engines$set(marginfigure = function(options) {
+    'Placeholder (you should not see this)'
+  })
+}
+
 #' @details `newthought()` can be used in inline R expressions in R
 #'   Markdown
 #'   ```r
