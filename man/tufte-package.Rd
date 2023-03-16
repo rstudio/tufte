@@ -17,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Christophe Dervieux \email{cderv@rstudio.com} (\href{https://orcid.org/0000-0003-4474-2498}{ORCID}) [contributor]
+\strong{Maintainer}: Christophe Dervieux \email{cderv@posit.co} (\href{https://orcid.org/0000-0003-4474-2498}{ORCID}) [contributor]
 
 Authors:
 \itemize{

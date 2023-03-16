@@ -108,7 +108,9 @@ class: \url{https://tufte-latex.github.io/tufte-latex/}.
 \url{https://edwardtufte.github.io/tufte-css/}.
 
 \code{newthought()} can be used in inline R expressions in R
-Markdown\if{html}{\out{<div class="sourceCode r">}}\preformatted{`r newthought(Some text)`
+Markdown
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{`r newthought(Some text)`
 }\if{html}{\out{</div>}}
 
 and it works for both
