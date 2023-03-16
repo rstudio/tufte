@@ -37,10 +37,8 @@ You can also install the development version of **tufte** from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("rstudio/tufte")
 # install.packages("pak")
-pak::pkg_install("rstudio/tufte")
+pak::pak("rstudio/tufte")
 ```
 
 ## Usage
