@@ -29,7 +29,7 @@ Other contributors:
 \itemize{
   \item Andrzej Oles [contributor]
   \item Dave Liepmann (Tufte CSS in inst/rmarkdown/templates/tufte_html/resources) [contributor]
-  \item RStudio, PBC [copyright holder, funder]
+  \item Posit Software, PBC [copyright holder, funder]
 }
 
 }
