@@ -68,8 +68,8 @@ if these two tools are available.}
 
   Pass \code{NULL} to prevent syntax highlighting.}
 
-\item{...}{Other arguments to be passed to \code{\link[=pdf_document]{pdf_document()}} or
-\code{\link[=html_document]{html_document()}} (note you cannot use the \code{template}
+\item{...}{Other arguments to be passed to \code{\link[rmarkdown:pdf_document]{rmarkdown::pdf_document()}} or
+\code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} (note you cannot use the \code{template}
 argument in \code{tufte_handout} or the \code{theme} argument in
 \code{tufte_html()}; these arguments have been set internally)}
 

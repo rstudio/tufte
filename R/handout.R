@@ -6,8 +6,8 @@
 #' `tufte_handout()` provides the PDF format based on the Tufte-LaTeX
 #' class: <https://tufte-latex.github.io/tufte-latex/>.
 #' @inheritParams rmarkdown::pdf_document
-#' @param ... Other arguments to be passed to [pdf_document()] or
-#'   [html_document()] (note you cannot use the `template`
+#' @param ... Other arguments to be passed to [rmarkdown::pdf_document()] or
+#'   [rmarkdown::html_document()] (note you cannot use the `template`
 #'   argument in `tufte_handout` or the `theme` argument in
 #'   `tufte_html()`; these arguments have been set internally)
 #' @references See <https://rstudio.github.io/tufte/> for an example.
