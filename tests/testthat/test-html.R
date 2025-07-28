@@ -37,9 +37,11 @@ citeproc_variant <- function() {
   } else if (!rmarkdown::pandoc_available("2.14.1")) {
     # new citeproc creates links on author
     "new-citeproc-post-2.14.0.2"
-  } else {
+  } else if (!rmarkdown::pandoc_available("3.1.8")) {
     # Pandoc 2.14.1 fixed  that
     "new-citeproc-post-2.14.1"
+  } else {
+    "new-citeproc-post-3.1.8"
   }
 }
 
