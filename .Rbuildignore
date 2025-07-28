@@ -7,3 +7,5 @@
 ^CRAN-SUBMISSION$
 ^README\.Rmd$
 ^codecov\.yml$
+^[.]?air[.]toml$
+^\.vscode$

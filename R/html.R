@@ -16,8 +16,12 @@
 #' @param margin_references Whether to place citations in margin notes.
 #' @rdname tufte_handout
 #' @export
-tufte_html <- function(..., tufte_features = c("fonts", "background", "italics"),
-                       tufte_variant = c("default", "envisioned"), margin_references = TRUE) {
+tufte_html <- function(
+  ...,
+  tufte_features = c("fonts", "background", "italics"),
+  tufte_variant = c("default", "envisioned"),
+  margin_references = TRUE
+) {
   tufte_variant <- match.arg(tufte_variant)
   if (missing(tufte_features) && tufte_variant != "default") {
     tufte_features <- character()
@@ -26,7 +30,8 @@ tufte_html <- function(..., tufte_features = c("fonts", "background", "italics")
     rmarkdown::html_document(
       ...,
       extra_dependencies = c(
-        extra_dependencies, tufte_html_dependency(tufte_features, tufte_variant)
+        extra_dependencies,
+        tufte_html_dependency(tufte_features, tufte_variant)
       )
     )
   }
@@ -34,7 +39,7 @@ tufte_html <- function(..., tufte_features = c("fonts", "background", "italics")
   pandoc2 <- pandoc2.0()
 
   # add --wrap=preserve to pandoc args for pandoc 2.0:
-  format$pandoc$args <-  add_wrap_preserve(format$pandoc$args, pandoc2)
+  format$pandoc$args <- add_wrap_preserve(format$pandoc$args, pandoc2)
 
   # when fig.margin = TRUE, set fig.beforecode = TRUE so plots are moved before
   # code blocks, and they can be top-aligned
@@ -62,20 +67,36 @@ tufte_html <- function(..., tufte_features = c("fonts", "background", "italics")
     for (i in seq_along(notes)) {
       num <- sprintf(
         '<a href="#%s%d" class="%s" id="%sref%d"><sup>%d</sup></a>',
-        fn_label, i, if (pandoc2) "footnote-ref" else "footnoteRef", fn_label, i, i
+        fn_label,
+        i,
+        if (pandoc2) "footnote-ref" else "footnoteRef",
+        fn_label,
+        i,
+        i
       )
-      con <- sprintf(paste0(
-        '<label for="tufte-sn-%d" class="margin-toggle sidenote-number">%d</label>',
-        '<input type="checkbox" id="tufte-sn-%d" class="margin-toggle">',
-        '<span class="sidenote"><span class="sidenote-number">%d</span> %s</span>'
-      ), i, i, i, i, notes[i])
+      con <- sprintf(
+        paste0(
+          '<label for="tufte-sn-%d" class="margin-toggle sidenote-number">%d</label>',
+          '<input type="checkbox" id="tufte-sn-%d" class="margin-toggle">',
+          '<span class="sidenote"><span class="sidenote-number">%d</span> %s</span>'
+        ),
+        i,
+        i,
+        i,
+        i,
+        notes[i]
+      )
       x <- gsub_fixed(num, con, x)
     }
     # remove footnotes at the bottom
-    if (length(footnotes$range)) x <- x[-footnotes$range]
+    if (length(footnotes$range)) {
+      x <- x[-footnotes$range]
+    }
 
     # replace citations with margin notes
-    if (margin_references) x <- margin_references(x)
+    if (margin_references) {
+      x <- margin_references(x)
+    }
 
     # place figure captions in margin notes
     x[x == '<p class="caption">'] <- '<p class="caption marginnote shownote">'
@@ -94,12 +115,16 @@ tufte_html <- function(..., tufte_features = c("fonts", "background", "italics")
     r <- "^<caption>(.+)</caption>$"
     for (i in grep(r, x)) {
       # the previous line should be <table> or <table class=...>
-      if (!grepl("^<table( class=.+)?>$", x[i - 1])) next
+      if (!grepl("^<table( class=.+)?>$", x[i - 1])) {
+        next
+      }
       cap <- gsub(r, "\\1", x[i])
       x[i] <- x[i - 1]
       x[i - 1] <- paste0(
-        "<p><!--\n<caption>-->", '<span class="marginnote shownote">',
-        cap, "</span><!--</caption>--></p>"
+        "<p><!--\n<caption>-->",
+        '<span class="marginnote shownote">',
+        cap,
+        "</span><!--</caption>--></p>"
       )
     }
 
@@ -112,9 +137,13 @@ tufte_html <- function(..., tufte_features = c("fonts", "background", "italics")
       if (n == 0) {
         return(z)
       }
-      if (n %% 2 != 0) warning("The number of labels is different with checkboxes")
+      if (n %% 2 != 0) {
+        warning("The number of labels is different with checkboxes")
+      }
       for (i in seq(1, n, 2)) {
-        if (i + 1 > n) break
+        if (i + 1 > n) {
+          break
+        }
         z[i + (0:1)] <- gsub(r, paste0("\\1 \\2\\3-", j, "\\4"), z[i + (0:1)])
         j <<- j + 1
       }
@@ -125,10 +154,14 @@ tufte_html <- function(..., tufte_features = c("fonts", "background", "italics")
     output
   }
 
-  if (is.null(format$knitr$knit_hooks)) format$knitr$knit_hooks <- list()
+  if (is.null(format$knitr$knit_hooks)) {
+    format$knitr$knit_hooks <- list()
+  }
   format$knitr$knit_hooks$plot <- function(x, options) {
     # make sure the plot hook always generates HTML code instead of ![]()
-    if (is.null(options$out.extra)) options$out.extra <- ""
+    if (is.null(options$out.extra)) {
+      options$out.extra <- ""
+    }
     fig_margin <- isTRUE(options$fig.margin)
     fig_fullwd <- isTRUE(options$fig.fullwidth)
     if (fig_margin || fig_fullwd) {
@@ -139,18 +172,32 @@ tufte_html <- function(..., tufte_features = c("fonts", "background", "italics")
     }
     res <- knitr::hook_plot_md(x, options)
     if (fig_margin) {
-      res <- gsub_fixed('<p class="caption">', '<!--\n<p class="caption marginnote">-->', res)
+      res <- gsub_fixed(
+        '<p class="caption">',
+        '<!--\n<p class="caption marginnote">-->',
+        res
+      )
       res <- gsub_fixed("</p>", "<!--</p>-->", res)
       res <- gsub_fixed("</div>", "<!--</div>--></span></p>", res)
       res <- gsub_fixed(
-        '<div class="figure">', paste0(
-          "<p>", '<span class="marginnote shownote">', '\n<!--\n<div class="figure">-->'
-        ), res
+        '<div class="figure">',
+        paste0(
+          "<p>",
+          '<span class="marginnote shownote">',
+          '\n<!--\n<div class="figure">-->'
+        ),
+        res
       )
     } else if (fig_fullwd) {
-      res <- gsub_fixed('<div class="figure">', '<div class="figure fullwidth">', res)
       res <- gsub_fixed(
-        '<p class="caption">', '<p class="caption marginnote shownote">', res
+        '<div class="figure">',
+        '<div class="figure fullwidth">',
+        res
+      )
+      res <- gsub_fixed(
+        '<p class="caption">',
+        '<p class="caption marginnote shownote">',
+        res
       )
     }
     res
@@ -158,7 +205,9 @@ tufte_html <- function(..., tufte_features = c("fonts", "background", "italics")
 
   knitr::knit_engines$set(marginfigure = function(options) {
     options$type <- "marginnote"
-    if (is.null(options$html.tag)) options$html.tag <- "span"
+    if (is.null(options$html.tag)) {
+      options$html.tag <- "span"
+    }
     options$html.before <- marginnote_html()
     eng_block <- knitr::knit_engines$get("block")
     eng_block(options)
@@ -172,9 +221,12 @@ tufte_html <- function(..., tufte_features = c("fonts", "background", "italics")
 #' @importFrom htmltools htmlDependency
 tufte_html_dependency <- function(features, variant) {
   list(htmlDependency(
-    "tufte-css", "2015.12.29",
-    src = template_resources("tufte_html"), stylesheet = c(
-      sprintf("tufte-%s.css", features), "tufte.css",
+    "tufte-css",
+    "2015.12.29",
+    src = template_resources("tufte_html"),
+    stylesheet = c(
+      sprintf("tufte-%s.css", features),
+      "tufte.css",
       if (variant != "default") sprintf("%s.css", variant)
     )
   ))
@@ -192,7 +244,8 @@ parse_footnotes <- function(x, fn_label = "fn") {
   n <- length(x)
   r <- sprintf(
     '<li id="%s([0-9]+)"><p>(.+)<a href="#%sref\\1"([^>]*)>.{1,2}</a></p></li>',
-    fn_label, fn_label
+    fn_label,
+    fn_label
   )
   s <- paste(x[i:j], collapse = "\n")
   list(
@@ -242,8 +295,12 @@ margin_references <- function(x) {
 }
 
 marginnote_html <- function(text = "", icon = "&#8853;") {
-  sprintf(paste0(
-    '<label for="tufte-mn-" class="margin-toggle">%s</label>',
-    '<input type="checkbox" id="tufte-mn-" class="margin-toggle">%s'
-  ), icon, text)
+  sprintf(
+    paste0(
+      '<label for="tufte-mn-" class="margin-toggle">%s</label>',
+      '<input type="checkbox" id="tufte-mn-" class="margin-toggle">%s'
+    ),
+    icon,
+    text
+  )
 }

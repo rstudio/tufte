@@ -57,7 +57,10 @@ quote_footer <- function(text) {
   } else if (is_latex_output()) {
     sprintf("\\hfill %s", text)
   } else {
-    warning("quote_footer() only works for HTML and LaTeX output", call. = FALSE)
+    warning(
+      "quote_footer() only works for HTML and LaTeX output",
+      call. = FALSE
+    )
     text
   }
 }
@@ -77,7 +80,14 @@ sans_serif <- function(text) {
 }
 
 template_resources <- function(name, ...) {
-  system.file("rmarkdown", "templates", name, "resources", ..., package = "tufte")
+  system.file(
+    "rmarkdown",
+    "templates",
+    name,
+    "resources",
+    ...,
+    package = "tufte"
+  )
 }
 
 gsub_fixed <- function(...) gsub(..., fixed = TRUE)

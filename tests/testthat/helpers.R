@@ -34,13 +34,22 @@ local_render <- function(input, ..., .env = parent.frame()) {
   rmarkdown::render(input, output_file = output_file, quiet = TRUE, ...)
 }
 
-local_pandoc_convert <- function(text, from = "markdown", options = NULL, ..., .env = parent.frame()) {
+local_pandoc_convert <- function(
+  text,
+  from = "markdown",
+  options = NULL,
+  ...,
+  .env = parent.frame()
+) {
   skip_if_not_pandoc()
   rmd <- local_rmd_file(text)
   out <- withr::local_tempfile(.local_envir = .env)
-  rmarkdown::pandoc_convert(rmd,
-    from = from, output = out,
-    options = c("--wrap", "preserve", options), ...
+  rmarkdown::pandoc_convert(
+    rmd,
+    from = from,
+    output = out,
+    options = c("--wrap", "preserve", options),
+    ...
   )
   xfun::read_utf8(out)
 }
