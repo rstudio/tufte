@@ -58,7 +58,7 @@ rmarkdown::draft("tufte.Rmd", "tufte_html", "tufte")
 There are two main places to get help:
 
 1.  The [RStudio
-    community](https://community.rstudio.com/c/r-markdown/10) is a
+    community](https://forum.posit.co/c/quarto-r-markdown/10) is a
     friendly place to ask any questions about rmarkdown and the R
     Markdown family of packages. Use tag **tufte** in your post.
 
