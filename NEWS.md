@@ -1,3 +1,5 @@
+# tufte (development version)
+
 # tufte 0.14.0
 
 # CHANGES IN tufte VERSION 0.14 (development version)
