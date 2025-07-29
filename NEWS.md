@@ -1,5 +1,7 @@
 # CHANGES IN tufte VERSION 0.14 (development version)
 
+- Patch release to fix some CRAN notes about Rd file changes.
+
 # CHANGES IN tufte VERSION 0.13
 
 - Fix issue with margin content when using Pandoc 2.19 and later by adding `--wrap preserve` by default (thanks, @TomBen, #115).
