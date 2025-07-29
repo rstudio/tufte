@@ -1,3 +1,5 @@
+# tufte 0.14.0
+
 # CHANGES IN tufte VERSION 0.14 (development version)
 
 - Patch release to fix some CRAN notes about Rd file changes.
