@@ -9,3 +9,4 @@
 ^codecov\.yml$
 ^[.]?air[.]toml$
 ^\.vscode$
+^cran-comments\.md$
