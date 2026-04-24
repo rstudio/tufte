@@ -10,3 +10,5 @@
 ^[.]?air[.]toml$
 ^\.vscode$
 ^cran-comments\.md$
+^\.positai$
+^\.claude$
