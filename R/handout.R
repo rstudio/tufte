@@ -16,7 +16,7 @@
 tufte_handout <- function(
   fig_width = 4,
   fig_height = 2.5,
-  fig_crop = TRUE,
+  fig_crop = "auto",
   dev = "pdf",
   highlight = "default",
   ...
@@ -37,7 +37,7 @@ tufte_handout <- function(
 tufte_book <- function(
   fig_width = 4,
   fig_height = 2.5,
-  fig_crop = TRUE,
+  fig_crop = "auto",
   dev = "pdf",
   highlight = "default",
   ...
@@ -49,7 +49,7 @@ tufte_pdf <- function(
   documentclass = c("tufte-handout", "tufte-book"),
   fig_width = 4,
   fig_height = 2.5,
-  fig_crop = TRUE,
+  fig_crop = "auto",
   dev = "pdf",
   highlight = "default",
   template = template_resources("tufte_handout", "tufte-handout.tex"),
