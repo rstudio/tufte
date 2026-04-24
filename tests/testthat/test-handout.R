@@ -6,12 +6,13 @@ test_that("tufte_book() does not warn about crop tools", {
   expect_no_warning(tufte_book())
 })
 
-test_that("fig_crop = 'auto' is passed through to pdf_document", {
+test_that("fig_crop = 'auto' disables crop hook when tools are missing", {
+  skip_if_not(
+    !nzchar(Sys.which("pdfcrop")) || !nzchar(Sys.which("gs")),
+    "pdfcrop or ghostscript must be missing for this test"
+  )
   fmt <- tufte_handout()
-  # When crop tools are missing, the knitr options should not include crop hook
-  if (!nzchar(Sys.which("pdfcrop")) || !nzchar(Sys.which("gs"))) {
-    expect_null(fmt$knitr$knit_hooks$crop)
-  }
+  expect_null(fmt$knitr$knit_hooks$crop)
 })
 
 test_that("tufte_handout renders without pdfcrop warnings", {
