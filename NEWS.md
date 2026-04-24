@@ -1,5 +1,8 @@
 # tufte (development version)
 
+- Changed the default value of `fig_crop` from `TRUE` to `"auto"` in `tufte_handout()` and `tufte_book()`, consistent with `rmarkdown::pdf_document()`. This avoids a spurious warning about `pdfcrop` not being found when the crop tools are not installed (thanks, @sandhya9215, 
+#124).
+
 # tufte 0.14.0
 
 # CHANGES IN tufte VERSION 0.14 (development version)

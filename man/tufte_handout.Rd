@@ -13,7 +13,7 @@
 tufte_handout(
   fig_width = 4,
   fig_height = 2.5,
-  fig_crop = TRUE,
+  fig_crop = "auto",
   dev = "pdf",
   highlight = "default",
   ...
@@ -22,7 +22,7 @@ tufte_handout(
 tufte_book(
   fig_width = 4,
   fig_height = 2.5,
-  fig_crop = TRUE,
+  fig_crop = "auto",
   dev = "pdf",
   highlight = "default",
   ...
