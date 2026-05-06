@@ -3,8 +3,7 @@
 - Changed the default value of `fig_crop` from `TRUE` to `"auto"` in `tufte_handout()` and `tufte_book()`, consistent with `rmarkdown::pdf_document()`. This avoids a spurious warning about `pdfcrop` not being found when the crop tools are not installed (thanks, @sandhya9215, 
 #124).
 
-- Removed obsolete `usenames` option from `xcolor` package loading to suppress
-  warning on TeX Live 2022+ (#127).
+- Removed obsolete `usenames` option from `xcolor` package loading to suppress warning on TeX Live 2022+ (#127).
 
 # tufte 0.14.0
 
