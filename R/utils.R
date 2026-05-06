@@ -80,7 +80,9 @@ sans_serif <- function(text) {
 }
 
 devtools_loaded <- function(x) {
-  if (!x %in% loadedNamespaces()) return(FALSE)
+  if (!x %in% loadedNamespaces()) {
+    return(FALSE)
+  }
   ns <- .getNamespace(x)
   !is.null(ns$.__DEVTOOLS__)
 }

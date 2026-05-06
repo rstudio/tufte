@@ -20,9 +20,20 @@ local_render_pdf <- function(input, .env = parent.frame()) {
   # advisories when no \bibliography follows. This is inherent to the class
   # and unrelated to what these tests exercise.
   withCallingHandlers(
-    rmarkdown::render(input, output_file = output_file, quiet = TRUE, clean = FALSE),
+    rmarkdown::render(
+      input,
+      output_file = output_file,
+      quiet = TRUE,
+      clean = FALSE
+    ),
     warning = function(w) {
-      if (grepl("bibentry|nobibliography", conditionMessage(w), ignore.case = TRUE)) {
+      if (
+        grepl(
+          "bibentry|nobibliography",
+          conditionMessage(w),
+          ignore.case = TRUE
+        )
+      ) {
         invokeRestart("muffleWarning")
       }
     }

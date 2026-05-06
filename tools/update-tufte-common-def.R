@@ -13,7 +13,14 @@
 #   devtools::test()
 
 upstream_url <- "https://raw.githubusercontent.com/Tufte-LaTeX/tufte-latex/master/tufte-common.def"
-target <- file.path("inst", "rmarkdown", "templates", "tufte_handout", "patches", "tufte-common.def")
+target <- file.path(
+  "inst",
+  "rmarkdown",
+  "templates",
+  "tufte_handout",
+  "patches",
+  "tufte-common.def"
+)
 
 # --- Download upstream ---
 message("Downloading upstream tufte-common.def ...")
@@ -23,8 +30,14 @@ upstream <- xfun::read_utf8(tmp)
 message(sprintf("  Downloaded %d lines.", length(upstream)))
 
 # Extract version from \ProvidesFile line
-provides <- grep("\\\\ProvidesFile\\{tufte-common.def\\}", upstream, value = TRUE)
-if (length(provides)) message("  Upstream version: ", trimws(provides))
+provides <- grep(
+  "\\\\ProvidesFile\\{tufte-common.def\\}",
+  upstream,
+  value = TRUE
+)
+if (length(provides)) {
+  message("  Upstream version: ", trimws(provides))
+}
 
 # --- Apply patches ---
 patched <- upstream
@@ -35,16 +48,28 @@ xcolor_pat <- "\\\\RequirePackage\\[usenames,dvipsnames,svgnames\\]\\{xcolor\\}"
 idx <- grep(xcolor_pat, patched)
 if (length(idx) == 1) {
   patched[idx] <- sub("usenames,", "", patched[idx])
-  patches_applied <- c(patches_applied, paste0(
-    "%%   1. Line ~", idx, ": Removed obsolete 'usenames' option from \\RequirePackage{xcolor}",
-    "\n%%      to suppress warning in xcolor >= 2.12 (TeX Live 2022+). (GitHub #127)"
-  ))
+  patches_applied <- c(
+    patches_applied,
+    paste0(
+      "%%   1. Line ~",
+      idx,
+      ": Removed obsolete 'usenames' option from \\RequirePackage{xcolor}",
+      "\n%%      to suppress warning in xcolor >= 2.12 (TeX Live 2022+). (GitHub #127)"
+    )
+  )
   message(sprintf("  Patch 1 applied at line %d (xcolor usenames).", idx))
 } else if (length(idx) == 0) {
-  if (any(grepl("\\\\RequirePackage\\[dvipsnames,svgnames\\]\\{xcolor\\}", patched))) {
+  if (
+    any(grepl(
+      "\\\\RequirePackage\\[dvipsnames,svgnames\\]\\{xcolor\\}",
+      patched
+    ))
+  ) {
     message("  Patch 1 skipped: usenames already removed upstream.")
   } else {
-    warning("  Patch 1: could not find xcolor RequirePackage line. Manual review needed.")
+    warning(
+      "  Patch 1: could not find xcolor RequirePackage line. Manual review needed."
+    )
   }
 }
 
@@ -66,10 +91,14 @@ header <- c(
   "%% To refresh from upstream, run:",
   "%%   Rscript tools/update-tufte-common-def.R",
   "%%",
-  if (length(patches_applied)) c(
-    "%% Patches applied:",
-    patches_applied
-  ) else "%% No patches needed (all fixes already present upstream).",
+  if (length(patches_applied)) {
+    c(
+      "%% Patches applied:",
+      patches_applied
+    )
+  } else {
+    "%% No patches needed (all fixes already present upstream)."
+  },
   "%%"
 )
 

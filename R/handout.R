@@ -90,7 +90,9 @@ tufte_pdf <- function(
   format$pre_processor <- function(metadata, input_file, ...) {
     old_texinputs <<- Sys.getenv("TEXINPUTS", unset = "")
     # Trailing path separator tells kpathsea to also search default paths
-    Sys.setenv(TEXINPUTS = paste0(patches_dir, .Platform$path.sep, old_texinputs))
+    Sys.setenv(
+      TEXINPUTS = paste0(patches_dir, .Platform$path.sep, old_texinputs)
+    )
     if (is.function(base_pre_processor)) {
       base_pre_processor(metadata, input_file, ...)
     } else {
