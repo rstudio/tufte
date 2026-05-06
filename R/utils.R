@@ -79,15 +79,22 @@ sans_serif <- function(text) {
   }
 }
 
+devtools_loaded <- function(x) {
+  if (!x %in% loadedNamespaces()) return(FALSE)
+  ns <- .getNamespace(x)
+  !is.null(ns$.__DEVTOOLS__)
+}
+
+pkg_file <- function(..., package = "tufte", mustWork = FALSE) {
+  if (devtools_loaded(package)) {
+    file.path(find.package(package), "inst", ...)
+  } else {
+    system.file(..., package = package, mustWork = mustWork)
+  }
+}
+
 template_resources <- function(name, ...) {
-  system.file(
-    "rmarkdown",
-    "templates",
-    name,
-    "resources",
-    ...,
-    package = "tufte"
-  )
+  pkg_file("rmarkdown", "templates", name, "resources", ...)
 }
 
 gsub_fixed <- function(...) gsub(..., fixed = TRUE)

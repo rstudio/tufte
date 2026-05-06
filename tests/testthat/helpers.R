@@ -1,4 +1,8 @@
 # Use to test pandoc availability or version lower than
+skip_if_not_tinytex <- function() {
+  if (!tinytex::is_tinytex()) skip("TinyTeX is not installed")
+}
+
 skip_if_not_pandoc <- function(ver = NULL) {
   if (!rmarkdown::pandoc_available(ver)) {
     msg <- if (is.null(ver)) {

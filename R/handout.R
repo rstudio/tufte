@@ -82,6 +82,28 @@ tufte_pdf <- function(
     }
   )
 
+  # Prepend our patched tufte-common.def to TEXINPUTS so kpathsea finds it
+  # before the system version. Fixes the xcolor usenames warning (#127).
+  patches_dir <- pkg_file("rmarkdown", "templates", "tufte_handout", "patches")
+  old_texinputs <- NULL
+  base_pre_processor <- format$pre_processor
+  format$pre_processor <- function(metadata, input_file, ...) {
+    old_texinputs <<- Sys.getenv("TEXINPUTS", unset = "")
+    # Trailing path separator tells kpathsea to also search default paths
+    Sys.setenv(TEXINPUTS = paste0(patches_dir, .Platform$path.sep, old_texinputs))
+    if (is.function(base_pre_processor)) {
+      base_pre_processor(metadata, input_file, ...)
+    } else {
+      character(0)
+    }
+  }
+  format$post_processor <- function(metadata, input_file, output_file, ...) {
+    if (!is.null(old_texinputs)) {
+      Sys.setenv(TEXINPUTS = old_texinputs)
+    }
+    output_file
+  }
+
   knitr::knit_engines$set(marginfigure = function(options) {
     options$type <- "marginfigure"
     eng_block <- knitr::knit_engines$get("block")

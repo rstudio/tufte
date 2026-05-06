@@ -12,3 +12,4 @@
 ^cran-comments\.md$
 ^\.positai$
 ^\.claude$
+^\tools/$
