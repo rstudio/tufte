@@ -99,11 +99,11 @@ tufte_pdf <- function(
       character(0)
     }
   }
-  format$post_processor <- function(metadata, input_file, output_file, ...) {
+  # on_exit runs even when render() errors, so TEXINPUTS is always restored.
+  format$on_exit <- function() {
     if (!is.null(old_texinputs)) {
       Sys.setenv(TEXINPUTS = old_texinputs)
     }
-    output_file
   }
 
   knitr::knit_engines$set(marginfigure = function(options) {
