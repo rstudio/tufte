@@ -179,8 +179,11 @@ tufte_html <- function(
       )
       res <- gsub_fixed("</p>", "<!--</p>-->", res)
       res <- gsub_fixed("</div>", "<!--</div>--></span></p>", res)
-      res <- gsub_fixed(
-        '<div class="figure">',
+      # Use regex to match <div class="figure"> with optional style attribute
+      # (e.g. from fig.align); the style is dropped since margin positioning
+      # is handled by the marginnote CSS class
+      res <- gsub(
+        '<div class="figure"[^>]*>',
         paste0(
           "<p>",
           '<span class="marginnote shownote">',
@@ -189,8 +192,9 @@ tufte_html <- function(
         res
       )
     } else if (fig_fullwd) {
-      res <- gsub_fixed(
-        '<div class="figure">',
+      # Use regex to match optional style attribute from fig.align
+      res <- gsub(
+        '<div class="figure"[^>]*>',
         '<div class="figure fullwidth">',
         res
       )

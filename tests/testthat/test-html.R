@@ -72,6 +72,56 @@ test_that("put references in margin when link-citations: yes using csl", {
   )
 })
 
+test_that("fig.margin=TRUE works with fig.align set (issue #54)", {
+  skip_on_cran()
+  skip_if_not_pandoc()
+  rmd <- local_rmd_file(
+    "---",
+    "title: test",
+    "output: tufte::tufte_html",
+    "---",
+    "",
+    '```{r fig-margin-align, fig.margin=TRUE, fig.align="center", fig.cap="test cap"}',
+    "plot(1)",
+    "```"
+  )
+  html <- .render_and_read(rmd)
+  # The margin figure wrapper must be present
+  margin_lines <- grep("marginnote shownote", html, value = TRUE)
+  expect_true(
+    length(margin_lines) > 0,
+    info = "fig.margin=TRUE with fig.align should still produce marginnote wrapper"
+  )
+  # The raw <div class="figure" style="text-align: ..."> should NOT appear
+  # (it should be commented out inside the marginnote wrapper)
+  raw_div <- grep('<div class="figure" style=', html, fixed = TRUE, value = TRUE)
+  expect_true(
+    all(grepl("<!--", raw_div)),
+    info = "fig div with style should be inside HTML comment when fig.margin=TRUE"
+  )
+})
+
+test_that("fig.fullwidth=TRUE works with fig.align set", {
+  skip_on_cran()
+  skip_if_not_pandoc()
+  rmd <- local_rmd_file(
+    "---",
+    "title: test",
+    "output: tufte::tufte_html",
+    "---",
+    "",
+    '```{r fig-full-align, fig.fullwidth=TRUE, fig.align="center", fig.cap="test cap"}',
+    "plot(1)",
+    "```"
+  )
+  html <- .render_and_read(rmd)
+  fullwidth_lines <- grep("figure fullwidth", html, value = TRUE)
+  expect_true(
+    length(fullwidth_lines) > 0,
+    info = "fig.fullwidth=TRUE with fig.align should produce fullwidth class"
+  )
+})
+
 test_that("footnotes are correctly parsed", {
   skip_on_cran()
   skip_if_not_pandoc()
