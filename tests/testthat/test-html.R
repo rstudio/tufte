@@ -94,7 +94,12 @@ test_that("fig.margin=TRUE works with fig.align set (issue #54)", {
   )
   # The raw <div class="figure" style="text-align: ..."> should NOT appear
   # (it should be commented out inside the marginnote wrapper)
-  raw_div <- grep('<div class="figure" style=', html, fixed = TRUE, value = TRUE)
+  raw_div <- grep(
+    '<div class="figure" style=',
+    html,
+    fixed = TRUE,
+    value = TRUE
+  )
   expect_true(
     all(grepl("<!--", raw_div)),
     info = "fig div with style should be inside HTML comment when fig.margin=TRUE"
