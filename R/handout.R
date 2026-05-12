@@ -6,6 +6,15 @@
 #' `tufte_handout()` provides the PDF format based on the Tufte-LaTeX
 #' class: <https://tufte-latex.github.io/tufte-latex/>.
 #' @inheritParams rmarkdown::pdf_document
+#' @param margin_fig_pos Default vertical offset for margin figures (a LaTeX
+#'   length such as `"0cm"` or `"-5pt"`). When set, this value is used as the
+#'   `fig.pos` for all chunks with `fig.margin = TRUE`, unless the chunk
+#'   specifies its own `fig.pos`. This avoids the problem of setting `fig.pos`
+#'   globally via `knitr::opts_chunk$set()`, which would also affect regular
+#'   figures where `fig.pos` is a placement specifier (e.g. `"htbp"`), not a
+#'   length. Can also be set per-chunk or via `knitr::opts_chunk$set()` as the
+#'   `margin_fig_pos` chunk option. Defaults to `NULL` (use the Tufte-LaTeX
+#'   class default of `-1.2ex`).
 #' @param ... Other arguments to be passed to [rmarkdown::pdf_document()] or
 #'   [rmarkdown::html_document()] (note you cannot use the `template`
 #'   argument in `tufte_handout` or the `theme` argument in
@@ -19,6 +28,7 @@ tufte_handout <- function(
   fig_crop = "auto",
   dev = "pdf",
   highlight = "default",
+  margin_fig_pos = NULL,
   ...
 ) {
   tufte_pdf(
@@ -28,6 +38,7 @@ tufte_handout <- function(
     fig_crop,
     dev,
     highlight,
+    margin_fig_pos = margin_fig_pos,
     ...
   )
 }
@@ -40,9 +51,19 @@ tufte_book <- function(
   fig_crop = "auto",
   dev = "pdf",
   highlight = "default",
+  margin_fig_pos = NULL,
   ...
 ) {
-  tufte_pdf("tufte-book", fig_width, fig_height, fig_crop, dev, highlight, ...)
+  tufte_pdf(
+    "tufte-book",
+    fig_width,
+    fig_height,
+    fig_crop,
+    dev,
+    highlight,
+    margin_fig_pos = margin_fig_pos,
+    ...
+  )
 }
 
 tufte_pdf <- function(
@@ -52,6 +73,7 @@ tufte_pdf <- function(
   fig_crop = "auto",
   dev = "pdf",
   highlight = "default",
+  margin_fig_pos = NULL,
   template = template_resources("tufte_handout", "tufte-handout.tex"),
   ...
 ) {
@@ -128,13 +150,26 @@ tufte_pdf <- function(
 
   # set options
   knitr_options$opts_knit$width <- 45
+  if (!is.null(margin_fig_pos)) {
+    knitr_options$opts_chunk$margin_fig_pos <- margin_fig_pos
+  }
 
   # set hooks for special plot output
   knitr_options$knit_hooks$plot <- function(x, options) {
     # determine figure type
     if (isTRUE(options$fig.margin)) {
       options$fig.env <- "marginfigure"
-      if (is.null(options$fig.cap)) options$fig.cap <- ""
+      if (is.null(options$fig.cap)) {
+        options$fig.cap <- ""
+      }
+      # Apply margin_fig_pos as the vertical offset for margin figures,
+      # unless the user has set fig.pos explicitly on this chunk (#62)
+      if (
+        !is.null(options$margin_fig_pos) &&
+          (is.null(options$fig.pos) || identical(options$fig.pos, ""))
+      ) {
+        options$fig.pos <- options$margin_fig_pos
+      }
     } else if (isTRUE(options$fig.fullwidth)) {
       options$fig.env <- "figure*"
       if (is.null(options$fig.cap)) options$fig.cap <- ""

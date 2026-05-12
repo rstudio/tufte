@@ -16,6 +16,7 @@ tufte_handout(
   fig_crop = "auto",
   dev = "pdf",
   highlight = "default",
+  margin_fig_pos = NULL,
   ...
 )
 
@@ -25,6 +26,7 @@ tufte_book(
   fig_crop = "auto",
   dev = "pdf",
   highlight = "default",
+  margin_fig_pos = NULL,
   ...
 )
 
@@ -67,6 +69,16 @@ if these two tools are available.}
   style}. Note that custom theme requires Pandoc 2.0+.
 
   Pass \code{NULL} to prevent syntax highlighting.}
+
+\item{margin_fig_pos}{Default vertical offset for margin figures (a LaTeX
+length such as \code{"0cm"} or \code{"-5pt"}). When set, this value is used as the
+\code{fig.pos} for all chunks with \code{fig.margin = TRUE}, unless the chunk
+specifies its own \code{fig.pos}. This avoids the problem of setting \code{fig.pos}
+globally via \code{knitr::opts_chunk$set()}, which would also affect regular
+figures where \code{fig.pos} is a placement specifier (e.g. \code{"htbp"}), not a
+length. Can also be set per-chunk or via \code{knitr::opts_chunk$set()} as the
+\code{margin_fig_pos} chunk option. Defaults to \code{NULL} (use the Tufte-LaTeX
+class default of \verb{-1.2ex}).}
 
 \item{...}{Other arguments to be passed to \code{\link[rmarkdown:pdf_document]{rmarkdown::pdf_document()}} or
 \code{\link[rmarkdown:html_document]{rmarkdown::html_document()}} (note you cannot use the \code{template}

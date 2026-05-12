@@ -54,6 +54,122 @@ test_that("tufte_handout renders a basic PDF without error (#127)", {
   expect_true(file.exists(output))
 })
 
+# margin_fig_pos chunk option (#62) ----------------------------------------
+
+local_render_tex <- function(rmd_lines, .env = parent.frame()) {
+  skip_if_not_pandoc()
+  skip_if_not_tinytex()
+  rmd <- local_rmd_file(rmd_lines, .env = .env)
+  output <- withr::local_tempfile(.local_envir = .env, fileext = ".pdf")
+  withCallingHandlers(
+    rmarkdown::render(rmd, output_file = output, quiet = TRUE, clean = FALSE),
+    warning = function(w) {
+      if (
+        grepl(
+          "bibentry|nobibliography|Marginpar",
+          conditionMessage(w),
+          ignore.case = TRUE
+        )
+      ) {
+        invokeRestart("muffleWarning")
+      }
+    }
+  )
+  tex_file <- xfun::with_ext(output, "tex")
+  if (!file.exists(tex_file)) {
+    skip("keep_tex did not produce a .tex file")
+  }
+  xfun::read_utf8(tex_file)
+}
+
+test_that("margin_fig_pos via YAML sets the marginfigure offset (#62)", {
+  skip_on_cran()
+  tex <- local_render_tex(c(
+    "---",
+    "output:",
+    "  tufte::tufte_handout:",
+    "    keep_tex: true",
+    "    margin_fig_pos: '0.5cm'",
+    "---",
+    "",
+    "```{r fig.margin=TRUE, fig.cap='test', echo=FALSE}",
+    "plot(1:5)",
+    "```",
+    "",
+    "Text after."
+  ))
+  marginfig <- grep("\\\\begin\\{marginfigure\\}", tex, value = TRUE)
+  expect_length(marginfig, 1)
+  expect_match(marginfig, "[0.5cm]", fixed = TRUE)
+})
+
+test_that("margin_fig_pos via opts_chunk$set works (#62)", {
+  skip_on_cran()
+  tex <- local_render_tex(c(
+    "---",
+    "output:",
+    "  tufte::tufte_handout:",
+    "    keep_tex: true",
+    "---",
+    "",
+    "```{r setup, include=FALSE}",
+    "knitr::opts_chunk$set(margin_fig_pos = '0.5cm')",
+    "```",
+    "",
+    "```{r fig.margin=TRUE, fig.cap='test', echo=FALSE}",
+    "plot(1:5)",
+    "```",
+    "",
+    "Text after."
+  ))
+  marginfig <- grep("\\\\begin\\{marginfigure\\}", tex, value = TRUE)
+  expect_length(marginfig, 1)
+  expect_match(marginfig, "[0.5cm]", fixed = TRUE)
+})
+
+test_that("fig.pos overrides margin_fig_pos on a specific chunk (#62)", {
+  skip_on_cran()
+  tex <- local_render_tex(c(
+    "---",
+    "output:",
+    "  tufte::tufte_handout:",
+    "    keep_tex: true",
+    "    margin_fig_pos: '0.5cm'",
+    "---",
+    "",
+    "```{r fig.margin=TRUE, fig.pos='2cm', fig.cap='test', echo=FALSE}",
+    "plot(1:5)",
+    "```",
+    "",
+    "Text after."
+  ))
+  marginfig <- grep("\\\\begin\\{marginfigure\\}", tex, value = TRUE)
+  expect_length(marginfig, 1)
+  # fig.pos takes precedence
+  expect_match(marginfig, "[2cm]", fixed = TRUE)
+})
+
+test_that("margin_fig_pos does not affect regular figures (#62)", {
+  skip_on_cran()
+  tex <- local_render_tex(c(
+    "---",
+    "output:",
+    "  tufte::tufte_handout:",
+    "    keep_tex: true",
+    "    margin_fig_pos: '0.5cm'",
+    "---",
+    "",
+    "```{r fig.cap='regular figure', echo=FALSE}",
+    "plot(1:5)",
+    "```",
+    "",
+    "Text after."
+  ))
+  # Regular figure should NOT have the margin offset
+  figure_lines <- grep("\\\\begin\\{figure\\}", tex, value = TRUE)
+  expect_false(any(grepl("0.5cm", figure_lines, fixed = TRUE)))
+})
+
 test_that("tufte_handout PDF log contains no xcolor usenames warning (#127)", {
   skip_on_cran()
   rmd <- local_rmd_file(

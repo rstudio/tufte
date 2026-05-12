@@ -11,6 +11,14 @@
 - Removed obsolete `usenames` option from `xcolor` package loading to suppress
   warning on TeX Live 2022+ (#127).
 
+- Added new `margin_fig_pos` option to `tufte_handout()` and `tufte_book()`
+  for controlling the vertical offset of margin figures globally. This can be
+  set in YAML (e.g. `margin_fig_pos: "0cm"`), via
+  `knitr::opts_chunk$set(margin_fig_pos = "0cm")`, or per-chunk. Per-chunk
+  `fig.pos` still overrides it. This addresses the margin figure alignment
+  issue without the semantic mismatch of setting `fig.pos` globally, which
+  would break regular figures (#62).
+
 # tufte 0.14.0
 
 # CHANGES IN tufte VERSION 0.14 (development version)
