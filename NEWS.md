@@ -8,6 +8,10 @@
   dropped because the figure hook used an exact string match that missed the
   extra `style` attribute added by knitr (#54).
 
+- Fixed `nocite` references being silently dropped in `tufte_html()` when
+  `link-citations: yes`. References without in-text citations are now preserved
+  in the bibliography section at the bottom of the document (#35).
+
 - Removed obsolete `usenames` option from `xcolor` package loading to suppress
   warning on TeX Live 2022+ (#127).
 

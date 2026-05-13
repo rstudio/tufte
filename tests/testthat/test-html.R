@@ -72,6 +72,51 @@ test_that("put references in margin when link-citations: yes using csl", {
   )
 })
 
+test_that("nocite references survive margin_references() (issue #35)", {
+  skip_on_cran()
+  skip_if_not_pandoc()
+  rmd <- local_rmd_file(
+    "---",
+    "title: test",
+    "output: tufte::tufte_html",
+    "bibliography: refs.bib",
+    "link-citations: yes",
+    "nocite: |",
+    "  @nocite_only",
+    "---",
+    "",
+    "See @cited_in_text for details."
+  )
+  # Create a minimal .bib next to the Rmd
+  bib <- file.path(dirname(rmd), "refs.bib")
+  xfun::write_utf8(c(
+    "@article{cited_in_text,",
+    "  author = {Smith, John},",
+    "  title = {Cited Article},",
+    "  journal = {J. Examples},",
+    "  year = {2020}",
+    "}",
+    "@article{nocite_only,",
+    "  author = {Doe, Jane},",
+    "  title = {Nocite Article},",
+    "  journal = {J. Nocite},",
+    "  year = {2019}",
+    "}"
+  ), bib)
+  withr::defer(unlink(bib))
+  html <- .render_and_read(rmd)
+  # The nocite-only reference must appear somewhere in the output
+  expect_true(
+    any(grepl("ref-nocite_only", html)),
+    info = "nocite entry should not be dropped when link-citations: yes (issue #35)"
+  )
+  # The in-text reference should also still be present (as margin note)
+  expect_true(
+    any(grepl("Cited Article|ref-cited_in_text", html)),
+    info = "in-text citation should still appear"
+  )
+})
+
 test_that("fig.margin=TRUE works with fig.align set (issue #54)", {
   skip_on_cran()
   skip_if_not_pandoc()

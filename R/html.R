@@ -302,10 +302,22 @@ margin_references <- function(x) {
     ref[j] <- sub(dashes, sub("^([^.]+[.])( .+)$", "\\1", ref[j - 1]), ref[j])
   }
   ref <- marginnote_html(paste0('\\1<span class="marginnote">', ref, "</span>"))
+  # Track which references have in-text citations (nocite entries won't match)
+  matched <- logical(n)
   for (j in seq_len(n)) {
-    x <- gsub(ids[j], ref[j], x)
+    if (any(grepl(ids[j], x))) {
+      x <- gsub(ids[j], ref[j], x)
+      matched[j] <- TRUE
+    }
   }
-  x[-(i:(max(k) + 3))] # remove references at the bottom
+  if (all(matched)) {
+    x[-(i:(max(k) + 3))] # remove entire references section
+  } else {
+    # Remove only matched entries; keep nocite references at the bottom
+    remove <- unlist(lapply(k[matched], function(pos) pos:(pos + 2)))
+    if (length(remove) > 0) x <- x[-remove]
+    x
+  }
 }
 
 marginnote_html <- function(text = "", icon = "&#8853;") {
