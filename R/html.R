@@ -315,7 +315,9 @@ margin_references <- function(x) {
   } else {
     # Remove only matched entries; keep nocite references at the bottom
     remove <- unlist(lapply(k[matched], function(pos) pos:(pos + 2)))
-    if (length(remove) > 0) x <- x[-remove]
+    if (length(remove) > 0) {
+      x <- x[-remove]
+    }
     x
   }
 }

@@ -89,20 +89,23 @@ test_that("nocite references survive margin_references() (issue #35)", {
   )
   # Create a minimal .bib next to the Rmd
   bib <- file.path(dirname(rmd), "refs.bib")
-  xfun::write_utf8(c(
-    "@article{cited_in_text,",
-    "  author = {Smith, John},",
-    "  title = {Cited Article},",
-    "  journal = {J. Examples},",
-    "  year = {2020}",
-    "}",
-    "@article{nocite_only,",
-    "  author = {Doe, Jane},",
-    "  title = {Nocite Article},",
-    "  journal = {J. Nocite},",
-    "  year = {2019}",
-    "}"
-  ), bib)
+  xfun::write_utf8(
+    c(
+      "@article{cited_in_text,",
+      "  author = {Smith, John},",
+      "  title = {Cited Article},",
+      "  journal = {J. Examples},",
+      "  year = {2020}",
+      "}",
+      "@article{nocite_only,",
+      "  author = {Doe, Jane},",
+      "  title = {Nocite Article},",
+      "  journal = {J. Nocite},",
+      "  year = {2019}",
+      "}"
+    ),
+    bib
+  )
   withr::defer(unlink(bib))
   html <- .render_and_read(rmd)
   # The nocite-only reference must appear somewhere in the output
