@@ -127,6 +127,26 @@ test_that("fig.fullwidth=TRUE works with fig.align set", {
   )
 })
 
+# tufte_html2 (bookdown wrapper) -------------------------------------------
+
+test_that("tufte_html2() renders", {
+  skip_on_cran()
+  skip_if_not_pandoc()
+  skip_if_not_installed("bookdown")
+  rmd <- local_rmd_file(
+    "---",
+    "title: test",
+    "output: tufte::tufte_html2",
+    "---",
+    "",
+    "Hello world."
+  )
+  html <- .render_and_read(rmd)
+  expect_true(length(html) > 0)
+})
+
+# footnote parsing ---------------------------------------------------------
+
 test_that("footnotes are correctly parsed", {
   skip_on_cran()
   skip_if_not_pandoc()

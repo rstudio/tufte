@@ -14,6 +14,16 @@
 #'   sets the font family to `Roboto Condensed`, and changed the
 #'   background/foreground colors).
 #' @param margin_references Whether to place citations in margin notes.
+#' @details `tufte_html2()` is a wrapper around [bookdown::html_document2()]
+#'   that uses `tufte_html()` as the base format, enabling text references
+#'   and cross-references. Requires the \pkg{bookdown} package.
+#' @rdname tufte_handout
+#' @export
+tufte_html2 <- function(...) {
+  check_bookdown()
+  bookdown::html_document2(..., base_format = tufte_html)
+}
+
 #' @rdname tufte_handout
 #' @export
 tufte_html <- function(

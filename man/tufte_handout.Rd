@@ -3,6 +3,9 @@
 \name{tufte_handout}
 \alias{tufte_handout}
 \alias{tufte_book}
+\alias{tufte_handout2}
+\alias{tufte_book2}
+\alias{tufte_html2}
 \alias{tufte_html}
 \alias{newthought}
 \alias{margin_note}
@@ -29,6 +32,12 @@ tufte_book(
   margin_fig_pos = NULL,
   ...
 )
+
+tufte_handout2(...)
+
+tufte_book2(...)
+
+tufte_html2(...)
 
 tufte_html(
   ...,
@@ -116,8 +125,18 @@ Richard Feynman.
 \code{tufte_handout()} provides the PDF format based on the Tufte-LaTeX
 class: \url{https://tufte-latex.github.io/tufte-latex/}.
 
+\code{tufte_handout2()} and \code{tufte_book2()} are wrappers around
+\code{\link[bookdown:pdf_book]{bookdown::pdf_book()}} that use the corresponding tufte format as the
+base format. They support bookdown text references (\code{(ref:label)}) in
+figure and table captions, cross-references, and other bookdown
+extensions. Requires the \pkg{bookdown} package to be installed.
+
 \code{tufte_html()} provides the HTML format based on the Tufte CSS:
 \url{https://edwardtufte.github.io/tufte-css/}.
+
+\code{tufte_html2()} is a wrapper around \code{\link[bookdown:html_document2]{bookdown::html_document2()}}
+that uses \code{tufte_html()} as the base format, enabling text references
+and cross-references. Requires the \pkg{bookdown} package.
 
 \code{newthought()} can be used in inline R expressions in R
 Markdown

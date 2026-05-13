@@ -170,6 +170,73 @@ test_that("margin_fig_pos does not affect regular figures (#62)", {
   expect_false(any(grepl("0.5cm", figure_lines, fixed = TRUE)))
 })
 
+# tufte_handout2 / tufte_book2 (bookdown wrappers, issue #60) ---------------
+
+test_that("tufte_handout2() renders a basic PDF", {
+  skip_on_cran()
+  skip_if_not_installed("bookdown")
+  rmd <- local_rmd_file(
+    "---",
+    "output: tufte::tufte_handout2",
+    "---",
+    "",
+    "Hello world."
+  )
+  output <- local_render_pdf(rmd)
+  expect_true(file.exists(output))
+})
+
+test_that("tufte_handout2() resolves text references in fig.cap (#60)", {
+  skip_on_cran()
+  skip_if_not_installed("bookdown")
+  tex <- local_render_tex(c(
+    "---",
+    "output:",
+    "  tufte::tufte_handout2:",
+    "    keep_tex: true",
+    "---",
+    "",
+    "(ref:cars-cap) A plot of the [cars data set](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/cars.html).",
+    "",
+    "```{r cars-plot, fig.cap='(ref:cars-cap)', echo=FALSE}",
+    "plot(cars)",
+    "```"
+  ))
+  cap_lines <- grep("\\\\caption", tex, value = TRUE)
+  expect_true(
+    any(grepl("\\\\href\\{", cap_lines)),
+    info = "fig.cap should contain \\href from resolved text reference"
+  )
+  # Raw markdown link syntax should NOT appear
+  expect_false(
+    any(grepl("](https://", cap_lines, fixed = TRUE)),
+    info = "Raw markdown link should not appear in \\caption"
+  )
+})
+
+test_that("tufte_book2() renders a basic PDF", {
+  skip_on_cran()
+  skip_if_not_installed("bookdown")
+  rmd <- local_rmd_file(
+    "---",
+    "output: tufte::tufte_book2",
+    "---",
+    "",
+    "Hello world."
+  )
+  output <- local_render_pdf(rmd)
+  expect_true(file.exists(output))
+})
+
+test_that("check_bookdown() errors when bookdown is not available", {
+  skip_on_cran()
+  local_mocked_bindings(
+    pkg_available = function(...) FALSE,
+    .package = "xfun"
+  )
+  expect_error(check_bookdown(), "bookdown.*required")
+})
+
 test_that("tufte_handout PDF log contains no xcolor usenames warning (#127)", {
   skip_on_cran()
   rmd <- local_rmd_file(

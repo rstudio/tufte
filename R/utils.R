@@ -79,6 +79,16 @@ sans_serif <- function(text) {
   }
 }
 
+check_bookdown <- function() {
+  if (!xfun::pkg_available("bookdown")) {
+    stop(
+      "The 'bookdown' package is required for tufte_handout2()/tufte_book2(). ",
+      "Install it with install.packages('bookdown').",
+      call. = FALSE
+    )
+  }
+}
+
 devtools_loaded <- function(x) {
   if (!x %in% loadedNamespaces()) {
     return(FALSE)

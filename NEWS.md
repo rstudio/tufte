@@ -19,6 +19,12 @@
   issue without the semantic mismatch of setting `fig.pos` globally, which
   would break regular figures (#62).
 
+- Added `tufte_handout2()`, `tufte_book2()`, and `tufte_html2()` as wrappers
+  around the corresponding bookdown output formats. These support bookdown
+  text references `(ref:label)` in figure/table captions and cross-references,
+  which resolves the issue of markdown links in `fig.cap` not being converted
+  to LaTeX (#60). Requires the bookdown package (suggested, not imported).
+
 # tufte 0.14.0
 
 # CHANGES IN tufte VERSION 0.14 (development version)

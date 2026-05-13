@@ -66,6 +66,25 @@ tufte_book <- function(
   )
 }
 
+#' @details `tufte_handout2()` and `tufte_book2()` are wrappers around
+#'   [bookdown::pdf_book()] that use the corresponding tufte format as the
+#'   base format. They support bookdown text references (`(ref:label)`) in
+#'   figure and table captions, cross-references, and other bookdown
+#'   extensions. Requires the \pkg{bookdown} package to be installed.
+#' @rdname tufte_handout
+#' @export
+tufte_handout2 <- function(...) {
+  check_bookdown()
+  bookdown::pdf_book(..., base_format = tufte_handout)
+}
+
+#' @rdname tufte_handout
+#' @export
+tufte_book2 <- function(...) {
+  check_bookdown()
+  bookdown::pdf_book(..., base_format = tufte_book)
+}
+
 tufte_pdf <- function(
   documentclass = c("tufte-handout", "tufte-book"),
   fig_width = 4,
