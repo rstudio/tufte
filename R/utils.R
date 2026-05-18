@@ -46,28 +46,62 @@ margin_note <- function(text, icon = "&#8853;") {
   }
 }
 
-#' @details `quote_footer()` formats text as the footer of a quote. It puts
-#'   `text` in \samp{<footer class="blockquote-footer">} for HTML output, and
-#'   after \samp{\\hfill} for LaTeX output (to right-align text). The function
-#'   works in any HTML or LaTeX output format, not only tufte formats. The
-#'   `blockquote-footer` class is the styling hook used by Bootstrap 4 and 5
-#'   (via `bslib`); Bootstrap 3 and tufte's own CSS style the `<footer>`
-#'   element directly. An inline `text-align: right` is added so the footer is
-#'   right-aligned in formats whose CSS does not already do so (e.g.
-#'   `html_document` with default Bootstrap 3, or `bslib::bs_theme()` themes).
-#'   Note that Bootstrap auto-prepends an em-dash to footer text via a
-#'   `::before` rule, so `text` should not include its own leading `---` in
-#'   non-tufte HTML formats.
+#' @details `quote_footer()` formats text as the footer of a quote. It works in
+#'   any HTML or LaTeX output format, not only tufte formats, and tries to
+#'   render `text` consistently across formats:
+#'
+#'   * If `text` starts with `"---"` (or an em-dash), an em-dash + non-breaking
+#'     space is rendered before the rest of the text in every output. The
+#'     leading `"---"` is stripped from `text` to avoid duplication when the
+#'     destination format would otherwise inject its own em-dash.
+#'
+#'   * For tufte HTML, `text` is wrapped in a `<footer>` element styled by
+#'     `tufte.css`. For non-tufte HTML (e.g. `rmarkdown::html_document()`,
+#'     including `bslib` Bootstrap 4 and 5 themes), `text` is wrapped in a
+#'     `<footer class="blockquote-footer">` so that Bootstrap's
+#'     `.blockquote-footer` styling (including the `::before` em-dash) applies.
+#'     An inline `text-align: right` is added in both cases.
+#'
+#'   * For LaTeX output (tufte or non-tufte), `text` is prepended with
+#'     \samp{\\hfill} to right-align it. Pandoc's smart-punctuation extension
+#'     converts a leading `"---"` to an em-dash glyph.
+#'
+#'   `quote_footer()` detects whether the active output is a tufte format via
+#'   the `tufte.format` entry that the tufte output formats register in
+#'   `knitr::opts_knit`.
 #' @rdname tufte_handout
 #' @export
 quote_footer <- function(text) {
+  dash_pattern <- "^\\s*(?:---|—)\\s*"
+  has_dash <- grepl(dash_pattern, text)
+  stripped <- sub(dash_pattern, "", text)
+  in_tufte <- !is.null(knitr::opts_knit$get("tufte.format"))
+
   if (is_html_output()) {
-    sprintf(
-      '<footer class="blockquote-footer" style="text-align: right;">%s</footer>',
-      text
-    )
+    if (in_tufte) {
+      # tufte.css does not inject an em-dash via ::before, so when the caller
+      # requested one with leading "---", insert the glyph ourselves.
+      prefix <- if (has_dash) "— " else ""
+      sprintf(
+        '<footer style="text-align: right;">%s%s</footer>',
+        prefix,
+        stripped
+      )
+    } else {
+      # Bootstrap 3/4/5 inject "— " via ::before on either
+      # `blockquote footer` (BS3) or `.blockquote-footer` (BS4/5); the strip
+      # avoids a doubled em-dash when callers follow the documented
+      # `quote_footer('--- Author')` pattern.
+      sprintf(
+        '<footer class="blockquote-footer" style="text-align: right;">%s</footer>',
+        stripped
+      )
+    }
   } else if (is_latex_output()) {
-    sprintf("\\hfill %s", text)
+    # Restore the caller-supplied "---" after \hfill so pandoc's smart-punct
+    # extension converts it to an em-dash glyph, mirroring the HTML behaviour.
+    prefix <- if (has_dash) "--- " else ""
+    sprintf("\\hfill %s%s", prefix, stripped)
   } else {
     if (!is.null(knitr::pandoc_to())) {
       warning(

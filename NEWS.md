@@ -9,6 +9,17 @@
   (e.g. when called from R code that is not being knit), so it can be used
   unconditionally in inline R expressions (#73).
 
+- `quote_footer()` now renders an em-dash consistently across tufte and
+  non-tufte outputs when the caller writes a leading `"---"` (the pattern
+  shown in the R Markdown documentation). For non-tufte HTML, the leading
+  `"---"` is stripped so it is not doubled with the em-dash that Bootstrap's
+  `::before` rule injects; for tufte HTML, an em-dash glyph is inserted in
+  the markup since `tufte.css` has no such rule; for LaTeX outputs the
+  leading `"---"` is preserved so pandoc's smart-punctuation extension
+  converts it to an em-dash glyph. The tufte output formats now register a
+  `tufte.format` entry in `knitr::opts_knit` so `quote_footer()` can detect
+  whether it is being called from a tufte format (#73).
+
 - Changed the default value of `fig_crop` from `TRUE` to `"auto"` in `tufte_handout()` and `tufte_book()`, consistent with `rmarkdown::pdf_document()`. This avoids a spurious warning about `pdfcrop` not being found when the crop tools are not installed (thanks, @sandhya9215, 
 #124).
 

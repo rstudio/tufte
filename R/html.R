@@ -227,6 +227,14 @@ tufte_html <- function(
     eng_block(options)
   })
 
+  # Expose the active tufte format to inline R helpers (e.g. quote_footer())
+  # via knitr's opts_knit channel, so they can branch on tufte-vs-non-tufte
+  # HTML output without relying on heuristics.
+  if (is.null(format$knitr$opts_knit)) {
+    format$knitr$opts_knit <- list()
+  }
+  format$knitr$opts_knit$tufte.format <- "html"
+
   format$inherits <- "html_document"
 
   format

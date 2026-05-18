@@ -1,6 +1,6 @@
 # Unit tests for quote_footer() ----
 
-test_that("quote_footer() produces styled <footer> for HTML output", {
+test_that("quote_footer() produces styled <footer> for non-tufte HTML output", {
   local_mocked_bindings(
     is_html_output = function(...) TRUE,
     is_latex_output = function(...) FALSE
@@ -13,13 +13,51 @@ test_that("quote_footer() produces styled <footer> for HTML output", {
   expect_match(result, "Author Name")
 })
 
+test_that("quote_footer() strips leading --- in non-tufte HTML", {
+  local_mocked_bindings(
+    is_html_output = function(...) TRUE,
+    is_latex_output = function(...) FALSE
+  )
+  result <- quote_footer("--- Author Name")
+  # Bootstrap CSS injects em-dash via ::before, so caller's --- is dropped.
+  expect_no_match(result, "---", fixed = TRUE)
+  expect_match(result, 'class="blockquote-footer"')
+  expect_match(result, "Author Name")
+})
+
+test_that("quote_footer() inserts em-dash glyph in tufte HTML when caller wrote ---", {
+  local_mocked_bindings(
+    is_html_output = function(...) TRUE,
+    is_latex_output = function(...) FALSE
+  )
+  local_knit_opts(tufte.format = "html")
+  result <- quote_footer("--- Author Name")
+  # tufte.css has no ::before; the glyph + nbsp is injected in markup.
+  expect_match(result, "— Author Name")
+  expect_no_match(result, 'class="blockquote-footer"', fixed = TRUE)
+  expect_match(result, "text-align: right")
+})
+
+test_that("quote_footer() in tufte HTML without --- preserves text as-is", {
+  local_mocked_bindings(
+    is_html_output = function(...) TRUE,
+    is_latex_output = function(...) FALSE
+  )
+  local_knit_opts(tufte.format = "html")
+  result <- quote_footer("Author Name")
+  expect_no_match(result, "—", fixed = TRUE)
+  expect_no_match(result, 'class="blockquote-footer"', fixed = TRUE)
+  expect_match(result, "Author Name")
+})
+
 test_that("quote_footer() produces \\hfill for LaTeX output", {
   local_mocked_bindings(
     is_html_output = function(...) FALSE,
     is_latex_output = function(...) TRUE
   )
-  result <- quote_footer("Author Name")
-  expect_equal(result, "\\hfill Author Name")
+  expect_equal(quote_footer("Author Name"), "\\hfill Author Name")
+  # Leading --- is preserved so pandoc smart-punct converts to em-dash.
+  expect_equal(quote_footer("--- Author Name"), "\\hfill --- Author Name")
 })
 
 test_that("quote_footer() warns for unsupported output", {
@@ -57,9 +95,9 @@ test_that("quote_footer() renders in html_document with inline styles", {
     "",
     "> A quote",
     ">",
-    # Note: Bootstrap 3 (html_document) adds an em-dash via footer::before CSS,
-    # so quote_footer text should not include its own em-dash prefix.
-    "> `r tufte::quote_footer('Author')`"
+    # Bootstrap CSS injects the em-dash via ::before; the helper should strip
+    # the leading "---" so it is not doubled.
+    "> `r tufte::quote_footer('--- Author')`"
   )
   html <- .render_and_read(rmd)
   doc <- xml2::read_html(paste(html, collapse = "\n"))
@@ -68,6 +106,8 @@ test_that("quote_footer() renders in html_document with inline styles", {
   expect_match(xml2::xml_attr(footer, "style"), "text-align: right")
   expect_match(xml2::xml_attr(footer, "class"), "blockquote-footer")
   expect_match(xml2::xml_text(footer), "Author")
+  # No literal "---" in the rendered HTML between <footer> tags.
+  expect_no_match(xml2::xml_text(footer), "---", fixed = TRUE)
 })
 
 test_that("quote_footer() renders in html_document with bslib BS4 theme", {
@@ -136,11 +176,16 @@ test_that("quote_footer() still works in tufte_html", {
     "",
     "> A quote",
     ">",
-    "> `r tufte::quote_footer('Author')`"
+    # Leading "---" should render as an em-dash glyph in tufte HTML too,
+    # since tufte.css does not inject one via ::before.
+    "> `r tufte::quote_footer('--- Author')`"
   )
   html <- .render_and_read(rmd)
   doc <- xml2::read_html(paste(html, collapse = "\n"))
   footer <- xml2::xml_find_first(doc, "//blockquote//footer")
   expect_false(is.na(footer))
-  expect_match(xml2::xml_text(footer), "Author")
+  txt <- xml2::xml_text(footer)
+  expect_match(txt, "—")
+  expect_match(txt, "Author")
+  expect_no_match(txt, "---", fixed = TRUE)
 })

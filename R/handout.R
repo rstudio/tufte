@@ -169,6 +169,9 @@ tufte_pdf <- function(
 
   # set options
   knitr_options$opts_knit$width <- 45
+  # Expose the active tufte format to inline R helpers (e.g. quote_footer())
+  # via knitr's opts_knit channel.
+  knitr_options$opts_knit$tufte.format <- "handout"
   if (!is.null(margin_fig_pos)) {
     knitr_options$opts_chunk$margin_fig_pos <- margin_fig_pos
   }
