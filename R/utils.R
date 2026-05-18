@@ -47,20 +47,34 @@ margin_note <- function(text, icon = "&#8853;") {
 }
 
 #' @details `quote_footer()` formats text as the footer of a quote. It puts
-#'   `text` in \samp{<footer></footer>} for HTML output, and
-#'   after \samp{\\hfill} for LaTeX output (to right-align text).
+#'   `text` in \samp{<footer class="blockquote-footer">} for HTML output, and
+#'   after \samp{\\hfill} for LaTeX output (to right-align text). The function
+#'   works in any HTML or LaTeX output format, not only tufte formats. The
+#'   `blockquote-footer` class is the styling hook used by Bootstrap 4 and 5
+#'   (via `bslib`); Bootstrap 3 and tufte's own CSS style the `<footer>`
+#'   element directly. An inline `text-align: right` is added so the footer is
+#'   right-aligned in formats whose CSS does not already do so (e.g.
+#'   `html_document` with default Bootstrap 3, or `bslib::bs_theme()` themes).
+#'   Note that Bootstrap auto-prepends an em-dash to footer text via a
+#'   `::before` rule, so `text` should not include its own leading `---` in
+#'   non-tufte HTML formats.
 #' @rdname tufte_handout
 #' @export
 quote_footer <- function(text) {
   if (is_html_output()) {
-    sprintf("<footer>%s</footer>", text)
+    sprintf(
+      '<footer class="blockquote-footer" style="text-align: right;">%s</footer>',
+      text
+    )
   } else if (is_latex_output()) {
     sprintf("\\hfill %s", text)
   } else {
-    warning(
-      "quote_footer() only works for HTML and LaTeX output",
-      call. = FALSE
-    )
+    if (!is.null(knitr::pandoc_to())) {
+      warning(
+        "quote_footer() only works for HTML and LaTeX output",
+        call. = FALSE
+      )
+    }
     text
   }
 }

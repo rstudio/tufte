@@ -1,5 +1,14 @@
 # tufte (development version)
 
+- `quote_footer()` now right-aligns the footer in non-tufte HTML output
+  (e.g. `html_document`, including `bslib` Bootstrap 4 and 5 themes) via an
+  inline `text-align: right` style, and tags the footer with
+  `class="blockquote-footer"` so that Bootstrap 4/5's class-based styling
+  applies (Bootstrap 3 already styled the `<footer>` element directly).
+  `quote_footer()` no longer warns when called outside of a pandoc context
+  (e.g. when called from R code that is not being knit), so it can be used
+  unconditionally in inline R expressions (#73).
+
 - Changed the default value of `fig_crop` from `TRUE` to `"auto"` in `tufte_handout()` and `tufte_book()`, consistent with `rmarkdown::pdf_document()`. This avoids a spurious warning about `pdfcrop` not being found when the crop tools are not installed (thanks, @sandhya9215, 
 #124).
 
