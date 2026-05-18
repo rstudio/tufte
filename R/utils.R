@@ -48,27 +48,38 @@ margin_note <- function(text, icon = "&#8853;") {
 
 #' @details `quote_footer()` formats text as the footer of a quote. It works in
 #'   any HTML or LaTeX output format, not only tufte formats, and tries to
-#'   render `text` consistently across formats:
+#'   render `text` consistently across formats. If `text` starts with `"---"`
+#'   (or an em-dash), an em-dash + non-breaking space is rendered before the
+#'   rest of the text in every output; the leading `"---"` is stripped or
+#'   re-inserted as the destination format requires.
 #'
-#'   * If `text` starts with `"---"` (or an em-dash), an em-dash + non-breaking
-#'     space is rendered before the rest of the text in every output. The
-#'     leading `"---"` is stripped from `text` to avoid duplication when the
-#'     destination format would otherwise inject its own em-dash.
+#'   The HTML emitted depends on the active output:
 #'
 #'   * For tufte HTML, `text` is wrapped in a `<footer>` element styled by
-#'     `tufte.css`. For non-tufte HTML (e.g. `rmarkdown::html_document()`,
-#'     including `bslib` Bootstrap 4 and 5 themes), `text` is wrapped in a
-#'     `<footer class="blockquote-footer">` so that Bootstrap's
-#'     `.blockquote-footer` styling (including the `::before` em-dash) applies.
-#'     An inline `text-align: right` is added in both cases.
+#'     `tufte.css`. An em-dash glyph is injected in the markup when the caller
+#'     wrote a leading `"---"`, since `tufte.css` has no `::before` rule.
 #'
-#'   * For LaTeX output (tufte or non-tufte), `text` is prepended with
-#'     \samp{\\hfill} to right-align it. Pandoc's smart-punctuation extension
-#'     converts a leading `"---"` to an em-dash glyph.
+#'   * For non-tufte HTML where a `bslib::bs_theme()` (Bootstrap 4 or 5) is
+#'     active, `text` is wrapped in a `<footer class="blockquote-footer">` and
+#'     the leading `"---"` is stripped, so Bootstrap's
+#'     `.blockquote-footer::before` rule supplies the em-dash exactly once.
+#'
+#'   * For all other HTML (Bootstrap 3 default `html_document()`,
+#'     `theme: null`, ioslides, slidy, custom HTML frameworks, ...), `text` is
+#'     wrapped in a `<p>` with an em-dash glyph injected in the markup when
+#'     requested. Using `<p>` rather than `<footer>` avoids Bootstrap 3's
+#'     `blockquote footer::before` rule, which would otherwise double the
+#'     em-dash for callers following the `quote_footer('--- Author')` pattern
+#'     shown in the R Markdown documentation.
+#'
+#'   For LaTeX output (tufte or non-tufte), `text` is prepended with
+#'   \samp{\\hfill} to right-align it. Pandoc's smart-punctuation extension
+#'   converts a leading `"---"` to an em-dash glyph.
 #'
 #'   `quote_footer()` detects whether the active output is a tufte format via
 #'   the `tufte.format` entry that the tufte output formats register in
-#'   `knitr::opts_knit`.
+#'   `knitr::opts_knit`, and whether a `bslib::bs_theme()` is active via
+#'   `bslib::bs_current_theme()`.
 #' @rdname tufte_handout
 #' @export
 quote_footer <- function(text) {
@@ -79,21 +90,30 @@ quote_footer <- function(text) {
 
   if (is_html_output()) {
     if (in_tufte) {
-      # tufte.css does not inject an em-dash via ::before, so when the caller
-      # requested one with leading "---", insert the glyph ourselves.
+      # tufte.css has no ::before rule on `blockquote footer`, so insert the
+      # em-dash glyph in markup when the caller requested it via "---".
       prefix <- if (has_dash) "— " else ""
       sprintf(
         '<footer style="text-align: right;">%s%s</footer>',
         prefix,
         stripped
       )
-    } else {
-      # Bootstrap 3/4/5 inject "— " via ::before on either
-      # `blockquote footer` (BS3) or `.blockquote-footer` (BS4/5); the strip
-      # avoids a doubled em-dash when callers follow the documented
-      # `quote_footer('--- Author')` pattern.
+    } else if (has_bslib_theme()) {
+      # bslib Bootstrap 4/5: `.blockquote-footer::before` injects an em-dash;
+      # strip the caller's "---" to avoid doubling.
       sprintf(
         '<footer class="blockquote-footer" style="text-align: right;">%s</footer>',
+        stripped
+      )
+    } else {
+      # Unknown HTML framework (Bootstrap 3 default, `theme: null`, ioslides,
+      # slidy, custom, ...). Inject the em-dash glyph in markup and use `<p>`
+      # so Bootstrap 3's `blockquote footer::before` element rule does not
+      # double the em-dash.
+      prefix <- if (has_dash) "— " else ""
+      sprintf(
+        '<p style="text-align: right;">%s%s</p>',
+        prefix,
         stripped
       )
     }
@@ -111,6 +131,13 @@ quote_footer <- function(text) {
     }
     text
   }
+}
+
+has_bslib_theme <- function() {
+  tryCatch(
+    !is.null(bslib::bs_current_theme()),
+    error = function(e) FALSE
+  )
 }
 
 #' @details `sans_serif()` applies sans-serif fonts to `text`.

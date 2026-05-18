@@ -20,9 +20,10 @@ Imports:
     knitr (>= 1.28),
     rmarkdown (>= 2.11),
     xfun (>= 0.13)
-Suggests: 
-    xml2
+Suggests:
+    xml2,
     bookdown,
+    bslib,
     covr,
     testthat (>= 3.1.0),
     tinytex,
