@@ -23,7 +23,6 @@ Imports:
 Suggests:
     xml2,
     bookdown,
-    bslib,
     covr,
     testthat (>= 3.1.0),
     tinytex,

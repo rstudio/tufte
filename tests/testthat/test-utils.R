@@ -1,42 +1,25 @@
 # Unit tests for quote_footer() ----
 
-test_that("quote_footer() emits <p> with em-dash in markup for unknown non-tufte HTML", {
+test_that("quote_footer() produces styled <footer> for non-tufte HTML output", {
   local_mocked_bindings(
     is_html_output = function(...) TRUE,
-    is_latex_output = function(...) FALSE,
-    has_bslib_theme = function() FALSE
+    is_latex_output = function(...) FALSE
   )
 
   result <- quote_footer("Author Name")
-  expect_match(result, "<p")
-  expect_no_match(result, 'class="blockquote-footer"', fixed = TRUE)
+  expect_match(result, "<footer")
+  expect_match(result, 'class="blockquote-footer"')
   expect_match(result, "text-align: right")
   expect_match(result, "Author Name")
 })
 
-test_that("quote_footer() injects em-dash glyph in unknown non-tufte HTML when caller wrote ---", {
+test_that("quote_footer() strips leading --- in non-tufte HTML", {
   local_mocked_bindings(
     is_html_output = function(...) TRUE,
-    is_latex_output = function(...) FALSE,
-    has_bslib_theme = function() FALSE
+    is_latex_output = function(...) FALSE
   )
   result <- quote_footer("--- Author Name")
-  # --- is stripped and replaced by an em-dash glyph in markup, since we
-  # cannot rely on Bootstrap's ::before rule to be present.
-  expect_no_match(result, "---", fixed = TRUE)
-  expect_match(result, "—")
-  expect_match(result, "Author Name")
-  expect_match(result, "<p")
-})
-
-test_that("quote_footer() emits <footer class='blockquote-footer'> when bslib theme is active", {
-  local_mocked_bindings(
-    is_html_output = function(...) TRUE,
-    is_latex_output = function(...) FALSE,
-    has_bslib_theme = function() TRUE
-  )
-  result <- quote_footer("--- Author Name")
-  # Bootstrap 4/5 ::before injects em-dash, so caller's --- is dropped.
+  # Bootstrap CSS injects em-dash via ::before, so caller's --- is dropped.
   expect_no_match(result, "---", fixed = TRUE)
   expect_match(result, 'class="blockquote-footer"')
   expect_match(result, "Author Name")
@@ -50,8 +33,7 @@ test_that("quote_footer() inserts em-dash glyph in tufte HTML when caller wrote 
   local_knit_opts(tufte.format = "html")
   result <- quote_footer("--- Author Name")
   # tufte.css has no ::before; the glyph + nbsp is injected in markup.
-  expect_match(result, "—")
-  expect_match(result, "Author Name")
+  expect_match(result, "— Author Name")
   expect_no_match(result, 'class="blockquote-footer"', fixed = TRUE)
   expect_match(result, "text-align: right")
 })
@@ -103,7 +85,7 @@ test_that("quote_footer() is silent outside a pandoc context", {
 
 # Integration tests: render quote_footer() in non-tufte formats ----
 
-test_that("quote_footer() renders <p> with em-dash in html_document (Bootstrap 3 default)", {
+test_that("quote_footer() renders in html_document with inline styles", {
   skip_if_not_pandoc()
   skip_if_not_installed("xml2")
   rmd <- local_rmd_file(
@@ -113,42 +95,19 @@ test_that("quote_footer() renders <p> with em-dash in html_document (Bootstrap 3
     "",
     "> A quote",
     ">",
-    # bslib::bs_current_theme() returns NULL for legacy BS3 default theme,
-    # so quote_footer() injects the em-dash glyph in markup via <p>.
+    # Bootstrap CSS injects the em-dash via ::before; the helper should strip
+    # the leading "---" so it is not doubled.
     "> `r tufte::quote_footer('--- Author')`"
   )
   html <- .render_and_read(rmd)
   doc <- xml2::read_html(paste(html, collapse = "\n"))
-  p <- xml2::xml_find_first(doc, "//blockquote//p[contains(@style,'text-align: right')]")
-  expect_false(is.na(p))
-  txt <- xml2::xml_text(p)
-  expect_match(txt, "—")
-  expect_match(txt, "Author")
-  expect_no_match(txt, "---", fixed = TRUE)
-})
-
-test_that("quote_footer() renders <p> with em-dash in html_document(theme = NULL)", {
-  skip_if_not_pandoc()
-  skip_if_not_installed("xml2")
-  rmd <- local_rmd_file(
-    "---",
-    "output:",
-    "  html_document:",
-    "    theme: null",
-    "---",
-    "",
-    "> A quote",
-    ">",
-    "> `r tufte::quote_footer('--- Author')`"
-  )
-  html <- .render_and_read(rmd)
-  doc <- xml2::read_html(paste(html, collapse = "\n"))
-  p <- xml2::xml_find_first(doc, "//blockquote//p[contains(@style,'text-align: right')]")
-  expect_false(is.na(p))
-  txt <- xml2::xml_text(p)
-  expect_match(txt, "—")
-  expect_match(txt, "Author")
-  expect_no_match(txt, "---", fixed = TRUE)
+  footer <- xml2::xml_find_first(doc, "//blockquote//footer")
+  expect_false(is.na(footer))
+  expect_match(xml2::xml_attr(footer, "style"), "text-align: right")
+  expect_match(xml2::xml_attr(footer, "class"), "blockquote-footer")
+  expect_match(xml2::xml_text(footer), "Author")
+  # No literal "---" in the rendered HTML between <footer> tags.
+  expect_no_match(xml2::xml_text(footer), "---", fixed = TRUE)
 })
 
 test_that("quote_footer() renders in html_document with bslib BS4 theme", {
@@ -165,7 +124,7 @@ test_that("quote_footer() renders in html_document with bslib BS4 theme", {
     "",
     "> A quote",
     ">",
-    "> `r tufte::quote_footer('--- Author')`"
+    "> `r tufte::quote_footer('Author')`"
   )
   html <- .render_and_read(rmd)
   doc <- xml2::read_html(paste(html, collapse = "\n"))
@@ -173,8 +132,6 @@ test_that("quote_footer() renders in html_document with bslib BS4 theme", {
   expect_false(is.na(footer))
   expect_match(xml2::xml_attr(footer, "class"), "blockquote-footer")
   expect_match(xml2::xml_attr(footer, "style"), "text-align: right")
-  # --- stripped because Bootstrap 4 CSS supplies the em-dash via ::before.
-  expect_no_match(xml2::xml_text(footer), "---", fixed = TRUE)
 })
 
 test_that("quote_footer() renders in pdf_document", {
