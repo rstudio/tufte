@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "skills": {
+    "alt-text": {
+      "source": "posit-dev/skills",
+      "sourceType": "github",
+      "skillPath": "alt-text/SKILL.md",
+      "computedHash": "56923ae12696a885d55fde7e617fefb3d600e5e2978fe282c77a7848ef349da5"
+    },
+    "brand-yml": {
+      "source": "posit-dev/skills",
+      "sourceType": "github",
+      "skillPath": "brand-yml/SKILL.md",
+      "computedHash": "442ca603dce0e39f28b7755331810136104f87b8d507f2384f030c16739241bd"
+    },
+    "cli": {
+      "source": "posit-dev/skills",
+      "sourceType": "github",
+      "skillPath": "r-lib/cli/SKILL.md",
+      "computedHash": "cad68220dd5b794f0eb4d1252b56c87b3decea6879d1c82764e51a077afffd6d"
+    },
+    "cran-extrachecks": {
+      "source": "posit-dev/skills",
+      "sourceType": "github",
+      "skillPath": "r-lib/cran-extrachecks/SKILL.md",
+      "computedHash": "648f4fbc098a3ee8d8812e07e7898fa831fa03148f15d32ef21c33b776f458f3"
+    },
+    "create-release-checklist": {
+      "source": "posit-dev/skills",
+      "sourceType": "github",
+      "skillPath": "open-source/create-release-checklist/SKILL.md",
+      "computedHash": "3c10ec20352999af126805021cc185e4926c8397c325563481b457162a022875"
+    },
+    "mirai": {
+      "source": "posit-dev/skills",
+      "sourceType": "github",
+      "skillPath": "r-lib/mirai/SKILL.md",
+      "computedHash": "8b1a3b5b69d57d71fb088b2cb934624fb58e2c32b59903b6d7302c8341aa6208"
+    },
+    "r-package-development": {
+      "source": "posit-dev/skills",
+      "sourceType": "github",
+      "skillPath": "r-lib/r-package-development/SKILL.md",
+      "computedHash": "eb4904feacf79f7ec283422196e57e85cbfb96f13e0104200e84b940c002c217"
+    },
+    "release-post": {
+      "source": "posit-dev/skills",
+      "sourceType": "github",
+      "skillPath": "open-source/release-post/SKILL.md",
+      "computedHash": "72ff8205c71cd32d12bac3402527e4c6856fc7fc7879ff941f7b38c9c6bc31c8"
+    },
+    "testing-r-packages": {
+      "source": "posit-dev/skills",
+      "sourceType": "github",
+      "skillPath": "r-lib/testing-r-packages/SKILL.md",
+      "computedHash": "889aca4e9fd940196766424de1e3094da9c10a1936368b8a78969276d44c222d"
+    }
+  }
+}
