@@ -72,7 +72,7 @@ margin_note <- function(text, icon = "&#8853;") {
 #' @rdname tufte_handout
 #' @export
 quote_footer <- function(text) {
-  dash_pattern <- "^\\s*(?:---|—)\\s*"
+  dash_pattern <- "^\\s*(?:---|\u2014)\\s*"
   has_dash <- grepl(dash_pattern, text)
   stripped <- sub(dash_pattern, "", text)
   in_tufte <- !is.null(knitr::opts_knit$get("tufte.format"))
@@ -81,14 +81,14 @@ quote_footer <- function(text) {
     if (in_tufte) {
       # tufte.css does not inject an em-dash via ::before, so when the caller
       # requested one with leading "---", insert the glyph ourselves.
-      prefix <- if (has_dash) "— " else ""
+      prefix <- if (has_dash) "\u2014\u00a0" else ""
       sprintf(
         '<footer style="text-align: right;">%s%s</footer>',
         prefix,
         stripped
       )
     } else {
-      # Bootstrap 3/4/5 inject "— " via ::before on either
+      # Bootstrap 3/4/5 inject "em-dash + nbsp" via ::before on either
       # `blockquote footer` (BS3) or `.blockquote-footer` (BS4/5); the strip
       # avoids a doubled em-dash when callers follow the documented
       # `quote_footer('--- Author')` pattern.
