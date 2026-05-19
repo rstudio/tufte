@@ -29,7 +29,7 @@ local_render_pdf <- function(input, .env = parent.frame()) {
     warning = function(w) {
       if (
         grepl(
-          "bibentry|nobibliography",
+          "bibentry|nobibliography|Marginpar",
           conditionMessage(w),
           ignore.case = TRUE
         )
@@ -323,4 +323,47 @@ test_that("tufte_handout PDF log contains no xcolor usenames warning (#127)", {
     any(grepl("usenames.*obsolete", log_lines, ignore.case = TRUE)),
     label = "xcolor 'usenames' obsolete warning found in LaTeX log"
   )
+})
+
+# natbib \citep / \citet routed to margin (#48) ----------------------------
+
+test_that("patches/tufte-common.def redefines natbib \\citep and \\citet (#48)", {
+  patches_dir <- pkg_file("rmarkdown", "templates", "tufte_handout", "patches")
+  def_content <- xfun::read_utf8(file.path(patches_dir, "tufte-common.def"))
+  # natbib emits \citep / \citet for [@key] / @key citations, but tufte-latex
+  # only routes \cite through the margin sidenote machinery. The patch must
+  # redefine \citep and \citet so pandoc-generated citations land in the
+  # margin too.
+  expect_true(
+    any(grepl("RenewDocumentCommand.*\\\\citep", def_content)),
+    label = "RenewDocumentCommand for \\citep present"
+  )
+  expect_true(
+    any(grepl("RenewDocumentCommand.*\\\\citet", def_content)),
+    label = "RenewDocumentCommand for \\citet present"
+  )
+})
+
+test_that("natbib citations render through tufte_handout (#48)", {
+  skip_on_cran()
+  rmd <- local_rmd_file(
+    "---",
+    "output:",
+    "  tufte::tufte_handout:",
+    "    citation_package: natbib",
+    "bibliography: refs.bib",
+    "---",
+    "",
+    "Parenthetical [@smith2000]. Textual @jones2010 said X.",
+    .env = parent.frame()
+  )
+  writeLines(
+    c(
+      "@article{smith2000,author={Smith, John},title={t},journal={j},year={2000}}",
+      "@book{jones2010,author={Jones, Alice},title={t},publisher={p},year={2010}}"
+    ),
+    file.path(dirname(rmd), "refs.bib")
+  )
+  output <- local_render_pdf(rmd)
+  expect_true(file.exists(output))
 })

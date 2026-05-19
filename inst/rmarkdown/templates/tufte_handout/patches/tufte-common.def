@@ -6,12 +6,14 @@
 %% Upstream source:
 %%   Repo:    https://github.com/Tufte-LaTeX/tufte-latex
 %%   File:    tufte-common.def
-%%   Updated: 2026-05-06
+%%   Updated: 2026-05-19
 %%
 %% To refresh from upstream, run:
 %%   Rscript tools/update-tufte-common-def.R
 %%
-%% No patches needed (all fixes already present upstream).
+%% Patches applied:
+%%   2. After line ~959: Redefined \citep / \citet to route through tufte's margin
+%%      sidenote machinery so pandoc natbib citations land in the margin. (GitHub #48)
 %%
 
 \ProvidesFile{tufte-common.def}[2015/06/21 v3.5.2 Common code for the Tufte-LaTeX styles]
@@ -968,6 +970,20 @@
 
 \ifthenelse{\boolean{@tufte@loadnatbib}}{%
   \let\cite\@tufte@normal@cite
+}{}
+
+%%
+% Route pandoc's natbib output to the margin (rstudio/tufte#48). Pandoc with
+% citation_package: natbib emits \citep / \citet for [@key] / @key, neither
+% of which tufte-latex normally redirects. Without these redefinitions
+% citations render inline as natbib's defaults, missing the margin entirely.
+% \citeyearpar (emitted for [-@key]) is left inline by design. Optional
+% prefix/locator arguments are dropped: \citep[p.~5]{key} still places the
+% full bibentry in the margin but does not echo the locator.
+
+\ifthenelse{\boolean{@tufte@loadnatbib}}{%
+  \RenewDocumentCommand{\citep}{o o m}{\cite{#3}}%
+  \RenewDocumentCommand{\citet}{o o m}{\citeauthor{#3}~(\citeyear{#3})\cite{#3}}%
 }{}
 
 %%
