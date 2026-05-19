@@ -166,6 +166,22 @@ test_that("quote_footer() renders in beamer_presentation", {
   expect_no_error(local_render(rmd))
 })
 
+test_that("quote_footer() preserves citation for LaTeX/natbib (#73)", {
+  # Older pandoc consumed `\hfill` + rest of line as raw LaTeX, swallowing the
+  # markdown citation that followed. Lock current behaviour: citation is still
+  # parsed when it follows quote_footer()'s `\hfill` output.
+  skip_if_not_pandoc()
+  local_mocked_bindings(
+    is_html_output = function(...) FALSE,
+    is_latex_output = function(...) TRUE
+  )
+  footer <- quote_footer("--- [@dorian10: 3]")
+  tex <- local_pandoc_convert(footer, to = "latex", options = "--natbib")
+  tex <- paste(tex, collapse = "\n")
+  expect_match(tex, "\\\\hfill")
+  expect_match(tex, "\\\\citep\\[3\\]\\{dorian10\\}")
+})
+
 test_that("quote_footer() still works in tufte_html", {
   skip_if_not_pandoc()
   skip_if_not_installed("xml2")

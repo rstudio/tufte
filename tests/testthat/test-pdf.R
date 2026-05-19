@@ -237,6 +237,74 @@ test_that("check_bookdown() errors when bookdown is not available", {
   expect_error(check_bookdown(), "bookdown.*required")
 })
 
+# quote_footer() with natbib citation (#73) -------------------------------
+
+# Renders an Rmd with a bibliography next to it in a tempdir so YAML's
+# relative `bibliography:` path resolves. Returns the .tex content for
+# inline assertions.
+local_render_natbib_tex <- function(format, .env = parent.frame()) {
+  skip_if_not_pandoc()
+  skip_if_not_tinytex()
+  tmpdir <- withr::local_tempdir(.local_envir = .env)
+  bib_src <- test_path("resources", "refs-natbib.bib")
+  bib_dest <- file.path(tmpdir, "refs-natbib.bib")
+  file.copy(bib_src, bib_dest)
+  rmd <- file.path(tmpdir, "doc.Rmd")
+  xfun::write_utf8(
+    c(
+      "---",
+      "output:",
+      sprintf("  %s:", format),
+      "    citation_package: natbib",
+      "    keep_tex: true",
+      "bibliography: refs-natbib.bib",
+      "---",
+      "",
+      if (format == "beamer_presentation") "## Slide" else NULL,
+      "",
+      "> \"A test quote.\"",
+      ">",
+      "> `r tufte::quote_footer('--- [@dorian10: 3]')`"
+    ),
+    rmd
+  )
+  output <- file.path(tmpdir, "doc.pdf")
+  withCallingHandlers(
+    rmarkdown::render(rmd, output_file = output, quiet = TRUE, clean = FALSE),
+    warning = function(w) {
+      if (
+        grepl(
+          "bibentry|nobibliography",
+          conditionMessage(w),
+          ignore.case = TRUE
+        )
+      ) {
+        invokeRestart("muffleWarning")
+      }
+    }
+  )
+  expect_true(file.exists(output))
+  tex_file <- xfun::with_ext(output, "tex")
+  skip_if(!file.exists(tex_file), "keep_tex did not produce a .tex file")
+  xfun::read_utf8(tex_file)
+}
+
+test_that("tufte_handout renders natbib citation inside quote_footer() (#73)", {
+  skip_on_cran()
+  tex <- local_render_natbib_tex("tufte::tufte_handout")
+  tex_joined <- paste(tex, collapse = "\n")
+  expect_match(tex_joined, "\\\\hfill")
+  expect_match(tex_joined, "\\\\citep\\[3\\]\\{dorian10\\}")
+})
+
+test_that("beamer_presentation renders natbib citation inside quote_footer() (#73)", {
+  skip_on_cran()
+  tex <- local_render_natbib_tex("beamer_presentation")
+  tex_joined <- paste(tex, collapse = "\n")
+  expect_match(tex_joined, "\\\\hfill")
+  expect_match(tex_joined, "\\\\citep\\[3\\]\\{dorian10\\}")
+})
+
 test_that("tufte_handout PDF log contains no xcolor usenames warning (#127)", {
   skip_on_cran()
   rmd <- local_rmd_file(
