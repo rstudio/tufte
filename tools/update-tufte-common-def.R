@@ -121,7 +121,9 @@ if (length(cite_idx) == 1) {
       block_end
     ))
   } else {
-    warning("  Patch 2: could not find end of \\let\\cite block. Manual review needed.")
+    warning(
+      "  Patch 2: could not find end of \\let\\cite block. Manual review needed."
+    )
   }
 } else {
   warning(
