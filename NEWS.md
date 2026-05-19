@@ -6,8 +6,9 @@
   tufte-latex classes redirect. The patched `tufte-common.def` now routes
   both through the margin sidenote machinery. `\citet` keeps its textual
   "Author (Year)" form inline while adding the full reference to the
-  margin. Optional prefix/locator arguments are dropped (thanks,
-  @jlorieau, #48).
+  margin. Suppress-author citations (`[-@key]`, emitted as `\citeyearpar`)
+  are intentionally left inline at natbib's default rendering. Optional
+  prefix/locator arguments are dropped (thanks, @jlorieau, #48).
   
 - `quote_footer()` now right-aligns the footer in non-tufte HTML output
   (e.g. `html_document`, including `bslib` Bootstrap 4 and 5 themes) via an
