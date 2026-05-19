@@ -3,3 +3,5 @@
 .RData
 .*.Rnb.cached
 .positai
+.claude/
+.agents/
