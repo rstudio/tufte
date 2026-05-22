@@ -12,7 +12,7 @@
 
 <meta name="author" content="JJ Allaire and Yihui Xie" />
 
-<meta name="date" content="2021-08-28" />
+<meta name="date" content="2026-05-22" />
 
 <title>A Tufte Handout Example</title>
 
@@ -41,6 +41,7 @@ if (window.hljs) {
   }
 }
 </script>
+
 
 
 
@@ -82,13 +83,13 @@ div.csl-indent {
 <h1 class="title toc-ignore">A Tufte Handout Example</h1>
 <h3 class="subtitle">An implementation in R Markdown</h3>
 <h4 class="author">JJ Allaire and Yihui Xie</h4>
-<h4 class="date">2021-08-28</h4>
+<h4 class="date">2026-05-22</h4>
 
 
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>The Tufte handout style is a style that Edward Tufte uses in his books and handouts. Tufte’s style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. This style has been implemented in LaTeX and HTML/CSS<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> See Github repositories <a href="https://github.com/tufte-latex/tufte-latex">tufte-latex</a> and <a href="https://github.com/edwardtufte/tufte-css">tufte-css</a></span>, respectively. We have ported both implementations into the <a href="https://github.com/rstudio/tufte"><strong>tufte</strong> package</a>. If you want LaTeX/PDF output, you may use the <code>tufte_handout</code> format for handouts, and <code>tufte_book</code> for books. For HTML output, use <code>tufte_html</code>. These formats can be either specified in the YAML metadata at the beginning of an R Markdown document (see an example below), or passed to the <code>rmarkdown::render()</code> function. See <span class="citation">Allaire et al. (<label for="tufte-mn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle">2021<span class="marginnote">Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2021. <em>Rmarkdown: Dynamic Documents for r</em>.</span>)</span> for more information about <strong>rmarkdown</strong>.</p>
+<p>The Tufte handout style is a style that Edward Tufte uses in his books and handouts. Tufte’s style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. This style has been implemented in LaTeX and HTML/CSS<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> See Github repositories <a href="https://github.com/tufte-latex/tufte-latex">tufte-latex</a> and <a href="https://github.com/edwardtufte/tufte-css">tufte-css</a></span>, respectively. We have ported both implementations into the <a href="https://github.com/rstudio/tufte"><strong>tufte</strong> package</a>. If you want LaTeX/PDF output, you may use the <code>tufte_handout</code> format for handouts, and <code>tufte_book</code> for books. For HTML output, use <code>tufte_html</code>. These formats can be either specified in the YAML metadata at the beginning of an R Markdown document (see an example below), or passed to the <code>rmarkdown::render()</code> function. See <span class="citation">Allaire et al. (<label for="tufte-mn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle">2026<span class="marginnote">Allaire, JJ, Yihui Xie, Christophe Dervieux, et al. 2026. <em>Rmarkdown: Dynamic Documents for r</em>. <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>.</span>)</span> for more information about <strong>rmarkdown</strong>.</p>
 <pre class="yaml"><code>---
 title: &quot;An Example Using the Tufte Style&quot;
 author: &quot;John Smith&quot;
@@ -114,9 +115,13 @@ output:
 <h2>Margin Figures</h2>
 <p>Images and graphics play an integral role in Tufte’s work. To place figures in the margin you can use the <strong>knitr</strong> chunk option <code>fig.margin = TRUE</code>. For example:</p>
 <p>
-<span class="marginnote shownote"> <!--
-<div class="figure">--> <img src="../index_files/figure-html/fig-margin-1.png" alt="MPG vs horsepower, colored by transmission." width="336"  /> <!--
-<p class="caption marginnote">-->MPG vs horsepower, colored by transmission.<!--</p>--> <!--</div>--></span>
+<span class="marginnote shownote">
+<!--
+<div class="figure">-->
+<img src="../index_files/figure-html/fig-margin-1.png" alt="MPG vs horsepower, colored by transmission." width="336"  />
+<!--
+<p class="caption marginnote">-->MPG vs horsepower, colored by transmission.<!--</p>-->
+<!--</div>--></span>
 </p>
 <pre class="r"><code>library(ggplot2)
 mtcars2 &lt;- mtcars
@@ -127,11 +132,14 @@ ggplot(mtcars2, aes(hp, mpg, color = am)) +
   geom_point() + geom_smooth() +
   theme(legend.position = &#39;bottom&#39;)</code></pre>
 <p>Note the use of the <code>fig.cap</code> chunk option to provide a figure caption. You can adjust the proportions of figures using the <code>fig.width</code> and <code>fig.height</code> chunk options. These are specified in inches, and will be automatically scaled down to fit within the handout margin.</p>
+<p>For PDF output, the vertical offset of margin figures can be set globally via the <code>margin_fig_pos</code> argument of <code>tufte_handout()</code> and <code>tufte_book()</code> (a LaTeX length such as <code>"0cm"</code> or <code>"-5pt"</code>). It can also be set per-chunk with the <code>margin_fig_pos</code> chunk option, which lets a single chunk override the global default without interfering with regular figures’ <code>fig.pos</code>.</p>
 </div>
 <div id="arbitrary-margin-content" class="section level2">
 <h2>Arbitrary Margin Content</h2>
 <p>In fact, you can include anything in the margin using the <strong>knitr</strong> engine named <code>marginfigure</code>. Unlike R code chunks <code>```{r}</code>, you write a chunk starting with <code>```{marginfigure}</code> instead, then put the content in the chunk. See an example on the right about the first fundamental theorem of calculus.</p>
-<p><label for="tufte-mn-2" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-2" class="margin-toggle"><span class="marginnote"><span style="display: block;">We know from <em>the first fundamental theorem of calculus</em> that for <span class="math inline"><span class="math inline">\(x\)</span></span> in <span class="math inline"><span class="math inline">\([a, b]\)</span></span>: <span class="math display"><span class="math display">\[\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).\]</span></span></span></span></p>
+<p><label for="tufte-mn-2" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-2" class="margin-toggle"><span class="marginnote"><span style="display: block;">We know from <em>the first fundamental theorem of calculus</em> that
+for <span class="math inline"><span class="math inline">\(x\)</span></span> in <span class="math inline"><span class="math inline">\([a, b]\)</span></span>: <span class="math display"><span class="math display">\[\frac{d}{dx}\left( \int_{a}^{x}
+f(u)\,du\right)=f(x).\]</span></span></span></span></p>
 <p>For the sake of portability between LaTeX and HTML, you should keep the margin content as simple as possible (syntax-wise) in the <code>marginefigure</code> blocks. You may use simple Markdown syntax like <code>**bold**</code> and <code>_italic_</code> text, but please refrain from using footnotes, citations, or block-level elements (e.g. blockquotes and lists) there.</p>
 <p>Note: if you set <code>echo = FALSE</code> in your global chunk options, you will have to add <code>echo = TRUE</code> to the chunk to display a margin figure, for example <code>```{marginfigure, echo = TRUE}</code>.</p>
 </div>
@@ -178,9 +186,18 @@ A figure in the main column.
 </div>
 <div id="references" class="section level1">
 <h1>References</h1>
-<p>References can be displayed as margin notes for HTML output. For example, we can cite R here <span class="citation">(<label for="tufte-mn-4" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-4" class="margin-toggle">R Core Team 2021<span class="marginnote">R Core Team. 2021. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</span>)</span>. To enable this feature, you must set <code>link-citations: yes</code> in the YAML metadata, and the version of <code>pandoc-citeproc</code> should be at least 0.7.2. You can always install your own version of Pandoc from <a href="https://pandoc.org/installing.html" class="uri">https://pandoc.org/installing.html</a> if the version is not sufficient. To check the version of <code>pandoc-citeproc</code> in your system, you may run this in R:</p>
-<pre class="r"><code>system2(&#39;pandoc-citeproc&#39;, &#39;--version&#39;)</code></pre>
-<p>If your version of <code>pandoc-citeproc</code> is too low, or you did not set <code>link-citations: yes</code> in YAML, references in the HTML output will be placed at the end of the output document.</p>
+<p>References display as margin notes in HTML output when <code>link-citations: yes</code> is set in the YAML metadata. For example, we can cite R here <span class="citation">(<label for="tufte-mn-4" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-4" class="margin-toggle">R Core Team 2026<span class="marginnote">R Core Team. 2026. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. <a href="https://doi.org/10.32614/R.manuals">https://doi.org/10.32614/R.manuals</a>.</span>)</span>. Otherwise, references appear at the end of the document.</p>
+<p>Entries cited only via the YAML <code>nocite</code> field (above we use <code>'@*'</code> to include every bibliography entry) are listed at the bottom of the document, even when in-text citations are pulled into the margin.</p>
+<p>For PDF output, citations via <code>citation_package: natbib</code> also route through margin sidenotes; <code>\citet</code> (used by <code>@key</code>) keeps its textual “Author (Year)” form inline while adding the full reference to the margin.</p>
+</div>
+<div id="bookdown-extensions" class="section level1">
+<h1>Bookdown extensions</h1>
+<p>The output formats <code>tufte_handout2()</code>, <code>tufte_book2()</code>, and <code>tufte_html2()</code> wrap the corresponding <strong>bookdown</strong> output formats and add support for <a href="https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html#text-references">text references</a> <code>(ref:label)</code> in figure and table captions, and <a href="https://bookdown.org/yihui/bookdown/cross-references.html">cross-references</a> (e.g. <code>\@ref(fig:label)</code>). Requires the <strong>bookdown</strong> package.</p>
+<pre class="yaml"><code>output:
+  tufte::tufte_html2: default
+  tufte::tufte_handout2:
+    citation_package: natbib
+    latex_engine: xelatex</code></pre>
 </div>
 <div id="tables" class="section level1">
 <h1>Tables</h1>
@@ -265,8 +282,8 @@ A figure in the main column.
 <p>We know from the Markdown syntax that paragraphs that start with <code>&gt;</code> are converted to block quotes. If you want to add a right-aligned footer for the quote, you may use the function <code>quote_footer()</code> from <strong>tufte</strong> in an inline R expression. Here is an example:</p>
 <blockquote>
 <p>“If it weren’t for my lawyer, I’d still be in prison. It went a lot faster with two people digging.”</p>
-<footer>
-— Joe Martin
+<footer style="text-align: right;">
+— Joe Martin
 </footer>
 </blockquote>
 <p>Without using <code>quote_footer()</code>, it looks like this (the second line is just a normal paragraph):</p>
@@ -290,7 +307,7 @@ p + geom_smooth()</code></pre>
 <p class="caption marginnote shownote">
 Two plots in one figure environment.
 </p>
-<img src="../index_files/figure-html/fig-two-together-1.png" alt="Two plots in one figure environment." width="672"  /><img src="index_files/figure-html/fig-two-together-2.png" alt="Two plots in one figure environment." width="672"  />
+<img src="../index_files/figure-html/fig-two-together-1.png" alt="Two plots in one figure environment." width="672"  /><img src="../index_files/figure-html/fig-two-together-2.png" alt="Two plots in one figure environment." width="672"  />
 </div>
 <p>Then two plots in separate figure environments (the code is identical to the previous code chunk, but the chunk option is the default <code>fig.show = 'asis'</code> now):</p>
 <pre class="r"><code>p &lt;- ggplot(mtcars2, aes(hp, mpg, color = am)) +
@@ -312,13 +329,17 @@ Two plots in separate figure environments (the second plot).
 <p>You may have noticed that the two figures have different captions, and that is because we used a character vector of length 2 for the chunk option <code>fig.cap</code> (something like <code>fig.cap = c('first plot', 'second plot')</code>).</p>
 <p>Next we show multiple plots in margin figures. Similarly, two plots in the same figure environment in the margin:</p>
 <p>
-<span class="marginnote shownote"> <!--
-<div class="figure">--> <img src="../index_files/figure-html/fig-margin-together-1.png" alt="Two plots in one figure environment in the margin." width="336"  /><img src="index_files/figure-html/fig-margin-together-2.png" alt="Two plots in one figure environment in the margin." width="336"  /> <!--
-<p class="caption marginnote">-->Two plots in one figure environment in the margin.<!--</p>--> <!--</div>--></span>
+<span class="marginnote shownote">
+<!--
+<div class="figure">-->
+<img src="../index_files/figure-html/fig-margin-together-1.png" alt="Two plots in one figure environment in the margin." width="336"  /><img src="../index_files/figure-html/fig-margin-together-2.png" alt="Two plots in one figure environment in the margin." width="336"  />
+<!--
+<p class="caption marginnote">-->Two plots in one figure environment in the margin.<!--</p>-->
+<!--</div>--></span>
 </p>
 <pre class="r"><code>p
 p + geom_smooth(method = &#39;lm&#39;)</code></pre>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p>Then two plots from the same code chunk placed in different figure environments:</p>
 <pre class="r"><code>knitr::kable(head(iris, 15))</code></pre>
 <table>
@@ -440,9 +461,13 @@ p + geom_smooth(method = &#39;lm&#39;)</code></pre>
 </tbody>
 </table>
 <p>
-<span class="marginnote shownote"> <!--
-<div class="figure">--> <img src="../index_files/figure-html/fig-margin-separate-1.png" alt="Two plots in separate figure environments in the margin (the first plot)." width="336"  /> <!--
-<p class="caption marginnote">-->Two plots in separate figure environments in the margin (the first plot).<!--</p>--> <!--</div>--></span>
+<span class="marginnote shownote">
+<!--
+<div class="figure">-->
+<img src="../index_files/figure-html/fig-margin-separate-1.png" alt="Two plots in separate figure environments in the margin (the first plot)." width="336"  />
+<!--
+<p class="caption marginnote">-->Two plots in separate figure environments in the margin (the first plot).<!--</p>-->
+<!--</div>--></span>
 </p>
 <pre class="r"><code>p</code></pre>
 <pre class="r"><code>knitr::kable(head(iris, 12))</code></pre>
@@ -544,12 +569,16 @@ p + geom_smooth(method = &#39;lm&#39;)</code></pre>
 </tbody>
 </table>
 <p>
-<span class="marginnote shownote"> <!--
-<div class="figure">--> <img src="../index_files/figure-html/fig-margin-separate-2.png" alt="Two plots in separate figure environments in the margin (the second plot)." width="336"  /> <!--
-<p class="caption marginnote">-->Two plots in separate figure environments in the margin (the second plot).<!--</p>--> <!--</div>--></span>
+<span class="marginnote shownote">
+<!--
+<div class="figure">-->
+<img src="../index_files/figure-html/fig-margin-separate-2.png" alt="Two plots in separate figure environments in the margin (the second plot)." width="336"  />
+<!--
+<p class="caption marginnote">-->Two plots in separate figure environments in the margin (the second plot).<!--</p>-->
+<!--</div>--></span>
 </p>
 <pre class="r"><code>p + geom_smooth(method = &#39;lm&#39;)</code></pre>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <pre class="r"><code>knitr::kable(head(iris, 5))</code></pre>
 <table>
 <thead>
@@ -602,9 +631,13 @@ p + geom_smooth(method = &#39;lm&#39;)</code></pre>
 <p>We blended some tables in the above code chunk only as <em>placeholders</em> to make sure there is enough vertical space among the margin figures, otherwise they will be stacked tightly together. For a practical document, you should not insert too many margin figures consecutively and make the margin crowded.</p>
 <p>You do not have to assign captions to figures. We show three figures with no captions below in the margin, in the main column, and in full width, respectively.</p>
 <p>
-<span class="marginnote shownote"> <!--
-<div class="figure">--> <img src="../index_files/figure-html/fig-nocap-margin-1.png" alt=" " width="336"  /> <!--
-<p class="caption marginnote">--> <!--</p>--> <!--</div>--></span>
+<span class="marginnote shownote">
+<!--
+<div class="figure">-->
+<img src="../index_files/figure-html/fig-nocap-margin-1.png" alt=" " width="336"  />
+<!--
+<p class="caption marginnote">--> <!--</p>-->
+<!--</div>--></span>
 </p>
 <pre class="r"><code># a boxplot of weight vs transmission; this figure
 # will be placed in the margin
@@ -613,10 +646,10 @@ ggplot(mtcars2, aes(am, wt)) + geom_boxplot() +
 <pre class="r"><code># a figure in the main column
 p &lt;- ggplot(mtcars, aes(wt, hp)) + geom_point()
 p</code></pre>
-<p><img src="../index_files/figure-html/fig-nocap-main-1.png" width="672"  /></p>
+<p><img src="../index_files/figure-html/fig-nocap-main-1.png" alt="" width="672"  /></p>
 <pre class="r"><code># a fullwidth figure
 p + geom_smooth(method = &#39;lm&#39;) + facet_grid(~ gear)</code></pre>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <div class="figure fullwidth">
 <img src="../index_files/figure-html/fig-nocap-fullwidth-1.png" alt=" " width="960"  />
 <p class="caption marginnote shownote">
@@ -628,8 +661,8 @@ p + geom_smooth(method = &#39;lm&#39;) + facet_grid(~ gear)</code></pre>
 <p>There are a few other things in Tufte CSS that we have not mentioned so far. If you prefer <span class="sans">sans-serif fonts</span>, use the function <code>sans_serif()</code> in <strong>tufte</strong>. For epigraphs, you may use a pair of underscores to make the paragraph italic in a block quote, e.g.</p>
 <blockquote>
 <p><em>I can win an argument on any topic, against any opponent. People know this, and steer clear of me at parties. Often, as a sign of their great respect, they don’t even invite me.</em></p>
-<footer>
-— Dave Barry
+<footer style="text-align: right;">
+— Dave Barry
 </footer>
 </blockquote>
 <p>We hope you will enjoy the simplicity of R Markdown and this R package, and we sincerely thank the authors of the Tufte-CSS and Tufte-LaTeX projects for developing the beautiful CSS and LaTeX classes. Our <strong>tufte</strong> package would not have been possible without their heavy lifting.</p>
@@ -650,13 +683,21 @@ p + geom_smooth(method = &#39;lm&#39;) + facet_grid(~ gear)</code></pre>
 <pre class="yaml"><code>output:
   tufte::tufte_html:
     tufte_variant: &quot;envisioned&quot;</code></pre>
-<p>To see the R Markdown source of this example document, you may follow <a href="https://github.com/rstudio/tufte/raw/master/inst/rmarkdown/templates/tufte_html/skeleton/skeleton.Rmd">this link to Github</a>, use the wizard in RStudio IDE (<code>File -&gt; New File -&gt; R Markdown -&gt; From Template</code>), or open the Rmd file in the package:</p>
+<p>To see the R Markdown source of this example document, you may follow <a href="https://github.com/rstudio/tufte/raw/main/inst/rmarkdown/templates/tufte_html/skeleton/skeleton.Rmd">this link to Github</a>, use the wizard in RStudio IDE (<code>File -&gt; New File -&gt; R Markdown -&gt; From Template</code>), or open the Rmd file in the package:</p>
 <pre class="r"><code>file.edit(
   tufte:::template_resources(
     &#39;tufte_html&#39;, &#39;..&#39;, &#39;skeleton&#39;, &#39;skeleton.Rmd&#39;
   )
 )</code></pre>
 <p>This document is also available in <a href="https://rstudio.github.io/tufte/cn/">Chinese</a>, and its <code>envisioned</code> style can be found <a href="https://rstudio.github.io/tufte/envisioned/">here</a>.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-rmarkdown2018" class="csl-entry">
+Xie, Yihui, J. J. Allaire, and Garrett Grolemund. 2018. <em>R Markdown: The Definitive Guide</em>. Chapman; Hall/CRC. <a href="https://yihui.org/rmarkdown/">https://yihui.org/rmarkdown/</a>.
+</div>
+<div id="ref-rmarkdown2020" class="csl-entry">
+Xie, Yihui, Christophe Dervieux, and Emily Riederer. 2020. <em>R Markdown Cookbook</em>. Chapman; Hall/CRC. <a href="https://yihui.org/rmarkdown-cookbook">https://yihui.org/rmarkdown-cookbook</a>.
+</div>
+</div>
 </div>
 
 
