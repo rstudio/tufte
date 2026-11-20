@@ -31,6 +31,10 @@ jobs:
       - uses: actions/checkout@v6
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+          # actions/checkout refuses to check out fork PR code from a
+          # `pull_request_target` workflow unless this is set. Safe here for the
+          # reason given at the top: the PR files are only formatted, never run.
+          allow-unsafe-pr-checkout: true
 
       - name: Install
         uses: posit-dev/setup-air@v1
